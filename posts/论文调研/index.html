@@ -1,0 +1,295 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>论文调研 | unnoyy</title><meta name="description" content="驾驶行为分析&#x2F;驾驶风格这个领域的相关论文(还在整理中...)"><meta name="keywords" content="driving behavior proﬁling,paper"><meta name="author" content="yy"><meta name="copyright" content="yy"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://yoursite.com/posts/%E8%AE%BA%E6%96%87%E8%B0%83%E7%A0%94/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="preconnect" href="//zz.bdstatic.com"/><meta property="og:type" content="article"><meta property="og:title" content="论文调研"><meta property="og:url" content="http://yoursite.com/posts/%E8%AE%BA%E6%96%87%E8%B0%83%E7%A0%94/"><meta property="og:site_name" content="unnoyy"><meta property="og:description" content="驾驶行为分析&#x2F;驾驶风格这个领域的相关论文(还在整理中...)"><meta property="og:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><meta property="article:published_time" content="2020-09-21T01:19:45.000Z"><meta property="article:modified_time" content="2020-09-21T14:27:20.966Z"><meta name="twitter:card" content="summary"><link rel="manifest" href="/pic/pwa/manifest.json"/><meta name="msapplication-TileColor" content="#fff"/><link rel="apple-touch-icon" sizes="180x180" href="/pic/pwa/apple-touch-icon.png"/><link rel="icon" type="image/png" sizes="32x32" href="/pic/pwa/32.png"/><link rel="icon" type="image/png" sizes="16x16" href="/pic/pwa/16.png"/><link rel="mask-icon" href="/pic/pwa/safari-pinned-tab.svg" color="#5bbad5"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  hexoversion: '4.2.0',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: {"defaultEncoding":1,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  bookmark: {
+    message_prev: '按',
+    message_next: '键将本页加入书签'
+  },
+  runtime: '天',
+  date_suffix: {"one_hour":"刚刚","hours":"小时前","day":"天前"},
+  copyright: {"limitCount":50,"languages":{"author":"作者: yy","link":"链接: ","source":"来源: unnoyy","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  ClickShowText: undefined,
+  medium_zoom: false,
+  fancybox: true,
+  Snackbar: {"bookmark":{"message_prev":"按","message_next":"键将本页加入书签"},"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#121212","position":"bottom-left"},
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
+  baiduPush: true,
+  isPhotoFigcaption: true,
+  islazyload: true,
+  isanchor: false
+};
+
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+    const now = new Date()
+    const expiryDay = ttl * 86400000
+    const item = {
+      value: value,
+      expiry: now.getTime() + expiryDay,
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+    },
+
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isSidebar: false,
+  postUpdate: '2020-09-21 22:27:20'
+}</script><noscript><style type="text/css">
+#nav {
+  opacity: 1
+}
+.justified-gallery img {
+  opacity: 1
+}
+</style></noscript><script>var activateDarkMode = function () {
+  document.documentElement.setAttribute('data-theme', 'dark')
+  if (document.querySelector('meta[name="theme-color"]') !== null) {
+    document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+  }
+}
+var activateLightMode = function () {
+  document.documentElement.setAttribute('data-theme', 'light')
+  if (document.querySelector('meta[name="theme-color"]') !== null) {
+    document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+  }
+}
+
+var autoChangeMode = 'false'
+var t = saveToLocal.get('theme')
+if (autoChangeMode === '1') {
+  var isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+  var isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+  var isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+  var hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+  if (t === undefined) {
+    if (isLightMode) activateLightMode()
+    else if (isDarkMode) activateDarkMode()
+    else if (isNotSpecified || hasNoSupport) {
+      var now = new Date()
+      var hour = now.getHours()
+      var isNight = hour <= 6 || hour >= 18
+      isNight ? activateDarkMode() : activateLightMode()
+    }
+    window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+      if (saveToLocal.get('theme') === undefined) {
+        e.matches ? activateDarkMode() : activateLightMode()
+      }
+    })
+  } else if (t === 'light') activateLightMode()
+  else activateDarkMode()
+} else if (autoChangeMode === '2') {
+  now = new Date()
+  hour = now.getHours()
+  isNight = hour <= 6 || hour >= 18
+  if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+  else if (t === 'light') activateLightMode()
+  else activateDarkMode()
+} else {
+  if (t === 'dark') activateDarkMode()
+  else if (t === 'light') activateLightMode()
+}</script><link rel="stylesheet" href="/css/background.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/sviptzk/StaticFile_HEXO@latest/butterfly/css/iconfont.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/sviptzk/HexoStaticFile@latest/Hexo/css/buttons.min.css"><style type="text/css">.app-refresh{position:fixed;top:-2.2rem;left:0;right:0;z-index:99999;padding:0 1rem;font-size:15px;height:2.2rem;transition:all .3s ease}.app-refresh-wrap{display:flex;color:#fff;height:100%;align-items:center;justify-content:center}.app-refresh-wrap a{color:#fff;text-decoration:underline;cursor:pointer}</style><meta name="generator" content="Hexo 4.2.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" data-lazy-src="/pic/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">3</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">5</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">3</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 休闲</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page" href="/book/"><i class="fa-fw fas fa-book"></i><span> 书籍</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart card-announcement-animation"></i><span> 关于</span></a></div></div></div></div><div id="body-wrap"><div id="web_bg" data-type="color"></div><header class="post-bg" id="page-header" style="background-image: url(https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg)"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">unnoyy</a></span><span id="menus"><div id="search_button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 休闲</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page" href="/book/"><i class="fa-fw fas fa-book"></i><span> 书籍</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart card-announcement-animation"></i><span> 关于</span></a></div></div><span class="close" id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="post-info"><div id="post-title"><div class="posttitle">论文调研</div></div><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2020-09-21T01:19:45.000Z" title="发表于 2020-09-21 09:19:45">2020-09-21</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2020-09-21T14:27:20.966Z" title="更新于 2020-09-21 22:27:20">2020-09-21</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/paper/">paper</a></span></div><div class="meta-secondline"> <span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">5.4k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>16分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout_post" id="content-inner"><article id="post"><div class="post-content" id="article-container"><h2 id="论文调研"><a href="#论文调研" class="headerlink" title="论文调研"></a>论文调研</h2><h3 id="《Data-driven-Robust-Scoring-Approach-for-Driver-Proﬁling-Applications》"><a href="#《Data-driven-Robust-Scoring-Approach-for-Driver-Proﬁling-Applications》" class="headerlink" title="《Data-driven Robust Scoring Approach for Driver Proﬁling Applications》"></a>《Data-driven Robust Scoring Approach for Driver Proﬁling Applications》</h3><h4 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h4><p>驾驶分析行为：driving behavior proﬁling<br>驱动程序分析过程由两个子过程组成：</p>
+<ol>
+<li>第一种是通过从车载设备(如智能手机和OBDII装置)获取数据来检测某些驾驶行为</li>
+<li>第二种是通过对检测到的行为进行评分的过程来衡量实际的驾驶风险。</li>
+</ol>
+<p>评分过程被视为一个复杂的问题，因为缺乏可靠和大规模的数据集，可以提供统计上可信的见解<br>本文提出了一种数据驱动的方法来计算司机的风险分数，利用SHRP2自然驾驶数据集，这是迄今为止最大的此类数据集。训练了两种机器获取算法，即支持向量回归(SVR)和决策树回归(DTR)来反映驾驶员的分数。驾驶员的分数是根据预测风险概率的加法逆元来量化的。<br>经过数据滤波和预处理，使用代表12种独特驾驶行为和每个驾驶员总驾驶时间的13个预测因子对模型进行训练。验证结果表明，该模型可以准确地预测风险概率。</p>
+<p>通常会根据收集到的数据计算每次出行的不同的系数Figures of Merit(FOMs)。<br>保险公司用来评估风险评分用四种驾驶行为FOMs:制动，超速，加速和转弯行为。<br>为每个FOM分配不同的权重</p>
+<h4 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h4><p>SHRP2自然驾驶研究(NDS)数据集提供了近9000个记录的撞车和接近撞车事件和超过20000个平衡基线事件(即，正常驾驶事件与每个司机的驾驶总数成比例)的大量驾驶上下文数据[5]。</p>
+<p>收集到的数据不仅让我们有机会研究危险事件中行为因素的发生率，还包括他们在正常驾驶期间的发生率，从而使统计上可靠的研究得以进行。</p>
+<h4 id="本文的贡献："><a href="#本文的贡献：" class="headerlink" title="本文的贡献："></a>本文的贡献：</h4><ol>
+<li>它提供了一个可靠的数据驱动框架，利用基线、碰撞和接近碰撞事件期间的行为背景信息来预测驾驶员的风险概率。为了实现这一点，12个行为风险预测因子被识别，特征矩阵被制定。驾驶分数用预测风险概率的加性逆表示。</li>
+<li>采用支持向量回归(SVR)和决策树回归(DTR)两种机器学习算法来反映驾驶员的预测风险概率。通过不同的测试样本，比较了两种算法的平均性能和性能一致性。该算法的训练和测试使用了前所未有的数据量，超过2000名司机。</li>
+<li>一个重要的发现是，在适当的采样时间内，只需捕捉少量的事件，就可以准确地预测驾驶风险(平衡的基线事件)。因此，不需要连续采集驾驶数据来确定某一驾驶员的相关风险。这有助于最小化将驾驶数据分流到云服务器所消耗的能量，并最小化预测驾驶风险的计算成本。</li>
+</ol>
+<h4 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h4><ol>
+<li>本文提出了一种基于数据驱动的健壮的用于驾驶员分析应用程序的风险评分的计算框架。<br>采用预测风险概率表示驾驶员的风险评分</li>
+<li>利用来自SHRP2数据集的2000多名驾驶员的行为驾驶上下文信息和总曝光时间，设计并比较了两种风险预测模型。</li>
+<li>采用一般的分裂法和10倍交叉验证法两种模型训练方法，结果表明，这些模型能够准确地预测风险概率。</li>
+<li>一个重要的发现是，只需在适当的采样时间内捕获少数事件，就可以准确地预测某个司机的驾驶风险。</li>
+<li>SVR模型似乎在所有性能度量上都优于DTR；对于不同的训练/测试样本，DTR的一致性优于SVR</li>
+</ol>
+<p>驾驶员行为分析的两大流派：</p>
+<ol>
+<li>驾驶员行为检测和分类。这包括检测某些事件，如:攻击性加速，攻击性变道等等。</li>
+<li>开发一个评分函数，准确地反映已知的行为[3]，[10]的风险率。</li>
+</ol>
+<p>1多2少，因为评分函数的选择往往是比较主观的。缺乏大规模和可靠的数据集。</p>
+<h4 id="数据集："><a href="#数据集：" class="headerlink" title="数据集："></a>数据集：</h4><p><a href="https://insight.shrp2nds.us/" target="_blank" rel="noopener">SHRP2 NDS Dataset</a></p>
+<p>naturalistic driving (ND) data:自然驾驶数据</p>
+<p>三个重要的优点：</p>
+<ol>
+<li>关于司机在撞车或接近撞车事件前行为的详细信息。</li>
+<li>曝光信息，提供了在正常驾驶事件中不同驾驶行为发生频率的重要信息。</li>
+<li>为进行统计上合理的研究铺平道路的收集数据的数量。</li>
+</ol>
+<p>数据集描述：</p>
+<p>在SHRP2NDS中，3542名驾驶员在美国6个不同的地点被招募，他们的车辆装备了不显眼的数据采集系统(DASs)，主要包括前向雷达传感器、摄像机、OBD单元来获取车辆的CAN总线信息和全球定位系统(GPS)。这是迄今为止有记录的最大数量的自然驾驶数据。数据还原人员随后能够提取出近9000个由崩溃和接近崩溃组成的风险事件。</p>
+<p>此外，在超过20,000次的正常驾驶事件中随机捕获，为驾驶员提供暴露信息。<br>这些事件被称为平衡基线事件，因为它们的数量与驾驶员的总驾驶时间成正比。<br>VTTI数据分析人员在记录事件期间一共识别了59种驾驶上下文行为属性。<br>这些事件的每种类型的操作定义可以在[5]中找到，具体如下:</p>
+<ol>
+<li>Crash：sd与移动或固定物体(车辆、行人、骑自行车的人、动物等)的任何接触。还包括意外偏离道路。</li>
+<li>Near crash: 任何需要规避动作以避免碰撞的驾驶冲突。</li>
+<li>Balanced baseline events: 选择提供曝光信息的数据次数。它们的长度是21秒，它们的数量与每个司机的总驾驶时间成比例。</li>
+</ol>
+<p>VTTI数据分析人员利用收集到的数据提取并记录了事故发生前/接近事故发生前或基线事件期间的主要驾驶行为。</p>
+<h3 id="《Driver-Behavior-Detection-Techniques-A-survey》"><a href="#《Driver-Behavior-Detection-Techniques-A-survey》" class="headerlink" title="《Driver Behavior Detection Techniques: A survey》"></a>《Driver Behavior Detection Techniques: A survey》</h3><h4 id="摘要-1"><a href="#摘要-1" class="headerlink" title="摘要"></a>摘要</h4><p>影响驾驶员行为的因素有疲劳、分心、经验、环境条件、车辆状况等。</p>
+<p>driving style：驾驶风格<br>本文讨论了几种被提出的检测驱动程序行为的方法，并确定每种方法的优缺点。</p>
+<p>本文将回顾近年来基于不同参数的驾驶员行为检测方法的研究，以确定适合的驾驶员行为检测方法。<br>用于驾驶员行为检测系统的不同技术，如高级驾驶员辅助系统(ADAS)、模拟器、远程安装摄像头等。</p>
+<p>驾驶监控系统技术<br>驾驶员行为的分类是一个复杂的问题，因为它是一个多维的问题，并且受到驾驶员和交通状态[9]的几个特性的影响。交通状态由一组变量推导，如道路条件、车辆运动学和驾驶员行为[51]。<br>驾驶风格的评价和识别需要考虑不同的因素，如环境因素、道路状态和车辆[11]、事件分类和识别[12]以及生物生理状态[10]。</p>
+<p>In-Vehicle Data Recording Systems 车载数据记录系统<br>Smartphone-based sensing in vehicles 基于智能手机的汽车传感系统<br>real time systems</p>
+<p>行为检测方法<br>在[40]中，他们在车上安装了CAN总线来采集数据。采用统计方法:隐马尔可夫模型(HMM)和高斯混合模型(GMM)进行检测。基于一个参数(速度)，他们使用Matlab分析数据，比较不同事件的速度，如变道、超速、停车和稳定驾驶，所有分心和自然驾驶。他们发现HMM比GMM得到的结果更准确。此外，他们还发现，在诸如超车等危险事件中分心驾驶会降低车速。然而，他们在所有事件中都有很高的误报概率。在[41]中，基于CAN-BUS，他们从真实驾驶旅行中收集了不同的数据，他们使用统计方法来检测驾驶行为，如在不可控条件下的均值、中位数和标准差。</p>
+<p>神经网络的优缺点<br>缺点：</p>
+<ol>
+<li>很难分析，因为它们编码的信息不容易解释。</li>
+<li>大多数神经网络不能处理数据点的时间序列，而只能一次计算一个数据向量的输出。在驾驶员行为建模领域，特别是对驾驶动作的预测，数据通常是由不同阶段的序列组成，包含这些时间信息是必不可少的。</li>
+</ol>
+<p>Fuzzy logic</p>
+<p>有其自身的缺点，如信号丢失、需要大内存和长时间处理</p>
+<h3 id="《Driver-behavior-profiling-An-investigation-with-different-smartphone-sensors-and-machine-learning》"><a href="#《Driver-behavior-profiling-An-investigation-with-different-smartphone-sensors-and-machine-learning》" class="headerlink" title="《Driver behavior profiling: An investigation with different smartphone sensors and machine learning》"></a>《Driver behavior profiling: An investigation with different smartphone sensors and machine learning》</h3><p>驾驶员的行为影响交通安全、燃料/能源消耗和气体排放。司机行为分析试图理解和积极影响司机的行为。通常驾驶员行为分析任务包括驾驶数据的自动收集和计算机模型的应用，以产生一个分类，特征的驾驶员攻击性剖面。虽然采用了不同的传感器和分类方法，但低成本和高性能的解决方案仍是研究的目标。本文对不同的Android智能手机传感器和分类算法进行了研究，以评估哪一种传感器/方法的装配能够使分类具有更高的性能。结果表明，特定的传感器组合和智能方法可以提高分类性能。</p>
+<p>在这项工作中，我们使用从4个Android智能手机传感器(加速度计、线性加速度、磁强计和陀螺仪)收集的数据，对4个MLAs (BN、MLP、RF和SVM)在检测7种驾驶事件类型中不同配置的性能进行了定量评估。我们在一个有2名驾驶员的真实世界实验中收集了69个此类事件类型的样本。</p>
+<p>(i)窗口尺寸越大表现越好;(ii)陀螺仪和加速计是探测驾驶事件的最佳传感器;(iii)一般来说，使用所有传感器轴比使用单个传感器轴表现更好，除了侵略性的左转事件;(iv)到目前为止，RF是表现最好的MLA，其次是MLP;(v)前35种组合的性能均令人满意且相当，AUC均值在0.980 ~ 0.999之间变化。<br>在未来的工作中，我们希望通过不同的车辆、Android智能手机型号、道路状况、天气和温度来收集更多的驾驶事件样本。我们还希望在评估中增加更多的MLAs，包括基于模糊逻辑和DTW的MLAs。最后，我们打算使用本研究中观察到的最佳评估程序集来开发一个Android智能手机应用程序，该应用程序可以实时检测驾驶事件并计算驾驶员行为概况。</p>
+<h3 id="《Driver-Behavior-Profiling-Using-Smartphones-A-Low-Cost-Platform-for-Driver-Monitoring》"><a href="#《Driver-Behavior-Profiling-Using-Smartphones-A-Low-Cost-Platform-for-Driver-Monitoring》" class="headerlink" title="《Driver Behavior Profiling Using Smartphones:  A Low-Cost Platform  for Driver Monitoring》"></a>《Driver Behavior Profiling Using Smartphones:  A Low-Cost Platform  for Driver Monitoring》</h3><p>论文题目：使用智能手机的司机行为分析:一个低成本的司机监控平台</p>
+<h4 id="摘要："><a href="#摘要：" class="headerlink" title="摘要："></a>摘要：</h4><p>在本文中，我们分析了智能手机传感器如何用于识别驾驶机动，并提出了SenseFleet，一个能够独立于移动设备和车辆检测危险驾驶事件的驾驶员档案平台。一个模糊系统被用来计算不同司机的分数使用实时上下文信息，如路线拓扑或天气条件。为了验证我们的平台，我们提出了一个评估研究，考虑沿预定义路径的多个驱动程序。结果表明，我们的平台能够准确地检测出危险驾驶事件，并为每个驾驶员提供一个代表性的分数。</p>
+<p>在本文中，我们描述了SenseFleet，一个新的移动设备和车辆独立的司机分析和评分应用程序。SenseFleet通过融合运动传感器和GPS数据，能够检测加速、刹车、转向和超速事件。为了对多个设备和车辆执行事件检测，我们使用了一个校准阶段，该阶段允许调整事件检测算法的模糊集限制。特别是对于超速事件，我们使用web服务来获取道路上不同道路的速度限制。此外，与现有的解决方案相比，我们提出了一种计分算法，它不仅依赖于事件的数量，而且还考虑上下文信息，如当前的天气条件和时间。为了实验结果表明，SenseFleet能够准确地检测出危险驾驶事件，并能区分激进驾驶者和冷静驾驶者。评分结果与每个驾驶员为他们的实验提供的主观风险度量进行比较。结果显示，SenseFleet的分数在1 !邻近的司机集群。在未来的工作中，我们打算分析校准对事件检测的影响。验证我们的平台，我们在不同的条件下使用了该应用程序(即，不同的驾驶员、设备、车辆)，我们使用单一的车辆和路径以及不同的驾驶员以平静和侵略性的方式驾驶进行了一项受控评估研究。实验结果表明，SenseFleet能够准确地检测出危险驾驶事件，并能区分激进驾驶者和冷静驾驶者。评分结果与每个驾驶员为他们的实验提供的主观风险度量进行比较。结果显示，SenseFleet的分数在1 !邻近的司机集群。在未来的工作中，我们打算分析校准对事件检测的影响。</p>
+<h3 id="《Driver-behaviour-proﬁles-for-road-safety-analysis》"><a href="#《Driver-behaviour-proﬁles-for-road-safety-analysis》" class="headerlink" title="《Driver behaviour proﬁles for road safety analysis》"></a>《Driver behaviour proﬁles for road safety analysis》</h3><p>论文题目：用于道路安全分析的驾驶员行为概况</p>
+<h4 id="摘要：-1"><a href="#摘要：-1" class="headerlink" title="摘要："></a>摘要：</h4><p>超过90%的道路交通事故是由司机的行为引起的。因此，识别从事不安全驾驶行为的司机有很大的好处。驾驶员行为概况(DBPs)在这里被引入，作为一种评估驾驶员行为作为伤亡事故风险的函数的方法。他们使用全球定位系统(GPS)设备收集的数据，并辅以时空信息。这些配置文件由共同的风险分数组成，可以用来比较驾驶员之间的不同时间和空间。这篇论文详细介绍了这些dbp的发展，并演示了它们在建模影响驾驶员行为的因素时的使用。结果表明，即使控制了道路环境的影响，这些因素仍然是驾驶员行为最强的预测因子，表明不同的时空环境会引起驾驶员的各种心理反应。通过评估行为改变干预措施的影响，保险公司和政府将会对提高道路驾驶司机的风险评估方法和结果感兴趣。</p>
+<h3 id="《Investigations-on-Driver-Unique-Identification-from-Smartphone’s-GPS-Data-Alone》"><a href="#《Investigations-on-Driver-Unique-Identification-from-Smartphone’s-GPS-Data-Alone》" class="headerlink" title="《Investigations on Driver Unique Identification from Smartphone’s GPS Data Alone》"></a>《Investigations on Driver Unique Identification from Smartphone’s GPS Data Alone》</h3><p>论文题目：仅从智能手机的GPS数据调查驾驶员的唯一身份</p>
+<h4 id="摘要：-2"><a href="#摘要：-2" class="headerlink" title="摘要："></a>摘要：</h4><p>驾驶员身份识别是汽车远程信息处理、汽车控制和保险领域的一个新兴领域。最近的研究表明，使用多个专用传感器来唯一地识别一个驱动程序是可能的。在这篇论文中，我们提出了一种仅使用智能手机GPS数据进行驾驶员识别的方法。在我们的实验中，我们用了两个月的时间收集了38个驾驶员的数据。我们从每一次完成的行程中生成的数据中提取一组137个统计特征，从而量化驾驶员的自然风格。分析表明，对于“驾驶员识别”问题，4-5名驾驶员组的平均准确率为82.3%。这是可比的技术状态，其中大多数是采用多传感器的方法。进一步研究表明，某些行为属性如高驾驶技能会影响识别的准确性。我们观察到随机森林分类器提供了最好的结果。这些结果对各种利益相关者有很大的影响，因为所提出的方法可以根据驾驶员的自然驾驶风格来识别驾驶员，而这种自然驾驶风格是通过仅从GPS数据中提取的统计参数来量化的</p>
+<h3 id="《Know-Your-Master-Driver-Proﬁling-based-Anti-theft-Method》"><a href="#《Know-Your-Master-Driver-Proﬁling-based-Anti-theft-Method》" class="headerlink" title="《Know Your Master: Driver Proﬁling-based Anti-theft Method》"></a>《Know Your Master: Driver Proﬁling-based Anti-theft Method》</h3><p>论文题目：了解你的master:基于司机档案的防盗方法</p>
+<h4 id="摘要：-3"><a href="#摘要：-3" class="headerlink" title="摘要："></a>摘要：</h4><p>抽象——尽管实现了许多防盗技术，但汽车盗窃仍在增加。此外，汽车的安全漏洞可以通过中和防盗系统来用于汽车盗窃。随着汽车越来越多地采用电脑控制的电子设备，这种无钥匙汽车盗窃攻击将会增加。为了有效地检测汽车盗窃案，我们提出了驾驶员验证方法，该方法利用车辆传感器的测量数据分析驾驶模式。在我们的模型中，我们加入了汽车零部件的机械特性，这些特性在之前的工作中被排除在外，但可以通过驾驶员的驾驶行为加以区分。通过特征选择，设计了使用显著特征的模型，减少了特征处理的时间开销，提高了检测性能。此外，我们还通过导出平均值、中位数和标准差等统计特征来丰富特征集。从而使每个驾驶员特征值波动的影响最小，最终得到可靠的模型。我们还分析了滑动窗口大小对性能的影响，以检测检测何时变得可靠，并尽快通知车主失窃事件。我们将我们的模型应用于实际驾驶，并展示了我们的工作对驾驶员识别的贡献。</p>
+<h3 id="《Various-Approaches-for-Driver-and-Driving-Behavior-Monitoring-A-Review》"><a href="#《Various-Approaches-for-Driver-and-Driving-Behavior-Monitoring-A-Review》" class="headerlink" title="《Various Approaches for Driver and Driving Behavior Monitoring: A Review》"></a>《Various Approaches for Driver and Driving Behavior Monitoring: A Review》</h3><p>论文题目：驾驶员和驾驶行为监控的各种方法:综述</p>
+<h4 id="摘要-2"><a href="#摘要-2" class="headerlink" title="摘要"></a>摘要</h4><p>近年来，驾驶员嗜睡和注意力分散已经成为大量事故中的重要因素，因为它们降低了驾驶员的感知水平和决策能力，对车辆的控制能力产生了负面影响。减少这类事故的一种方法是通过监测驾驶员和驾驶行为，并在驾驶员昏昏欲睡或分心的状态下提醒驾驶员。此外，如果能够提前预测不安全的驾驶行为，这也将有助于安全驾驶。在这篇文章中，我们将讨论对驾驶员和驾驶行为的各种监测方法以及对不安全驾驶行为的预测。在驾驶员嗜睡的测量方法方面，我们讨论了驾驶员行为的视觉特征和非视觉特征，以及与车辆特征相关的驾驶行为。详细讨论了眼睛相关测量、哈欠检测、面部表情等视觉特征测量。至于非视觉特征，我们探索各种生理信号和利用这些信号可能的睡意检测方法。对于基于车辆的特征，我们描述了方向盘运动和横向位置的标准偏差。为了检测驾驶员的注意力分散，我们描述了头部姿势和注视方向的方法。为了预测不安全的驾驶行为，我们解释了基于面部表情和汽车动力学的预测方法。最后，我们讨论了主动驾驶安全系统需要解决的几个问题。它们是1)检测睡意的混合方法，2)安全驾驶的驾驶上下文感知，3)需要公共数据集的模拟和真实驾驶条件。</p>
+<h3 id="《Who-is-behind-the-wheel-Driver-identification-and-fingerprinting》"><a href="#《Who-is-behind-the-wheel-Driver-identification-and-fingerprinting》" class="headerlink" title="《Who is behind the wheel? Driver identification and fingerprinting》"></a>《Who is behind the wheel? Driver identification and fingerprinting》</h3><p>论文题目：谁在开车?驾驶员身份和指纹识别</p>
+<h4 id="摘要：-4"><a href="#摘要：-4" class="headerlink" title="摘要："></a>摘要：</h4><p>在过去十年中，传感和通信技术取得了重大进展。这些进步导致了智能交通系统的发展和使用的显著增长。利用车载传感器数据描述驾驶员的驾驶风格是一个有趣的研究问题，也是汽车工业的一个基本现实需求。良好的驾驶特性表示对于防盗、汽车保险、自动驾驶和许多其他应用程序场景非常有价值。本文利用车载传感器测量的真实驾驶数据集来解决驾驶员识别问题。本文研究了达到预期识别性能所需的最小学习和分类时间。进一步进行特征选择，提取与驾驶员识别最相关的特征。最后，除了与驾驶模式相关的特征外，还显示了驾驶员相关的特征(e.q.，心率)，进一步提高了识别性能。</p>
+</div><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">yy</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://yoursite.com/posts/%E8%AE%BA%E6%96%87%E8%B0%83%E7%A0%94/">http://yoursite.com/posts/%E8%AE%BA%E6%96%87%E8%B0%83%E7%A0%94/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://yoursite.com" target="_blank">unnoyy</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/driving-behavior-pro%EF%AC%81ling/">driving behavior proﬁling</a><a class="post-meta__tags" href="/tags/paper/">paper</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/60504/"><img class="prev-cover" data-lazy-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">dataset</div></div></a></div><div class="next-post pull-right"><a href="/posts/hexo-hello-World/"><img class="next-cover" data-lazy-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Hello World</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span> 相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/60504/" title="dataset"><img class="cover" data-lazy-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-09-21</div><div class="title">dataset</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div><div class="comment-switch"><span class="first-comment">Valine</span><label><input id="switch-comments-btn" type="checkbox"/><span class="slider"></span></label><span class="second-comment">Gitalk</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div><div><div id="gitalk-container"></div></div></div></div></article></main><footer id="footer" data-type="color"><div id="footer-wrap"><div class="copyright">&copy;2020 By yy</div><div class="framework-info"><span>框架 </span><a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a href="https://github.com/jerryc127/hexo-theme-butterfly" target="_blank" rel="noopener">Butterfly</a></div><div class="footer_custom_text">欢迎来到<a href="https://unnoyy.github.io/" target="_blank" rel="noopener">小屋</a>!</div></div></footer></div><section id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">简</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></section><div class="search-dialog" id="local-search"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a href="https://github.com/wzpan/hexo-generator-search" target="_blank" rel="noopener" style="color:#49B1F5;">hexo-generator-search</a>
+ <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div><div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.spacingElementById('content-inner')
+  else {
+    $.getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js', () => {
+      pangu.spacingElementById('content-inner')
+    })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguFn)</script><script src="/js/search/local-search.js"></script><script>var endLoading = function () {
+  document.body.style.overflow = 'auto';
+  document.getElementById('loading-box').classList.add("loaded")
+}
+window.addEventListener('load',endLoading)</script><div class="js-pjax"><script>function loadValine () {
+  function initValine () {
+    window.valine = new Valine({
+      el: '#vcomment',
+      appId: 'SVg8NY7xGdhfqBMmwyksops7-gzGzoHsz',
+      appKey: 'gMpBjTW5NEFR6cW6CUmhBITz',
+      placeholder: 'Please leave your footprints',
+      avatar: 'monsterid',
+      meta: 'nick,mail,link'.split(','),
+      pageSize: '10',
+      lang: 'zh-CN',
+      recordIP: false,
+      serverURLs: '',
+      emojiCDN: '',
+      emojiMaps: "",
+      enableQQ: false,
+      path: window.location.pathname,
+    });
+    if ('nick,mail') { valine.config.requiredFields= 'nick,mail'.split(',') }
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else $.getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js', initValine)
+}
+
+if ('Valine' === 'Valine' || !true) {
+  if (true) btf.loadComment(document.querySelector('#vcomment'),loadValine)
+  else setTimeout(() => loadValine(), 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script><script>function addGitalkSource () {
+  const ele = document.createElement('link')
+  ele.rel = 'stylesheet'
+  ele.href= 'https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css'
+  document.getElementsByTagName('head')[0].appendChild(ele)
+}
+
+function loadGitalk () {
+  function initGitalk () {
+    var gitalk = new Gitalk({
+      clientID: '769c8b0e30bdfa36fcdd',
+      clientSecret: '8ff1137eb46effb3547818440411a5f053db93fa',
+      repo: 'unnoyy.github.io',
+      owner: 'unnoyy',
+      admin: ['unnoyy'],
+      id: '2b64b5425a08a13d89cecd8e372da04c',
+      language: 'zh-CN',
+      perPage: 10,
+      distractionFreeMode: false,
+      pagerDirection: 'last',
+      createIssueManually: false,
+      updateCountCallback: commentCount
+    })
+    gitalk.render('gitalk-container')
+  }
+
+  if (typeof Gitalk === 'function') initGitalk()
+  else {
+    addGitalkSource()
+    $.getScript('https://cdn.jsdelivr.net/npm/gitalk@latest/dist/gitalk.min.js', initGitalk)
+  }
+}
+
+function commentCount(n){
+  let isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+  if (isCommentCount) {
+    isCommentCount.innerHTML= n
+  }
+}
+
+if ('Valine' === 'Gitalk' || !true) {
+  if (true) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+  else loadGitalk()
+} else {
+  function loadOtherComment () {
+    loadGitalk()
+  }
+}</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script src="/js/Beautify.js"></script><script src="/js/beautify2.js"></script><script src="/js/fishes.js"></script><script src="/js/calendar.js"></script><script src="/js/languages.js"></script><div class="app-refresh" id="app-refresh"> <div class="app-refresh-wrap"> <label>✨ 網站已更新最新版本 👉</label> <a href="javascript:void(0)" onclick="location.reload()">點擊刷新</a> </div></div><script>function showNotification(){if(GLOBAL_CONFIG.Snackbar){var t="light"===document.documentElement.getAttribute("data-theme")?GLOBAL_CONFIG.Snackbar.bgLight:GLOBAL_CONFIG.Snackbar.bgDark,e=GLOBAL_CONFIG.Snackbar.position;Snackbar.show({text:"已更新最新版本",backgroundColor:t,duration:5e5,pos:e,actionText:"點擊刷新",actionTextColor:"#fff",onActionClick:function(t){location.reload()}})}else{var o=`top: 0; background: ${"light"===document.documentElement.getAttribute("data-theme")?"#49b1f5":"#1f1f1f"};`;document.getElementById("app-refresh").style.cssText=o}}"serviceWorker"in navigator&&(navigator.serviceWorker.controller&&navigator.serviceWorker.addEventListener("controllerchange",function(){showNotification()}),window.addEventListener("load",function(){navigator.serviceWorker.register("/sw.js")}));</script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-heart.min.js" async="async"></script></div></body></html>
