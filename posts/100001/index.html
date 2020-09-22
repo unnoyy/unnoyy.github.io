@@ -1,0 +1,358 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Various Approaches for Driver and Driving Behavior Monitoring:A Review | unnoyy</title><meta name="description" content="本文是论文《Various Approaches for Driver and Driving Behavior Monitoring:A Review》的学习笔记，里面主要讨论对驾驶员和驾驶行为的各种监测方法以及对不安全驾驶行为的预测。"><meta name="keywords" content="driving behavior proﬁling,paper,论文笔记"><meta name="author" content="yy"><meta name="copyright" content="yy"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://yoursite.com/posts/100001/"><link rel="preconnect" href="//cdn.jsdelivr.net"><link rel="preconnect" href="//busuanzi.ibruce.info"><link rel="preconnect" href="//zz.bdstatic.com"><meta property="og:type" content="article"><meta property="og:title" content="Various Approaches for Driver and Driving Behavior Monitoring:A Review"><meta property="og:url" content="http://yoursite.com/posts/100001/"><meta property="og:site_name" content="unnoyy"><meta property="og:description" content="本文是论文《Various Approaches for Driver and Driving Behavior Monitoring:A Review》的学习笔记，里面主要讨论对驾驶员和驾驶行为的各种监测方法以及对不安全驾驶行为的预测。"><meta property="og:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><meta property="article:published_time" content="2020-09-22T01:26:48.000Z"><meta property="article:modified_time" content="2020-09-22T08:20:29.245Z"><meta name="twitter:card" content="summary"><link rel="manifest" href="/pic/pwa/manifest.json"><meta name="msapplication-TileColor" content="#fff"><link rel="apple-touch-icon" sizes="180x180" href="/pic/pwa/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/pic/pwa/32.png"><link rel="icon" type="image/png" sizes="16x16" href="/pic/pwa/16.png"><link rel="mask-icon" href="/pic/pwa/safari-pinned-tab.svg" color="#5bbad5"><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  hexoversion: '4.2.0',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: {"defaultEncoding":1,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  bookmark: {
+    message_prev: '按',
+    message_next: '键将本页加入书签'
+  },
+  runtime: '天',
+  date_suffix: {"one_hour":"刚刚","hours":"小时前","day":"天前"},
+  copyright: {"limitCount":50,"languages":{"author":"作者: yy","link":"链接: ","source":"来源: unnoyy","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  ClickShowText: undefined,
+  medium_zoom: false,
+  fancybox: true,
+  Snackbar: {"bookmark":{"message_prev":"按","message_next":"键将本页加入书签"},"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#121212","position":"bottom-left"},
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
+  baiduPush: true,
+  isPhotoFigcaption: true,
+  islazyload: true,
+  isanchor: false
+};
+
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+    const now = new Date()
+    const expiryDay = ttl * 86400000
+    const item = {
+      value: value,
+      expiry: now.getTime() + expiryDay,
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+    },
+
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}</script><script id="config_change">var GLOBAL_CONFIG_SITE={isPost:!0,isHome:!1,isHighlightShrink:!1,isSidebar:!0,postUpdate:"2020-09-22 16:20:29"}</script><noscript><style>#nav{opacity:1}.justified-gallery img{opacity:1}</style></noscript><script>var activateDarkMode=function(){document.documentElement.setAttribute("data-theme","dark"),null!==document.querySelector('meta[name="theme-color"]')&&document.querySelector('meta[name="theme-color"]').setAttribute("content","#0d0d0d")},activateLightMode=function(){document.documentElement.setAttribute("data-theme","light"),null!==document.querySelector('meta[name="theme-color"]')&&document.querySelector('meta[name="theme-color"]').setAttribute("content","#ffffff")},autoChangeMode="false",t=saveToLocal.get("theme");if("1"===autoChangeMode){var isDarkMode=window.matchMedia("(prefers-color-scheme: dark)").matches,isLightMode=window.matchMedia("(prefers-color-scheme: light)").matches,isNotSpecified=window.matchMedia("(prefers-color-scheme: no-preference)").matches,hasNoSupport=!isDarkMode&&!isLightMode&&!isNotSpecified;if(void 0===t){if(isLightMode)activateLightMode();else if(isDarkMode)activateDarkMode();else if(isNotSpecified||hasNoSupport){var now=new Date,hour=now.getHours(),isNight=hour<=6||18<=hour;isNight?activateDarkMode():activateLightMode()}window.matchMedia("(prefers-color-scheme: dark)").addListener(function(e){void 0===saveToLocal.get("theme")&&(e.matches?activateDarkMode():activateLightMode())})}else"light"===t?activateLightMode():activateDarkMode()}else"2"===autoChangeMode?(isNight=(hour=(now=new Date).getHours())<=6||18<=hour,void 0===t?isNight?activateDarkMode():activateLightMode():"light"===t?activateLightMode():activateDarkMode()):"dark"===t?activateDarkMode():"light"===t&&activateLightMode()</script><link rel="stylesheet" href="/css/background.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/sviptzk/StaticFile_HEXO@latest/butterfly/css/iconfont.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/sviptzk/HexoStaticFile@latest/Hexo/css/buttons.min.css"><style>.app-refresh{position:fixed;top:-2.2rem;left:0;right:0;z-index:99999;padding:0 1rem;font-size:15px;height:2.2rem;transition:all .3s ease}.app-refresh-wrap{display:flex;color:#fff;height:100%;align-items:center;justify-content:center}.app-refresh-wrap a{color:#fff;text-decoration:underline;cursor:pointer}</style><meta name="generator" content="Hexo 4.2.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" data-lazy-src="/pic/avatar.jpg" onerror='onerror=null,src="/img/friend_404.gif"' alt="avatar"></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">4</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">7</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">3</div></a></div></div></div><hr><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 休闲</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page" href="/book/"><i class="fa-fw fas fa-book"></i><span> 书籍</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart card-announcement-animation"></i><span> 关于</span></a></div></div></div></div><div id="body-wrap"><div id="web_bg" data-type="color"></div><div id="sidebar"><i class="fas fa-arrow-right on" id="toggle-sidebar"></i><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Abstract"><span class="toc-number">1.</span> <span class="toc-text">Abstract</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#背景"><span class="toc-number">1.1.</span> <span class="toc-text">背景</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#驾驶员困倦的监测"><span class="toc-number">1.2.</span> <span class="toc-text">驾驶员困倦的监测</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#驾驶员的注意力分散的监测"><span class="toc-number">1.3.</span> <span class="toc-text">驾驶员的注意力分散的监测</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#不安全的驾驶行为的预测"><span class="toc-number">1.4.</span> <span class="toc-text">不安全的驾驶行为的预测</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#主动驾驶安全系统需要解决的几个问题"><span class="toc-number">1.5.</span> <span class="toc-text">主动驾驶安全系统需要解决的几个问题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#introduction"><span class="toc-number">2.</span> <span class="toc-text">introduction</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#监测困倦状态"><span class="toc-number">2.1.</span> <span class="toc-text">监测困倦状态</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#监测注意力分散"><span class="toc-number">2.2.</span> <span class="toc-text">监测注意力分散</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Driver-drowsiness-measurement"><span class="toc-number">3.</span> <span class="toc-text">Driver drowsiness measurement</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Visual-features"><span class="toc-number">3.1.</span> <span class="toc-text">Visual features</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Non-visual-features"><span class="toc-number">3.2.</span> <span class="toc-text">Non-visual features</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Driving-behavior-features"><span class="toc-number">3.3.</span> <span class="toc-text">Driving behavior features</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Driver-distraction-detection"><span class="toc-number">4.</span> <span class="toc-text">Driver distraction detection</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Predicting-unsafe-driving-behavior"><span class="toc-number">5.</span> <span class="toc-text">Predicting unsafe driving behavior</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Discussion"><span class="toc-number">6.</span> <span class="toc-text">Discussion</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Hybrid-measures-for-drowsiness-detection"><span class="toc-number">6.1.</span> <span class="toc-text">Hybrid measures for drowsiness detection</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Driving-context-awareness-for-safe-driving"><span class="toc-number">6.2.</span> <span class="toc-text">Driving context-awareness for safe driving</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Necessity-for-public-data-sets-for-simulation-and-real-driving-conditions"><span class="toc-number">6.3.</span> <span class="toc-text">Necessity for public data sets for simulation and real driving conditions</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Conclusion"><span class="toc-number">7.</span> <span class="toc-text">Conclusion</span></a></li></ol></div></div></div><header class="post-bg" id="page-header" style="background-image:url(https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg)"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">unnoyy</a></span><span id="menus"><div id="search_button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 休闲</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page" href="/book/"><i class="fa-fw fas fa-book"></i><span> 书籍</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart card-announcement-animation"></i><span> 关于</span></a></div></div><span class="close" id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="post-info"><div id="post-title"><div class="posttitle">Various Approaches for Driver and Driving Behavior Monitoring:A Review</div></div><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2020-09-22T01:26:48.000Z" title="发表于 2020-09-22 09:26:48">2020-09-22</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2020-09-22T08:20:29.245Z" title="更新于 2020-09-22 16:20:29">2020-09-22</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/paper/">paper</a></span></div><div class="meta-secondline"> <span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">4.9k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>14分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout_post" id="content-inner"><article id="post"><div class="post-content" id="article-container"><p><strong>论文题目</strong>：驾驶员和驾驶行为监控的各种方法:综述</p>
+<h2 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h2><h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>近年来，驾驶员困倦和注意力分散已经成为大量事故中的重要因素，因为它们降低了驾驶员的感知水平和决策能力，对车辆的控制能力产生了负面影响。减少这类事故的一种方法是通过监测驾驶员和驾驶行为，并在驾驶员昏昏欲睡或分心的状态下提醒驾驶员。此外，如果能够提前预测不安全的驾驶行为，这也将有助于安全驾驶。</p>
+<p>本文将讨论对驾驶员和驾驶行为的各种监测方法以及对不安全驾驶行为的预测。</p>
+<h3 id="驾驶员困倦的监测"><a href="#驾驶员困倦的监测" class="headerlink" title="驾驶员困倦的监测"></a>驾驶员困倦的监测</h3><p>讨论了驾驶员行为的视觉特征和非视觉特征，以及与车辆特征相关的驾驶行为。<br>视觉特征方面： 详细讨论了眼睛的相关测量、哈欠检测、面部表情等视觉特征测量<br>非视觉特征： 探索各种生理信号和利用这些信号可能的睡意检测方法。<br>基于车辆的特征： 描述了方向盘运动和横向位置的标准偏差。</p>
+<h3 id="驾驶员的注意力分散的监测"><a href="#驾驶员的注意力分散的监测" class="headerlink" title="驾驶员的注意力分散的监测"></a>驾驶员的注意力分散的监测</h3><p>描述了头部姿势和注视方向的方法。</p>
+<h3 id="不安全的驾驶行为的预测"><a href="#不安全的驾驶行为的预测" class="headerlink" title="不安全的驾驶行为的预测"></a>不安全的驾驶行为的预测</h3><p>解释了基于面部表情和汽车动力学的预测方法</p>
+<h3 id="主动驾驶安全系统需要解决的几个问题"><a href="#主动驾驶安全系统需要解决的几个问题" class="headerlink" title="主动驾驶安全系统需要解决的几个问题"></a>主动驾驶安全系统需要解决的几个问题</h3><ol>
+<li>检测睡意的混合方法</li>
+<li>安全驾驶的驾驶上下文感知</li>
+<li>需要公共数据集的模拟和真实驾驶条件。</li>
+</ol>
+<h2 id="introduction"><a href="#introduction" class="headerlink" title="introduction"></a>introduction</h2><p><strong>原因</strong><br>司机困倦(<strong>drowsiness</strong>)和注意力分散(<strong>distraction</strong>)是交通事故的主要原因</p>
+<p><strong>解决方法</strong><br>设计一个框架包含两个阶段：<strong>监控和预测驾驶员和驾驶行为</strong></p>
+<h3 id="监测困倦状态"><a href="#监测困倦状态" class="headerlink" title="监测困倦状态"></a>监测困倦状态</h3><p><strong>视觉特征</strong></p>
+<p>驾驶员疲劳或者困倦可能与眼运动(eye movement)、面部表情(facial expression)、心跳和呼吸频率(heart and breathing rate)以及大脑活动(brain activity)的症状相关。<br>为了检测驾驶员的困倦，视觉特征(visual features)比如眼运动和面部表情是非常重要的;<br>打哈欠的测量(yawning measurement)</p>
+<p><strong>非视觉特征</strong></p>
+<p>非视觉特征(non-visual features),间接评估驾驶员的等级可以考虑下面几个方面：</p>
+<ul>
+<li>心率变异率 heart rate variability (HRV)</li>
+<li>皮肤电反应 galvanic skin response (GSR)</li>
+<li>传导性 conductivity</li>
+<li>方向盘控制压力 steering-wheel grip pressure</li>
+<li>体温 body temperature</li>
+<li>Electroencephalogram 脑电图(EEG)和 Electro-oculogram 眼电图(EoG)提供关于困倦或情绪反应[13]的额外的心理生理学信息。</li>
+</ul>
+<p><strong>行为信息</strong><br>驾驶行为信息如方向盘运动(steering wheel movement)、车道保持(lane keeping)、加速踏板运动(acceleration pedal movement)、制动(braking)等也应被考虑来检测驾驶员是否困倦。</p>
+<h3 id="监测注意力分散"><a href="#监测注意力分散" class="headerlink" title="监测注意力分散"></a>监测注意力分散</h3><p>视觉分心指的是“眼离路”的状态，而认知分心被描述为“脑离路”的状态。<br>为了检测驾驶员的注意力分散，需要有效地提取驾驶员 <strong>头部姿态或注视信息</strong> 。</p>
+<p>通过仔细监测驾驶员和驾驶表现行为，可以预测 <strong>小事故和大事故(minor and major accidents)</strong></p>
+<ul>
+<li>Jabon et al.[15]在事故发生前的不同时间段里识别了一套驾驶员的关键面部特征，并用它们来预测小事故和大事故。这种方法对于主动驾驶安全系统的设计是非常重要的，以防止事故。</li>
+<li>瑞士EPFL的信号处理实验室[16]通过分析面部表情和肌肉运动来检测驾驶员的分心以及情绪，这些情绪可能表明驾驶员不能胜任手头的工作。</li>
+</ul>
+<p>本文的 <strong>目的</strong>：探讨监控驾驶员的状态以及预测不安全驾驶行为。</p>
+<p>开发一个包括两个阶段的框架的几个问题:监测和预测驾驶员和驾驶行为。</p>
+<h2 id="Driver-drowsiness-measurement"><a href="#Driver-drowsiness-measurement" class="headerlink" title="Driver drowsiness measurement"></a>Driver drowsiness measurement</h2><div class="note primary no-icon"><p>这一节主要是司机困倦状态的监测，从视觉特征和非视觉特征两个角度来讨论驾驶员的行为特征，并且讨论了基于车辆的特征相关的驾驶行为。视觉特征方面，这节详细讨论了与眼睛相关的测量方法，如PERCLOS、呵欠检测以及目前在视觉特征测量中的一些局限性。非视觉特征方面，这节探索用于检测睡意的生理信号。基于车辆的特征，本节描述了方向盘运动和横向位置的标准偏差。 </p>
+</div>
+
+<p><strong>监测困倦状态的原因</strong><br>微睡眠(micro-sleep)的持续时间可以在几秒到30秒甚至更多之间。因此，驾驶员的困倦状态，即从清醒到睡眠的过渡状态，应该被监测。</p>
+<p><img src="/img/loading.gif" data-lazy-src="/image/pages/002.png" alt="Summary of various features for detecting and predicting driver drowsiness"></p>
+<p>上图是监测司机困倦状态的特征总结。</p>
+<p>驾驶员行为信息包括 <strong>视觉特征</strong>和 <strong>非视觉特征</strong>。</p>
+<p><strong>视觉特征</strong></p>
+<ul>
+<li>闭眼(eye closure)</li>
+<li>眨眼(eye blinking)</li>
+<li>打哈欠(yawning)</li>
+<li>头部姿势(head pose)</li>
+<li>面部表情(facial expression)<br>可以增加的：</li>
+<li>眨眼频率(frequency of eye blinking)：衡量疲劳程度的良好指标</li>
+<li>眼睑张开程度(degree of eyelid opening)：衡量疲劳程度的良好指标</li>
+</ul>
+<p><strong>非视觉特征</strong></p>
+<ul>
+<li>心率(heart rate)</li>
+<li>脉搏率(pulse rate)</li>
+<li>大脑活动(brain activity)。<br>可以增加一些生理信号:</li>
+<li>心电图(electrocardiogram ECG)</li>
+<li>肌电图(electromyogram EMG)</li>
+<li>眼电图(electro-oculogram EoG)</li>
+<li>脑电图(electroencephalogram EEG))</li>
+</ul>
+<p><strong>驾驶行为信息</strong></p>
+<ul>
+<li>车道位置偏差(deviations from lane position)</li>
+<li>车速(vehicle speed)</li>
+<li>转向运动(steering movement)</li>
+<li>加速踏板压力(pressure on the acceleration pedal)等</li>
+</ul>
+<h3 id="Visual-features"><a href="#Visual-features" class="headerlink" title="Visual features"></a>Visual features</h3><div class="note primary no-icon"><p>这一节主要是从视觉特征角度来讨论驾驶员的行为特征，详细讨论了与眼睛相关的测量方法PERCLOS,并介绍了一下目前的打呵欠检测以及目前在视觉特征测量中的一些局限性。</p>
+</div>
+
+<p>从视觉方面主要是看监测面部动作，面部动作(facial movements)包括下面三个方面：</p>
+<ul>
+<li>眨眼(eye blinking)</li>
+<li>频繁打哈欠(frequent yawning)</li>
+<li>点头或者摆动头(nodding or swinging head)</li>
+</ul>
+<div class="note info no-icon"><p>对于眨眼可以采用PERCLOS方法。</p>
+</div>
+
+<p><strong>PERCLOS (Percent Eye Closure)</strong></p>
+<ul>
+<li>对司机警觉性水平的可靠和有效的测定</li>
+<li>PERCLOS是驾驶员眼睑闭合时间占瞳孔总时间的80%(或以上)，也反映了眼睑闭合缓慢。？？</li>
+<li>当PERCLOS超过预定的阈值，提出的系统产生瞌睡警告。</li>
+<li>其缺点是，有些情况监测不到：有时试图保持清醒的司机可能睁着眼睛睡着了。</li>
+</ul>
+<p>计算PERCLOS需要提取包括瞳孔面积在内的眼睛区域<br>在提取这些视觉特征方面存在一些限制：合适的照明(proper lighting)</p>
+<p>监测司机是否困倦应该考虑真实情况：</p>
+<ul>
+<li><strong>白天和晚上</strong>：一个简单的CCD或网络相机在白天使用，而红外相机在晚上使用</li>
+<li>司机 <strong>是否戴眼镜</strong>：<ol>
+<li>需要找到合适的近红外(Near IR  NIR)光照波长【一个可能的候选波长是850nm。在真实的汽车环境中，反射的阳光也产生在眼镜的外表面。为了减少反射效果，Jo等[34]使用了带窄带通滤光片的近红外光源，将入射光的波长限制在850nm。这是因为高功率LED照明灯比车内的阳光更强大。】</li>
+<li>用于商业产品如视觉机器[35]的faceLAB。利用被动式摄像机对视频图像进行实时处理，确定各特征的三维位置。该系统能够确定一个精确的3D头部姿态和计算眼睛注视方向。它的优点包括能够很好地应对光线不足的情况，以及司机戴着太阳镜时头部的运动。</li>
+</ol>
+</li>
+</ul>
+<div class="note info no-icon"><p>打哈欠可以通过测量驾驶员口腔轮廓的变化速率和变化量来检测[7,11]。</p>
+</div>
+
+<div class="note info no-icon"><p>头部姿态估计和头部运动检测(如点头)在监控驾驶员机警性方面也很重要[36,37]</p>
+</div>
+
+<div class="note info no-icon"><p>此外，司机的面部皱纹出现在眉毛、嘴部和鼻唇沟，这些都是很好的身体信号，表明困倦被抑制了，因此困倦就出现了。</p>
+</div>
+
+<h3 id="Non-visual-features"><a href="#Non-visual-features" class="headerlink" title="Non-visual features"></a>Non-visual features</h3><div class="note primary no-icon"><p>这一节主要是从非视觉特征角度来讨论驾驶员的行为特征，主要是通过生理信号的检测来识别，并考虑其侵入性特点的局限性。</p>
+</div>
+
+<p><strong>原因</strong></p>
+<p>非视觉特征或生理信号，如心率和大脑活动，在预测困倦方面是有用的，与视觉特征相比，假阳性更少，因为只有在司机很好地在睡觉的路上，才能从视觉特征判断困倦状态。即基于这些生理信号的困倦预测使我们有可能及时地向困倦的司机发出警告。</p>
+<p><strong>生理信号</strong></p>
+<ul>
+<li>心电图(ECG)<ul>
+<li>从心电图信号中可以提取出心率(HR);心率可以用来检测睡意，因为它在警觉性和睡意状态之间存在显著差异[19,39]。</li>
+<li>心率变异性(HRV)测量每一拍心跳的变化，也可用来检测睡意。随着司机从警觉状态到昏昏欲睡状态，心电图信号中低频与高频的比率逐渐降低[20,40]。</li>
+</ul>
+</li>
+<li>脑电图(EEG)</li>
+<li>肌电图(EMG)</li>
+<li>眼电图(EoG)</li>
+<li>光容积描记(PPG)</li>
+</ul>
+<p><strong>过程</strong></p>
+<ol>
+<li>处理生理信号的一个 <strong>关键问题</strong>是消除真实环境中不可避免的噪声和人为因素。</li>
+<li>在有效滤波之后，采用了快速傅立叶变换(FFT)和离散小波变换(DWT)等特征提取技术。</li>
+<li>然后，利用支持向量机(SVM)、人工神经网络(ANN)、线性判别分析(LDA)等方法对提取出来的特征进行分类[40-43]</li>
+</ol>
+<p><strong>局限性</strong></p>
+<p>优点：检测驾驶员睡意的可靠性和准确性比可见特征高<br>重要局限性：侵入性</p>
+<p><strong>解决方案</strong></p>
+<ul>
+<li>使用无线技术，如Zigbee和Blutooth，通过将电极放置在方向盘或驾驶员座位上，以非侵入性的方式测量生理信号[44,45]。最后，信号由智能手机处理，确定司机瞌睡[46]。然而，由于电极接触不当，这种非侵入式系统与侵入式系统相比精度较低。</li>
+<li>为了获得可靠的驾驶员嗜睡检测结果，人们尝试融合各种测量结果[20,47]。将PERCLOS、ECC和EEG混合用于检测驾驶员嗜睡，其成功率高于单独测量[20]。Cheng等人[47]使用PERCLOS融合、眨眼频率、最大闭合时间和非转向百分比等方法检测睡意。</li>
+</ul>
+<h3 id="Driving-behavior-features"><a href="#Driving-behavior-features" class="headerlink" title="Driving behavior features"></a>Driving behavior features</h3><div class="note primary no-icon"><p>这一节主要是从车辆特征的驾驶行为特征角度，描述了方向盘运动和横向位置的标准偏差</p>
+</div>
+
+<p>驾驶行为特征或驾驶性能指标包括方向盘运动、车道保持、加速踏板运动和制动等[48-50]。这些特征与车辆类型以及驾驶员在驾驶习惯、驾驶技能和驾驶经验方面的差异性有关。检测驾驶员睡意水平最常用的两种驾驶行为指标是 <strong>方向盘运动和横向位置的标准偏差</strong>。</p>
+<h2 id="Driver-distraction-detection"><a href="#Driver-distraction-detection" class="headerlink" title="Driver distraction detection"></a>Driver distraction detection</h2><div class="note primary no-icon"><p>这一节 描述了一些与驾驶员分心测量相关的问题，特别是头部姿势和注视方向方法。</p>
+</div>
+
+<p>暂无</p>
+<h2 id="Predicting-unsafe-driving-behavior"><a href="#Predicting-unsafe-driving-behavior" class="headerlink" title="Predicting unsafe driving behavior"></a>Predicting unsafe driving behavior</h2><div class="note primary no-icon"><p>这一节介绍了不安全驾驶行为的预测方法并解释了基于面部表情和汽车动力学的预测方法。</p>
+</div>
+
+<p>对驾驶员状态、驾驶行为性能和车辆状态的监测对于提高驾驶员主动安全系统的性能是非常重要的。</p>
+<p>驾驶员的状态通过测量困倦、疲劳或压力水平来监测[61-64]。通过分析驾驶速度、方向盘角度、制动和加速等信息，还可以监测驾驶行为、性能和车辆状态[48- 50,65,66]。在检测到困倦或注意力分散后，就会向司机发送警报。</p>
+<p>主动驾驶员安全系统的另一个 <strong>重要问题</strong>是开发一种机制来 <strong>提前预测小事故和大事故</strong>。</p>
+<p><strong>基于面部表情和汽车动力学的预测方法</strong><br>Jabon等人[15]使用面部特征来帮助预测驾驶员事故。他们结合了车辆动力学和驾驶员面部分析来预测事故。</p>
+<p><strong>过程</strong></p>
+<ol>
+<li>首先，对22个原始面部特征进行综合分析。</li>
+<li>然后从一组时域和频域的数值中提取出对事故预测最有价值的统计量，从而实现对重大和轻微事故的预测。</li>
+</ol>
+<p><strong>结果</strong><br>虽然Jabon et al.[15]的实验结果并不是基于真实的道路情况，但已经发现面部特征在事故发生前4秒表现出最准确的预测能力，并且在预测小事故时比预测大事故更有帮助。这是因为对重大事故的预测精度主要来自车辆的特征，而不是面部特征。</p>
+<p><strong>新技术</strong><br>EPFL and PSA Peugeot Citroen[16]正在开发一种技术，以检测司机的分心以及情绪，表明司机不能胜任手头的任务。即，面部表情和肌肉运动在分析司机是否太过分散注意力、太累或甚至太过愤怒而无法安全控制车辆时非常重要。</p>
+<p><strong>局限性</strong><br>虽然面部特征已被证明有助于预测小事故，但其预测效果还有待提高。</p>
+<p>为了更准确地预测事故，有必要捕捉来自驾驶员或驾驶员环境系统其他部分的其他生理信号。在此基础上，可以提出一种新的交通事故预测模型。特别是在构建更广泛、更通用的事故预测模型时，需要考虑不同的参与者群体、交通文化和驾驶环境。</p>
+<h2 id="Discussion"><a href="#Discussion" class="headerlink" title="Discussion"></a>Discussion</h2><div class="note primary no-icon"><p>这一节讨论了主动驾驶员安全系统的一些问题：<br>1)检测睡意的混合方法<br>2)安全驾驶的驾驶上下文感知<br>3)需要用来模拟的公共数据集以及真实驾驶条件</p>
+</div>
+
+<h3 id="Hybrid-measures-for-drowsiness-detection"><a href="#Hybrid-measures-for-drowsiness-detection" class="headerlink" title="Hybrid measures for drowsiness detection"></a>Hybrid measures for drowsiness detection</h3><div class="note primary no-icon"><p>检测睡意的混合方法</p>
+</div>
+
+<p><strong>目前监测司机睡意的存在的问题</strong></p>
+<ol>
+<li>在驾驶行为和驾驶员行为特征中，驾驶行为有时不能可靠地检测驾驶员的嗜睡。</li>
+<li>驾驶员行为特征优于驾驶行为特征，但视觉特征有时会受到光照条件和驾驶员姿态[34]的限制。</li>
+<li>非视觉特征，如生理特征是可靠和准确的，但其本质是侵入性的。在它们能够在真实的车辆环境中使用之前，应该解决侵入性这个问题。虽然已经开发了一种侵入性较小的ECG测量方法[45]，但EEG和EoG仍然需要以侵入性的方式将电极放置在头皮或眼睛区域。然而，非侵入性的生理信号测量可能在不久的将来发展。</li>
+</ol>
+<p><strong>混合方法</strong></p>
+<p>融合 <strong>视觉</strong>、<strong>生理</strong>和 <strong>驾驶行为特征</strong>的混合测量</p>
+<p>即使在某些传感器失效的情况下，融合方法也能很好地检测出睡意。图4显示了一个用于驱动状态检测的混合测量示例。其中一个问题是在特征级或决策级[20]上开发一种可靠的数据融合方法。</p>
+<p><img src="/img/loading.gif" data-lazy-src="/image/pages/003.png" alt="用于检测驱动程序状态的混合测量"></p>
+<h3 id="Driving-context-awareness-for-safe-driving"><a href="#Driving-context-awareness-for-safe-driving" class="headerlink" title="Driving context-awareness for safe driving"></a>Driving context-awareness for safe driving</h3><div class="note primary no-icon"><p>安全驾驶的驾驶上下文感知</p>
+</div>
+
+<p>为了安全驾驶，驾驶上下文感知是必要的，需要有效地探索与驾驶条件和环境相关的各种信息。</p>
+<p>将驾驶上下文划分为全局和局部。</p>
+<ol>
+<li><strong>全局</strong>驾驶上下文是指车辆类型、道路类型、驾驶时间、驾驶环境、路况等等</li>
+<li><strong>局部</strong>(local)驱动上下文指的是驾驶员状态(driver status)。即局部语境与驾驶员的视觉和认知知觉以及驾驶员因分心、嗜睡和/或情绪而导致的视觉和认知知觉的恶化有关。</li>
+</ol>
+<p>发展方向：结合 <strong>驾驶环境</strong>和 <strong>驾驶员状态</strong>的基于驾驶上下文的计算模型。使用这样的模型，注意力分散和嗜睡的检出率将会增加，这将有助于预测不安全驾驶行为。</p>
+<h3 id="Necessity-for-public-data-sets-for-simulation-and-real-driving-conditions"><a href="#Necessity-for-public-data-sets-for-simulation-and-real-driving-conditions" class="headerlink" title="Necessity for public data sets for simulation and real driving conditions"></a>Necessity for public data sets for simulation and real driving conditions</h3><div class="note primary no-icon"><p>需要用来模拟的公共数据集以及真实驾驶条件</p>
+</div>
+
+<p>在真实的驾驶环境中测试困倦有危险。</p>
+<p><strong>真实驾驶条件的必要性</strong><br>Philp等人[67]发现，由于体验的单调性，在模拟环境中，来自自我评价的反应时间和嗜睡程度比在真实驾驶环境中要高。<br>Engstorm等[68]指出，真实驾驶条件下的生理负荷和转向活性均高于模拟环境。在真实的驾驶条件下，包括灯光和噪音的变化在内的各种因素也会影响驾驶员的注意力。</p>
+<p><strong>没有可用的基准数据集</strong></p>
+<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><p>这篇文章回顾了各种可用的方法来确定困倦和分心的司机的状态。通过对驾驶员视觉特征、非视觉特征和驾驶行为行为等驾驶员行为的研究来检测驾驶员困倦。</p>
+<ol>
+<li>PERCLOS、闭眼时间(ECD)、闭眼频率(FEC)是一种基于视觉特征的检测驾驶员睡意的系统。<br>其中，PERCLOS在检测睡意方面表现良好，但存在光照条件等局限性。为了克服这个问题，使用了850nm的IR光源。</li>
+<li>生理信号如ECG、EEG、EoG和PPG信号作为非视觉特征检测驾驶员困倦。尽管生理信号比视觉特征表现出更好的表现，但它们也有一些局限性，尤其是它们的侵入性。为了克服这个问题，应该开发侵入性较小的传感器。目前，ECG信号可以用一种较少干扰的方式捕获。驾驶性能行为如方向盘运动和侧位标准偏差也被用来检测困倦。</li>
+<li>驾驶员注意力分散是通过头部姿势和注视方向来检测的。驾驶员的分心可能会导致更大的车道变化，更慢的对障碍的反应，以及更突然的转向控制。因此，为了开发一个更安全的驾驶员监控系统，我们应该监控驾驶员的分心。</li>
+<li>对于主动驾驶安全系统而言，预测不安全驾驶行为是一种可取的方法。本文解释了基于面部表情和汽车动力学的预测方法。通过面部表情检测驾驶员的情绪，有助于预测驾驶员的驾驶行为。</li>
+<li>最后本文讨论了主动驾驶安全系统未来发展中需要解决的几个问题。它们是a)检测睡意的混合措施，b)安全驾驶的驾驶环境感知，c)模拟和真实驾驶条件的公共数据集的可用性。</li>
+</ol>
+</div><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">yy</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://yoursite.com/posts/100001/">http://yoursite.com/posts/100001/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://yoursite.com" target="_blank">unnoyy</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/driving-behavior-pro%EF%AC%81ling/">driving behavior proﬁling</a><a class="post-meta__tags" href="/tags/paper/">paper</a><a class="post-meta__tags" href="/tags/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/">论文笔记</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/posts/60504/"><img class="next-cover" data-lazy-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror='onerror=null,src="/img/404.jpg"'><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">dataset</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span> 相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/论文调研/" title="论文调研"><img class="cover" data-lazy-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-09-21</div><div class="title">论文调研</div></div></a></div><div><a href="/posts/60504/" title="dataset"><img class="cover" data-lazy-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-09-21</div><div class="title">dataset</div></div></a></div></div></div><hr><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div><div class="comment-switch"><span class="first-comment">Valine</span><label><input id="switch-comments-btn" type="checkbox"><span class="slider"></span></label><span class="second-comment">Gitalk</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div><div><div id="gitalk-container"></div></div></div></div></article></main><footer id="footer" data-type="color"><div id="footer-wrap"><div class="copyright">&copy;2020 By yy</div><div class="framework-info"><span>框架 </span><a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a href="https://github.com/jerryc127/hexo-theme-butterfly" target="_blank" rel="noopener">Butterfly</a></div><div class="footer_custom_text">欢迎来到<a href="https://unnoyy.github.io/" target="_blank" rel="noopener">小屋</a>!</div></div></footer></div><section id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">简</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></section><div class="search-dialog" id="local-search"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"></div></div></div><hr><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a href="https://github.com/wzpan/hexo-generator-search" target="_blank" rel="noopener" style="color:#49b1f5">hexo-generator-search</a>
+ <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div><div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.spacingElementById('content-inner')
+  else {
+    $.getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js', () => {
+      pangu.spacingElementById('content-inner')
+    })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguFn)</script><script src="/js/search/local-search.js"></script><script>var endLoading=function(){document.body.style.overflow="auto",document.getElementById("loading-box").classList.add("loaded")};window.addEventListener("load",endLoading)</script><div class="js-pjax"><script>function loadValine () {
+  function initValine () {
+    window.valine = new Valine({
+      el: '#vcomment',
+      appId: 'SVg8NY7xGdhfqBMmwyksops7-gzGzoHsz',
+      appKey: 'gMpBjTW5NEFR6cW6CUmhBITz',
+      placeholder: 'Please leave your footprints',
+      avatar: 'monsterid',
+      meta: 'nick,mail,link'.split(','),
+      pageSize: '10',
+      lang: 'zh-CN',
+      recordIP: false,
+      serverURLs: '',
+      emojiCDN: '',
+      emojiMaps: "",
+      enableQQ: false,
+      path: window.location.pathname,
+    });
+    if ('nick,mail') { valine.config.requiredFields= 'nick,mail'.split(',') }
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else $.getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js', initValine)
+}
+
+if ('Valine' === 'Valine' || !true) {
+  if (true) btf.loadComment(document.querySelector('#vcomment'),loadValine)
+  else setTimeout(() => loadValine(), 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script><script>function addGitalkSource () {
+  const ele = document.createElement('link')
+  ele.rel = 'stylesheet'
+  ele.href= 'https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css'
+  document.getElementsByTagName('head')[0].appendChild(ele)
+}
+
+function loadGitalk () {
+  function initGitalk () {
+    var gitalk = new Gitalk({
+      clientID: '769c8b0e30bdfa36fcdd',
+      clientSecret: '8ff1137eb46effb3547818440411a5f053db93fa',
+      repo: 'unnoyy.github.io',
+      owner: 'unnoyy',
+      admin: ['unnoyy'],
+      id: '19d2db6b2669c41f5322ae33c3b4ef3d',
+      language: 'zh-CN',
+      perPage: 10,
+      distractionFreeMode: false,
+      pagerDirection: 'last',
+      createIssueManually: false,
+      updateCountCallback: commentCount
+    })
+    gitalk.render('gitalk-container')
+  }
+
+  if (typeof Gitalk === 'function') initGitalk()
+  else {
+    addGitalkSource()
+    $.getScript('https://cdn.jsdelivr.net/npm/gitalk@latest/dist/gitalk.min.js', initGitalk)
+  }
+}
+
+function commentCount(n){
+  let isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+  if (isCommentCount) {
+    isCommentCount.innerHTML= n
+  }
+}
+
+if ('Valine' === 'Gitalk' || !true) {
+  if (true) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+  else loadGitalk()
+} else {
+  function loadOtherComment () {
+    loadGitalk()
+  }
+}</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script src="/js/Beautify.js"></script><script src="/js/beautify2.js"></script><script src="/js/fishes.js"></script><script src="/js/calendar.js"></script><script src="/js/languages.js"></script><div class="app-refresh" id="app-refresh"> <div class="app-refresh-wrap"> <label>✨ 網站已更新最新版本 👉</label> <a href="javascript:void(0)" onclick="location.reload()">點擊刷新</a> </div></div><script>function showNotification(){if(GLOBAL_CONFIG.Snackbar){var t="light"===document.documentElement.getAttribute("data-theme")?GLOBAL_CONFIG.Snackbar.bgLight:GLOBAL_CONFIG.Snackbar.bgDark,e=GLOBAL_CONFIG.Snackbar.position;Snackbar.show({text:"已更新最新版本",backgroundColor:t,duration:5e5,pos:e,actionText:"點擊刷新",actionTextColor:"#fff",onActionClick:function(t){location.reload()}})}else{var o=`top: 0; background: ${"light"===document.documentElement.getAttribute("data-theme")?"#49b1f5":"#1f1f1f"};`;document.getElementById("app-refresh").style.cssText=o}}"serviceWorker"in navigator&&(navigator.serviceWorker.controller&&navigator.serviceWorker.addEventListener("controllerchange",function(){showNotification()}),window.addEventListener("load",function(){navigator.serviceWorker.register("/sw.js")}));</script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-heart.min.js" async></script></div></body></html>
