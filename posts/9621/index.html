@@ -1,0 +1,488 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>船运到达时间比赛-数据集分析 | unnoyy</title><meta name="description" content="船运到达时间比赛的各部分详细描述"><meta name="keywords" content="taxi demand,paper,summary"><meta name="author" content="unnoyy"><meta name="copyright" content="unnoyy"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="shortcut icon" href="/pic/favicon.png"><link rel="canonical" href="http://unnoyy.github.io/posts/9621/"><link rel="preconnect" href="//cdn.jsdelivr.net"><link rel="preconnect" href="//busuanzi.ibruce.info"><link rel="preconnect" href="//zz.bdstatic.com"><meta property="og:type" content="article"><meta property="og:title" content="船运到达时间比赛-数据集分析"><meta property="og:url" content="http://unnoyy.github.io/posts/9621/"><meta property="og:site_name" content="unnoyy"><meta property="og:description" content="船运到达时间比赛的各部分详细描述"><meta property="og:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><meta property="article:published_time" content="2020-07-30T01:05:22.000Z"><meta property="article:modified_time" content="2021-03-25T14:42:11.103Z"><meta name="twitter:card" content="summary"><link rel="manifest" href="/pic/pwa/manifest.json"><meta name="msapplication-TileColor" content="#fff"><link rel="apple-touch-icon" sizes="180x180" href="/pic/pwa/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/pic/pwa/32.png"><link rel="icon" type="image/png" sizes="16x16" href="/pic/pwa/16.png"><link rel="mask-icon" href="/pic/pwa/safari-pinned-tab.svg" color="#5bbad5"><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  hexoversion: '4.2.0',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: {"defaultEncoding":1,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  bookmark: {
+    message_prev: '按',
+    message_next: '键将本页加入书签'
+  },
+  runtime: '天',
+  date_suffix: {"one_hour":"刚刚","hours":"小时前","day":"天前"},
+  copyright: {"limitCount":50,"languages":{"author":"作者: unnoyy","link":"链接: ","source":"来源: unnoyy","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  ClickShowText: undefined,
+  medium_zoom: false,
+  fancybox: true,
+  Snackbar: {"bookmark":{"message_prev":"按","message_next":"键将本页加入书签"},"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#121212","position":"bottom-left"},
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
+  baiduPush: true,
+  isPhotoFigcaption: true,
+  islazyload: true,
+  isanchor: false
+};
+
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+    const now = new Date()
+    const expiryDay = ttl * 86400000
+    const item = {
+      value: value,
+      expiry: now.getTime() + expiryDay,
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+    },
+
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}</script><script id="config_change">var GLOBAL_CONFIG_SITE={isPost:!0,isHome:!1,isHighlightShrink:!1,isSidebar:!0,postUpdate:"2021-03-25 22:42:11"}</script><noscript><style>#nav{opacity:1}.justified-gallery img{opacity:1}</style></noscript><script>var activateDarkMode=function(){document.documentElement.setAttribute("data-theme","dark"),null!==document.querySelector('meta[name="theme-color"]')&&document.querySelector('meta[name="theme-color"]').setAttribute("content","#0d0d0d")},activateLightMode=function(){document.documentElement.setAttribute("data-theme","light"),null!==document.querySelector('meta[name="theme-color"]')&&document.querySelector('meta[name="theme-color"]').setAttribute("content","#ffffff")},autoChangeMode="false",t=saveToLocal.get("theme");if("1"===autoChangeMode){var isDarkMode=window.matchMedia("(prefers-color-scheme: dark)").matches,isLightMode=window.matchMedia("(prefers-color-scheme: light)").matches,isNotSpecified=window.matchMedia("(prefers-color-scheme: no-preference)").matches,hasNoSupport=!isDarkMode&&!isLightMode&&!isNotSpecified;if(void 0===t){if(isLightMode)activateLightMode();else if(isDarkMode)activateDarkMode();else if(isNotSpecified||hasNoSupport){var now=new Date,hour=now.getHours(),isNight=hour<=6||18<=hour;isNight?activateDarkMode():activateLightMode()}window.matchMedia("(prefers-color-scheme: dark)").addListener(function(e){void 0===saveToLocal.get("theme")&&(e.matches?activateDarkMode():activateLightMode())})}else"light"===t?activateLightMode():activateDarkMode()}else"2"===autoChangeMode?(isNight=(hour=(now=new Date).getHours())<=6||18<=hour,void 0===t?isNight?activateDarkMode():activateLightMode():"light"===t?activateLightMode():activateDarkMode()):"dark"===t?activateDarkMode():"light"===t&&activateLightMode()</script><link rel="stylesheet" href="/css/background.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/sviptzk/StaticFile_HEXO@latest/butterfly/css/iconfont.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/sviptzk/HexoStaticFile@latest/Hexo/css/buttons.min.css"><style>.app-refresh{position:fixed;top:-2.2rem;left:0;right:0;z-index:99999;padding:0 1rem;font-size:15px;height:2.2rem;transition:all .3s ease}.app-refresh-wrap{display:flex;color:#fff;height:100%;align-items:center;justify-content:center}.app-refresh-wrap a{color:#fff;text-decoration:underline;cursor:pointer}</style><meta name="generator" content="Hexo 4.2.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" data-lazy-src="/pic/avatar.jpg" onerror='onerror=null,src="/img/friend_404.gif"' alt="avatar"></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">28</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">13</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">4</div></a></div></div></div><hr><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 休闲</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page" href="/book/"><i class="fa-fw fas fa-book"></i><span> 书籍</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart card-announcement-animation"></i><span> 关于</span></a></div></div></div></div><div id="body-wrap"><div id="web_bg" data-type="color"></div><div id="sidebar"><i class="fas fa-arrow-right on" id="toggle-sidebar"></i><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#船运到达时间预测比赛–赛题介绍"><span class="toc-number">1.</span> <span class="toc-text">船运到达时间预测比赛–赛题介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#赛题介绍"><span class="toc-number">1.1.</span> <span class="toc-text">赛题介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#比赛数据"><span class="toc-number">1.2.</span> <span class="toc-text">比赛数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数据表格："><span class="toc-number">1.3.</span> <span class="toc-text">数据表格：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#船运到达时间预测比赛–论文调研"><span class="toc-number">2.</span> <span class="toc-text">船运到达时间预测比赛–论文调研</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#关注点"><span class="toc-number">2.1.</span> <span class="toc-text">关注点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#论文概述"><span class="toc-number">2.2.</span> <span class="toc-text">论文概述</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Forecast-of-Marine-Traffic-Volume-using-Time-Series-Model"><span class="toc-number">2.2.1.</span> <span class="toc-text">Forecast of Marine Traffic Volume using Time Series Model</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Vessel-Destination-and-Arrival-Time-Prediction-with-Sequence-to-Sequence-Models-over-Spatial-Grid-3"><span class="toc-number">2.2.2.</span> <span class="toc-text">Vessel Destination and Arrival Time Prediction with Sequence-to-Sequence Models over Spatial Grid.[3]</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Towards-an-approach-for-long-term-AIS-based-prediction-of-vessel-arrival-times"><span class="toc-number">2.2.3.</span> <span class="toc-text">Towards an approach for long term AIS-based prediction of vessel arrival times</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Real-time-Destination-and-ETA-Prediction-for-Maritime-Traffic"><span class="toc-number">2.2.4.</span> <span class="toc-text">Real-time Destination and ETA Prediction for Maritime Traffic</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Predicting-Destinations-by-Nearest-Neighbor-Search-on-Training-Vessel-Routes"><span class="toc-number">2.2.5.</span> <span class="toc-text">Predicting Destinations by Nearest Neighbor Search on Training Vessel Routes</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#When-Will-You-Arrive-Estimating-Travel-Time-Based-on-Deep-Neural-Networks"><span class="toc-number">2.2.6.</span> <span class="toc-text">When Will You Arrive? Estimating Travel Time Based on Deep Neural Networks</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Learning-to-Estimate-the-Travel-Time"><span class="toc-number">2.2.7.</span> <span class="toc-text">Learning to Estimate the Travel Time</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#论文总结表格："><span class="toc-number">2.2.8.</span> <span class="toc-text">论文总结表格：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#存在的挑战"><span class="toc-number">2.3.</span> <span class="toc-text">存在的挑战</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考文献"><span class="toc-number">2.4.</span> <span class="toc-text">参考文献</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#船运到达时间预测比赛–数据集思考"><span class="toc-number">3.</span> <span class="toc-text">船运到达时间预测比赛–数据集思考</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#比赛中数据存在的问题"><span class="toc-number">3.1.</span> <span class="toc-text">比赛中数据存在的问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#清洗数据需要思考的问题"><span class="toc-number">3.2.</span> <span class="toc-text">清洗数据需要思考的问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数据标签需要考虑的问题"><span class="toc-number">3.3.</span> <span class="toc-text">数据标签需要考虑的问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#基线选取"><span class="toc-number">3.4.</span> <span class="toc-text">基线选取</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#特征选取需要思考的问题"><span class="toc-number">3.5.</span> <span class="toc-text">特征选取需要思考的问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#解决方案的思考"><span class="toc-number">3.6.</span> <span class="toc-text">解决方案的思考</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#比赛的难点"><span class="toc-number">3.7.</span> <span class="toc-text">比赛的难点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#评估标准"><span class="toc-number">3.8.</span> <span class="toc-text">评估标准</span></a></li></ol></li></ol></div></div></div><header class="post-bg" id="page-header" style="background-image:url(https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg)"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">unnoyy</a></span><span id="menus"><div id="search_button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 休闲</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page" href="/book/"><i class="fa-fw fas fa-book"></i><span> 书籍</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart card-announcement-animation"></i><span> 关于</span></a></div></div><span class="close" id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="post-info"><div id="post-title"><div class="posttitle">船运到达时间比赛-数据集分析</div></div><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2020-07-30T01:05:22.000Z" title="发表于 2020-07-30 09:05:22">2020-07-30</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2021-03-25T14:42:11.103Z" title="更新于 2021-03-25 22:42:11">2021-03-25</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/paper/">paper</a></span></div><div class="meta-secondline"> <span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">5.6k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>17分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout_post" id="content-inner"><article id="post"><div class="post-content" id="article-container"><h2 id="船运到达时间预测比赛–赛题介绍"><a href="#船运到达时间预测比赛–赛题介绍" class="headerlink" title="船运到达时间预测比赛–赛题介绍"></a>船运到达时间预测比赛–赛题介绍</h2><h3 id="赛题介绍"><a href="#赛题介绍" class="headerlink" title="赛题介绍"></a>赛题介绍</h3><p>在企业全球化业务体系中，海运物流作为其最重要的一项支撑。其中，船运公司会和数据供应公司进行合作，对运输用的船通过GPS进行定位以监控船的位置；在运输管理的过程中，<strong>货物到达目的港的时间</strong>是非常重要的一项数据，那么<strong>需要通过船运的历史数据构建模型，对目的港到达时间进行预测</strong>，预测时间简称为<strong>ETA（estimated time of arrival）</strong>，目的港到达时间预测为ARRIVAL_ETA（<strong>ATA</strong>）。</p>
+<p>本次大赛提供历史运单GPS数据、历史运单事件数据、港口坐标数据，预测货物运单的到达时间，对应“历史运单事件”数据中EVENT_CODE字段值为ARRIVAL AT PORT时EVENT_CONVOLUTION_DATE的时间值。</p>
+<h3 id="比赛数据"><a href="#比赛数据" class="headerlink" title="比赛数据"></a>比赛数据</h3><p>大赛提供脱敏后的训练数据及测试数据，训练数据集包括：</p>
+<ul>
+<li><strong>历史运单GPS数据</strong></li>
+<li><strong>历史运单事件数据</strong></li>
+<li><strong>港口坐标数据</strong></li>
+<li>测试运单数据为不同运单、运输过程中的不同位置所构成，供选手测试对应的ETA时间。</li>
+<li>货物运单在船运过程中，会产生大量的GPS运单数据，记录为“历史运单GPS数据”；</li>
+<li>货物运单在船运过程中离开起运港、到达中转港、到达目的港等关键事件，记录为“历史运单事件数据”；</li>
+<li>“港口的坐标数据“为与运单船运相关的港口坐标信息。</li>
+</ul>
+<h3 id="数据表格："><a href="#数据表格：" class="headerlink" title="数据表格："></a>数据表格：</h3><table>
+<thead>
+<tr>
+<th align="center">列名</th>
+<th align="center">类型</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">loadingOrder</td>
+<td align="center">VARCHAR2</td>
+<td align="center">脱敏后的主运单，货物的运单编号，类似快递单号</td>
+</tr>
+<tr>
+<td align="center">carrierName</td>
+<td align="center">VARCHAR2</td>
+<td align="center">脱敏后的承运商名称，类似快递公司名称</td>
+</tr>
+<tr>
+<td align="center">timestamp</td>
+<td align="center">DATE</td>
+<td align="center">时间，格式为：yyyy-MM-dd’T’HH:mm:ss.SSSZ，如2019-09-05T16:33:17.000Z</td>
+</tr>
+</tbody></table>
+<h2 id="船运到达时间预测比赛–论文调研"><a href="#船运到达时间预测比赛–论文调研" class="headerlink" title="船运到达时间预测比赛–论文调研"></a>船运到达时间预测比赛–论文调研</h2><h3 id="关注点"><a href="#关注点" class="headerlink" title="关注点"></a>关注点</h3><p><strong>阅读论文需要注意的问题</strong>：</p>
+<ol>
+<li>预测的对象是什么（轨迹，到达时间，目的地）？ </li>
+<li>正在使用哪种方法来估计系统的未来状态？（集体学习、机器学习、深度学习）采用的是什么样的解决方案？是将问题怎么转化的？ </li>
+<li>该方法可以预测多久？ （一个小时之内还是更久，按时间片预测还是？）</li>
+<li>预测准确度是多少？ （预测的指标是什么）</li>
+<li>是否考虑了数据可用性/质量以及如何考虑？（数据的来源以及数据预处理？）</li>
+<li>这篇论文的创新点是什么？或者对自己有什么启发的地方？</li>
+</ol>
+<p>即</p>
+<ul>
+<li><strong>预测对象</strong>  </li>
+<li><strong>创新点</strong>  </li>
+<li><strong>解决方案</strong>   </li>
+<li><strong>算法</strong>  </li>
+<li><strong>预测时间</strong>  </li>
+<li><strong>预测准确度</strong> </li>
+<li><strong>指标</strong>   </li>
+<li><strong>数据集</strong>  </li>
+</ul>
+<h3 id="论文概述"><a href="#论文概述" class="headerlink" title="论文概述"></a>论文概述</h3><p><strong>船运方面的论文</strong></p>
+<h4 id="Forecast-of-Marine-Traffic-Volume-using-Time-Series-Model"><a href="#Forecast-of-Marine-Traffic-Volume-using-Time-Series-Model" class="headerlink" title="Forecast of Marine Traffic Volume using Time Series Model"></a>Forecast of Marine Traffic Volume using Time Series Model</h4><ul>
+<li>使用流行的时间序列模型估计未来的海上交通量。一种定量分析[8] arima模型</li>
+</ul>
+<h4 id="Vessel-Destination-and-Arrival-Time-Prediction-with-Sequence-to-Sequence-Models-over-Spatial-Grid-3"><a href="#Vessel-Destination-and-Arrival-Time-Prediction-with-Sequence-to-Sequence-Models-over-Spatial-Grid-3" class="headerlink" title="Vessel Destination and Arrival Time Prediction with Sequence-to-Sequence Models over Spatial Grid.[3]"></a>Vessel Destination and Arrival Time Prediction with Sequence-to-Sequence Models over Spatial Grid.[3]</h4><ul>
+<li><strong>预测对象</strong> ：预测船只的目的港和估计的到达时间</li>
+<li><strong>创新点</strong> ：将海域划分为一个空间网格，然后将其最近的运动表示为一系列代码，从中提取出其趋势。这些信息和船只的当前位置使我们可以预测直到到达目的地的未来运动。主要是轨迹预测。</li>
+<li><strong>解决方案</strong> ：一种基于序列到序列的方法,作为轨迹预测问题的扩展，该问题以一系列历史位置作为输入并返回一系列未来位置，用于确定到达港口和估计到达时间。本文的解决方案首先代表覆盖地中海的空间网格上的轨迹。然后训练序列到序列模型，以根据运动趋势和当前位置预测船只的未来运动。最后使用分布式体系结构模型和应用的负载平衡技术构建了解决方案，以实现高性能和可扩展性。</li>
+<li><strong>算法</strong> :使用seq2seq模型预测将来的位置，系统将根据这些位置确定目标并估计到达时间。</li>
+<li><strong>预测时间</strong>  </li>
+<li><strong>预测准确度</strong> </li>
+<li><strong>指标</strong>   </li>
+<li><strong>数据集</strong>  </li>
+</ul>
+<h4 id="Towards-an-approach-for-long-term-AIS-based-prediction-of-vessel-arrival-times"><a href="#Towards-an-approach-for-long-term-AIS-based-prediction-of-vessel-arrival-times" class="headerlink" title="Towards an approach for long term AIS-based prediction of vessel arrival times"></a>Towards an approach for long term AIS-based prediction of vessel arrival times</h4><p>这是一篇讲述解决方案的论文，无实验。</p>
+<ul>
+<li><p>分为<strong>短期预测</strong>（一个小时之内）、<strong>长期预测</strong>（预测提前超过一个小时）</p>
+<ul>
+<li>通过分析<strong>船舶运动模式</strong>进行<strong>短期预测</strong>–主要侧重于避免碰撞，因此重点是在不久的将来估算船舶位置，以支持转向决策，而实际目的地无关紧要</li>
+<li>使用<strong>路由提取</strong>进行<strong>长期预测</strong>–估计轨迹或位置的时间间隔超过1小时需要隔离海道，将其与已知的船只轨迹进行比较，以确定最接近的匹配或异常。</li>
+<li><strong>组合方法</strong>的<strong>长期预测</strong>–船舶运动模式和海道提取相结合</li>
+</ul>
+</li>
+<li><p>所有长期预测都依赖于海道提取，然后再尝试估算船舶的目的地。</p>
+</li>
+<li><p>四个<strong>需要解决的不同目标</strong>：数据质量问题，数据量和分布式数据挖掘，行为模式的发现和包含以及天气数据的融合。  </p>
+<ul>
+<li>数据的质量问题</li>
+<li>结合气象数据</li>
+<li>大数据集的航路点/路线提取</li>
+<li>通过发现和包含行为模式来提高准确性。</li>
+</ul>
+</li>
+<li><p><strong>存在的问题</strong></p>
+<ul>
+<li><p>数据不完全可靠：误以为噪声是错误的。</p>
+<ul>
+<li>解决方案：进行3次的异常检查、数据预处理</li>
+<li>第一个方法是立即丢弃超出范围的接收数据，例如纬度低于-90°且高于90°且经度低于-180°且高于180°。</li>
+<li>第二个应该删除范围内的数据，但要指出不可行的轨迹。</li>
+<li>最后一项检查是为数据源分配可靠性，并在可靠性高于或低于所需阈值时决定是否存储或拒绝数据。</li>
+</ul>
+</li>
+<li><p>历史数据量比较庞大（这个还有待商议，DBSCAN是发现航路点/“热点区域”的首选算法。随着数据量超过存储容量，必须特别考虑与分布式数据挖掘和群集有关的替代方法。）</p>
+</li>
+<li><p>查看船只的历史数据以发现行为模式，以及它们对偏离通常航道的可能性的影响。</p>
+</li>
+<li><p>每个模式都是一组航行属性，例如该区域的平均速度，转弯速率和平均行程持续时间。通过将船只与发现的模式之一相关联，可以构造一条新的预测路线，并将该路线的最终位置用于到达时间预测算法。</p>
+</li>
+</ul>
+</li>
+<li><p><strong>思路总结</strong>：首先处理获取到的数据的质量问题，然后然后将好的数据和气象数据相融合，接着对现有数据集执行行为模式分析，以发现每个船只在选择使用哪条路线时的偏好。</p>
+</li>
+</ul>
+<h4 id="Real-time-Destination-and-ETA-Prediction-for-Maritime-Traffic"><a href="#Real-time-Destination-and-ETA-Prediction-for-Maritime-Traffic" class="headerlink" title="Real-time Destination and ETA Prediction for Maritime Traffic"></a>Real-time Destination and ETA Prediction for Maritime Traffic</h4><ul>
+<li><p><strong>预测对象</strong>：预测船只的目的港（分类）和估计的到达时间（回归）</p>
+</li>
+<li><p><strong>创新点</strong>  </p>
+</li>
+<li><p><strong>解决方案</strong>   </p>
+</li>
+<li><p><strong>算法</strong> ：前馈神经网络预测到达时间（回归问题）</p>
+</li>
+<li><p><strong>预测时间</strong>  </p>
+</li>
+<li><p><strong>预测准确度</strong> </p>
+</li>
+<li><p><strong>指标</strong>   </p>
+</li>
+<li><p><strong>数据集</strong></p>
+</li>
+<li><p><strong>特征选取</strong>：坐标，时间戳，航向，航向，速度和出发和到达端口的编码值、目标端口名称及其经度和纬度坐标</p>
+</li>
+</ul>
+<p>【轨迹，速度，天气条件和其他外部因素通常会对到达最终目的地所需的实际轨迹和时间产生重大影响。<br>使用了三个附加功能，例如目标端口名称及其经度和纬度坐标。为了预测剩余的行程时间，我们利用了前馈神经网络。】</p>
+<ul>
+<li>对于给定的用例，输入层从数据集中接收初始数字特征，例如坐标，时间戳，航向，航向，速度和出发和到达端口的编码值，以及我们发现的对如上所述的回归任务有用的特征。</li>
+<li>提取每个时间戳记的持续时间，可以实时预测</li>
+<li><strong>可以思考的点</strong>：<ul>
+<li>建议可以使用LSTM进行离线预测。 还可以针对每种特定的船舶类型训练许多单独的LSTM模型，以捕获其独特的行为。 所有这些模型的输出都可以馈送到完全连接的层，以预测将来的n时间戳。</li>
+<li>可以使用聚类方法来捕获以前看不见的端口并提高准确性。受序列到序列模型的启发，我们还计划通过预测船舶的下一个N时间戳来进一步提高ETA预测，以不仅获得对ETA的了解，而且还可以了解这些N个下一步骤的轨迹行为。</li>
+</ul>
+</li>
+</ul>
+<h4 id="Predicting-Destinations-by-Nearest-Neighbor-Search-on-Training-Vessel-Routes"><a href="#Predicting-Destinations-by-Nearest-Neighbor-Search-on-Training-Vessel-Routes" class="headerlink" title="Predicting Destinations by Nearest Neighbor Search on Training Vessel Routes"></a>Predicting Destinations by Nearest Neighbor Search on Training Vessel Routes</h4><ul>
+<li><strong>预测对象</strong>：预测目的地港口和船只行程的到达时间</li>
+<li><strong>解决方案</strong>：使用最近邻居搜索来查找更接近查询AIS点的训练路线。 还包括特别的改进，例如一种避免在一个查询路由内频繁更改预测端口并通过使用遗传算法自动进行参数调整的方法。</li>
+</ul>
+<ol start="7">
+<li>【7】</li>
+</ol>
+<p><strong>预测对象</strong>：估计船只到达港口区域的时间<br><strong>方法</strong>：前馈神经网络预测到达时间<br><strong>预测时间</strong>：<br><strong>预测准确度</strong>：<br><strong>数据</strong>：</p>
+<p><strong>陆运方面ETA论文</strong></p>
+<h4 id="When-Will-You-Arrive-Estimating-Travel-Time-Based-on-Deep-Neural-Networks"><a href="#When-Will-You-Arrive-Estimating-Travel-Time-Based-on-Deep-Neural-Networks" class="headerlink" title="When Will You Arrive? Estimating Travel Time Based on Deep Neural Networks"></a>When Will You Arrive? Estimating Travel Time Based on Deep Neural Networks</h4><ul>
+<li><strong>模型框架</strong>：
+
+</li>
+</ul>
+<h4 id="Learning-to-Estimate-the-Travel-Time"><a href="#Learning-to-Estimate-the-Travel-Time" class="headerlink" title="Learning to Estimate the Travel Time"></a>Learning to Estimate the Travel Time</h4><ul>
+<li>用规则模型计算 ETA 是此前地图行业通用做法之一。即分别计算各段路的行驶时间，全部加起来再根据红绿灯时间做一个偏移修正。
+考虑到路段的通行状态每时每刻都在动态变化，一个比较实际的做法是利用最新的历史数据（比如，刚刚过去的 5 分钟）来估计路段的实时通行时间，而把历史平均通行时间作为默认值来填充信息缺失的路段（若一个路段在最近没有滴滴车辆经过，此时它的通行状态是未知的）。<br>从类型上看，ETA 是一个很典型的回归问题<br>将 <strong>MAPE</strong>（mean absolute percentage error）选择为目标函数<br>在业界比较流行的模型，Tree Based model 和 Factorization Machine<br>将深度学习应用到 ETA 上。这一 ETA 模型的核心思路是 global model + recurrent model。其中 global model 的作用类似于上一代模型，针对行程的全局信息进行学习；而 recurrent model 则专注于对 link 序列等局部细节的学习。<br>WD 模型的大体结构：  
+其 Wide 分支其实和 FM 是源出一脉的，对特征进行二阶交叉，对历史数据拥有一定的记忆功能。而它的 Deep 分支就是传统的多层感知机结构，有较好的泛化能力。<br>Recurrent model 的选择则比较丰富，不仅仅限于 RNN（包括变种 GRU、LSTM、SRU 等），还可以是一维卷积 CNN，或者是纯粹的 Attention model。  
+这一模型总共有<strong>三类特征</strong>：  </li>
+<li>Dense feature：行程级别的实数特征，比如起终点球面距离、起终点 GPS 坐标等。  </li>
+<li>Sparse feature：行程级别的离散特征，比如时间片编号、星期几、天气类型等。  </li>
+<li>Sequential feature：link 级别的特征，实数特征直接输入模型，而离散特征先做 embedding 再输入模型。注意，这里不再是每个行程一个特征向量，而是行程中每条 link 都有一个特征向量。比如，link 的长度、车道数、功能等级、实时通行速度等。<br>其中，Wide 和 Deep 模块对行程的整体信息进行建模，而 Recurrent 模块对行程的轨迹进行细致的建模，可以捕捉到每条 link、每个路口的信息。在最终汇总时，Wide 模块通过仿射变换把输出变到合适维度，Deep 模块直接把顶层 hidden state 作为输出，而 Recurrent 模块将 LSTM 的最后一个 hidden state 作为输出。三个模块的输出向量被拼接起来，进入最终的 Regressor 进行预测，得到 ETA 值。全部参数都基于 MAPE loss 做梯度下降来训练。<br>整个系统的架构  
+最底层为数据源，分别是地图信息、GPS 轨迹、订单记录和其它必要的附加信息。然后，原始数据经过特定的处理，变为模型可用的格式，用于训练模型。注意这里有一个小分支，表示在训练完成之后还单独取出了一小批 up-to-date 数据进行 finetune，使得模型更倾向于最新收集的数据。  </li>
+</ul>
+<h4 id="论文总结表格："><a href="#论文总结表格：" class="headerlink" title="论文总结表格："></a>论文总结表格：</h4><table>
+<thead>
+<tr>
+<th align="center">论文</th>
+<th align="center">算法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">单元格</td>
+<td align="center">单元格</td>
+</tr>
+<tr>
+<td align="center">单元格</td>
+<td align="center">单元格</td>
+</tr>
+</tbody></table>
+<h3 id="存在的挑战"><a href="#存在的挑战" class="headerlink" title="存在的挑战"></a>存在的挑战</h3><ol>
+<li>存储和处理大数据，以及处理糟糕的数据质量和丢失的值[5]</li>
+<li>怎么估计一条路径的旅行时间？一种是整条路径进行总体估计，一种是分段进行估计，然后最后对他们求和来获得总的旅行时间</li>
+<li>多种复杂因素：交通受到空间的影响相关性，时间依赖性和外部因素。</li>
+</ol>
+<h3 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h3><ol>
+<li>Jeong, Ranhee, and R. Rilett. “Bus arrival time prediction using artificial neural network model.” Proceedings. The 7th International IEEE Conference on Intelligent Transportation Systems (IEEE Cat. No. 04TH8749). IEEE, 2004.</li>
+<li>网址：<a href="https://cloud.tencent.com/developer/news/321755" target="_blank" rel="noopener">https://cloud.tencent.com/developer/news/321755</a></li>
+<li>Duc-Duy Nguyen, Chan Le Van, and Muhammad Intizar Ali. 2018. Vessel Destination and Arrival Time Prediction with Sequence-to-Sequence Models over Spatial Grid. In Proceedings of the 12th ACM International Conference on Distributed and Event-based Systems (DEBS ’18). Association for Computing Machinery, New York, NY, USA, 217–220. DOI:<a href="https://doi.org/10.1145/3210284.3220507" target="_blank" rel="noopener">https://doi.org/10.1145/3210284.3220507</a></li>
+<li>Nguyen, D. D., Le Van, C., &amp; Ali, M. I. (2018, June). Vessel destination and arrival time prediction with sequence-to-sequence models over spatial grid. In Proceedings of the 12th ACM International Conference on Distributed and Event-based Systems (pp. 217-220).</li>
+<li>Dobrkovic, A., Iacob, M. E., van Hillegersberg, J., Mes, M. R., &amp; Glandrup, M. (2016). Towards an approach for long term AIS-based prediction of vessel arrival times. In Logistics and Supply Chain Innovation (pp. 281-294). Springer, Cham.</li>
+<li>Bodunov, O., Schmidt, F., Martin, A., Brito, A., &amp; Fetzer, C. (2018, June). Real-time Destination and ETA Prediction for Maritime Traffic. In Proceedings of the 12th ACM International Conference on Distributed and Event-based Systems (pp. 198-201).</li>
+<li>Roşca, V., Onica, E., Diac, P., &amp; Amariei, C. (2018, June). Predicting Destinations by Nearest Neighbor Search on Training Vessel Routes. In Proceedings of the 12th ACM International Conference on Distributed and Event-based Systems (pp. 224-225).</li>
+<li>Forecast of Marine Traffic Volume using Time Series Model</li>
+<li>Travel Time Estimation of a Path using Sparse Trajectories </li>
+</ol>
+<h2 id="船运到达时间预测比赛–数据集思考"><a href="#船运到达时间预测比赛–数据集思考" class="headerlink" title="船运到达时间预测比赛–数据集思考"></a>船运到达时间预测比赛–数据集思考</h2><h3 id="比赛中数据存在的问题"><a href="#比赛中数据存在的问题" class="headerlink" title="比赛中数据存在的问题"></a>比赛中数据存在的问题</h3><ol>
+<li><p>历史运单GPS数据中可能会有异常的GPS：</p>
+<ul>
+<li>GPS坐标在陆地，或者有些港口是内陆的港口。</li>
+<li>GPS漂移：两点距离过大，超过船的行驶能力。</li>
+<li>GPS在部分地区的比较稀疏（比如南半球、敏感海域）。</li>
+<li>最后的GPS点可能和港口的距离较远（比如塞港时，或者临近目的港时已无GPS数据）。</li>
+<li>speed字段之后数据可能会有少量缺失（如GPS设备短暂异常）。</li>
+</ul>
+</li>
+</ol>
+<ol start="2">
+<li><p>历史运单事件数据</p>
+<ul>
+<li>数据大多手工录入，大多不准确，可以考虑作为辅助数据</li>
+</ul>
+</li>
+</ol>
+<ol start="3">
+<li><p>港口坐标数据</p>
+<ul>
+<li>一个港口由于客观原因可能会有多个NAME表示，且不按五位编码表示</li>
+<li>重点为NAME和经纬度坐标</li>
+<li>0.831116，-0.386592为不完整数据，如要使用，需要自己补充</li>
+</ul>
+</li>
+</ol>
+<h3 id="清洗数据需要思考的问题"><a href="#清洗数据需要思考的问题" class="headerlink" title="清洗数据需要思考的问题"></a>清洗数据需要思考的问题</h3><ol>
+<li>出发港与目的港是否正确，到港时间用什么规则？哪类数据可以丢弃？</li>
+<li>训练数据中有很多缺失值和异常值，而且港口名格式不统一，到港时间不稳定，船速与经纬度的变化有可能不一致，因此需要根据一些合理可靠的信息来判断真正的到港时间。</li>
+<li>在原始数据集中，数据缺失较多还含有一些不合理的值，所以我们可以考虑是否利用这些数据集（坏样本对模型影响很大），若利用则应该怎么进行填充，以及用多少。</li>
+<li>删除掉信息缺失较多的数据，以及去掉一切不合理的数据，或者做一些填充</li>
+<li>数据清洗，比如说速度在走经纬度不走、经纬度在走速度为0、一个港口有多个名字、实际航线和路由不符合等等</li>
+<li>比赛提供的数据量非常大，但其中夹杂着重复数据以及缺失值、异常值。仅使用了历史运单GPS数据集进行训练，且只保留了运单号、时间戳、经纬度字段的数据</li>
+<li>对最终船的状态需要做一些具体判断，比如：实际上有部分船速度为0，但仍有记录，具体构建方法可以自己再斟酌一下。</li>
+<li>清洗数据方面可以从根据运单聚合后的航行平均速度、数据空值等方面进行考虑</li>
+<li>比如说经纬度变化而速度为0、方向异常，训练集与测试集也可以尽量保留相同清洗处理，同时要保证测试集运单号没有减少。</li>
+</ol>
+<p><strong>总结</strong>：</p>
+<h3 id="数据标签需要考虑的问题"><a href="#数据标签需要考虑的问题" class="headerlink" title="数据标签需要考虑的问题"></a>数据标签需要考虑的问题</h3><ol>
+<li>需要考虑用哪些数据来打标，还可以尝试不同的打标方式，以及分析数据集中可能存在的情况，比如：测试集给的路由是A到B，但实际上可能有中间港口C，而测试集实际离港时间给的C，打标时需考虑这种问题。</li>
+<li>目前最优模型使用的就是baseline提供的打标方式；我们也尝试过使用运单最后一条的时间减去当前GPS样本的时间作为标签。最后预测的时候就用当前GPS时间加上预测的值，作为最终结果。但是这种打标方式对于groupBy后的统计特征就很不友好，后边还会提取其它特征试试。</li>
+<li>标签的方法可以直接参考baseline，但是为了方便计算得分，可以转成以小时为单位的label。</li>
+</ol>
+<h3 id="基线选取"><a href="#基线选取" class="headerlink" title="基线选取"></a>基线选取</h3><p>baseline：</p>
+<ol>
+<li>lgb<ul>
+<li>一个快速的，分布式的，高性能的基于决策树算法的梯度提升框架。可用于排序，分类，回归以及很多其他的机器学习任务中。梯度增强决策树(Gradient Boosting Decision Tree, GBDT)的一种框架，使用GOSS和EFB将新的GBDT实现称为LightGBM。</li>
+<li>初赛Baseline<ul>
+<li>Baseline只取前1000000行数据作为训练</li>
+<li>由于采用聚合运算，因此最后测试结果相同订单的预测时间相同</li>
+<li>选取经纬度、速度、方向做简单特征</li>
+<li>模型采用lightgbm+kf作为模型训练</li>
+<li>本Baseline旨在完成一个完整的流程，具体特征、label的选择需要其本人自己改进</li>
+<li>数据放在’data/‘文件夹下即可</li>
+<li>经测试得分176495.2554，误差很大</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>ann</li>
+<li>深度学习</li>
+</ol>
+<h3 id="特征选取需要思考的问题"><a href="#特征选取需要思考的问题" class="headerlink" title="特征选取需要思考的问题"></a>特征选取需要思考的问题</h3><ol>
+<li>平均速度、距离等都是可以考虑的重要特征。</li>
+<li>尝试构建一些距离特征，平均速度，平均加速度等特征。</li>
+<li>以距离、速度、时间等统计量为主，也需要进行特征选择来调优</li>
+<li>特征工程部分只是用到了一些基本的特征，比如经纬度、速度之类的特征。这部分比较玄学，有时候增加特征，线下MSE降低，线上反而增加了。建议找一个稳定的验证集，来测试模型性能。</li>
+<li>主要用的还是原始数据中的特征以及根据经纬度计算位移。</li>
+<li>构造训练集时数据量不必很大，我们只选择了与测试集到达相同港口的那些订单数据作为训练集。特征选取也不必很多，平均速度、距离等都是可以考虑的重要特征。</li>
+</ol>
+<p><strong>总结</strong>：<br>特征选取  </p>
+<ul>
+<li>适当的把所有有用的特征先选出来，然后可以可以通过实验来进行挑选合适的特征，或者加上权重划分？  </li>
+<li>数据中有的特征：距离、速度、时间、经纬度等等   </li>
+<li>需要额外计算的特征：平均速度、平均加速度等等  </li>
+</ul>
+<h3 id="解决方案的思考"><a href="#解决方案的思考" class="headerlink" title="解决方案的思考"></a>解决方案的思考</h3><ol>
+<li>对测试集中每条需要预测的运单，找出训练集中与之相似的轨迹的集合，然后在相似轨迹集上训练模型预测结果。寻找相似轨迹算法的好坏对训练结果有很大的影响。</li>
+</ol>
+<h3 id="比赛的难点"><a href="#比赛的难点" class="headerlink" title="比赛的难点"></a>比赛的难点</h3><ol>
+<li>数据问题，数据虽然很大，但是有效数据并不多。数据存在大连数据不准或者缺失、错误等问题。</li>
+<li>线上线下不一致：这个问题一直困扰了我们，现在都没有找到可靠验证方式，只能继续使用5折交叉。原因可能是测试集的分布序列比较特殊。因为错过比赛，所以无法进行线上验证</li>
+</ol>
+<p>注： 如果推理代码中没有写def _inference(self, data) 可以试试尝试重新写这类推理代码，其中建议使用logger.info进行信息查询，这样可以一步步排除问题，花费时间也最多只需要半天时间。原因是推理代码出现问题我遇到过，重写def _inference(self, data)就好了，这类问题还是建议手动排查为好。<br>可能是推理代码中的测试数据的列顺序和baseline代码中输入的训练数据的列的顺序不一致导致的吧。比如推理代码中的是[‘weekday’,’timeindex’],而baseline中训练时输入是[‘timeindex’,’weekday’]<br>试试看手动指定一下列的顺序， 可能是输入的特征顺序乱了<br>baseline中训练集和测试集是随机划分的，应该是这个原因吧。</p>
+<h3 id="评估标准"><a href="#评估标准" class="headerlink" title="评估标准"></a>评估标准</h3><p><img src="/img/loading.gif" data-lazy-src="attachment:image.png" alt="image.png"></p>
+<p>ETA_NUM取的是是测试集的行数34712，预测的ETA数量<br>ETA为选手评估的时间值<br>对于未提交的运单ETA，后台统一取timestamp时间计算。</p>
+<p>主要是根据运单号、GPS时间戳即timestamp匹配ETA值，与真实的ATA做MSE</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+</div><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">unnoyy</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://unnoyy.github.io/posts/9621/">http://unnoyy.github.io/posts/9621/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://unnoyy.github.io" target="_blank">unnoyy</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/taxi-demand/">taxi demand</a><a class="post-meta__tags" href="/tags/paper/">paper</a><a class="post-meta__tags" href="/tags/summary/">summary</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/60455/"><img class="prev-cover" data-lazy-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror='onerror=null,src="/img/404.jpg"'><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">出租车需求量预测论文集</div></div></a></div><div class="next-post pull-right"><a href="/posts/45610/"><img class="next-cover" data-lazy-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror='onerror=null,src="/img/404.jpg"'><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">论文笔记-出租车需求预测5</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span> 相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/25131/" title="论文笔记 AM-GCN"><img class="cover" data-lazy-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-09-08</div><div class="title">论文笔记 AM-GCN</div></div></a></div><div><a href="/posts/57948/" title="论文笔记 L-CNN"><img class="cover" data-lazy-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-08-28</div><div class="title">论文笔记 L-CNN</div></div></a></div><div><a href="/posts/43102/" title="论文笔记 ST-MGCN"><img class="cover" data-lazy-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-09-03</div><div class="title">论文笔记 ST-MGCN</div></div></a></div><div><a href="/posts/29557/" title="论文笔记"><img class="cover" data-lazy-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-08-20</div><div class="title">论文笔记</div></div></a></div><div><a href="/posts/38577/" title="出租车需求量预测小总结"><img class="cover" data-lazy-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-08-06</div><div class="title">出租车需求量预测小总结</div></div></a></div><div><a href="/posts/60455/" title="出租车需求量预测论文集"><img class="cover" data-lazy-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-08-05</div><div class="title">出租车需求量预测论文集</div></div></a></div></div></div><hr><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div><div class="comment-switch"><span class="first-comment">Valine</span><label><input id="switch-comments-btn" type="checkbox"><span class="slider"></span></label><span class="second-comment">Gitalk</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div><div><div id="gitalk-container"></div></div></div></div></article></main><footer id="footer" data-type="color"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2021 By unnoyy</div><div class="framework-info"><span>框架 </span><a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a href="https://github.com/jerryc127/hexo-theme-butterfly" target="_blank" rel="noopener">Butterfly</a></div><div class="footer_custom_text">欢迎来到<a href="https://unnoyy.github.io/">小屋</a>!</div></div></footer></div><section id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">简</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></section><div class="search-dialog" id="local-search"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"></div></div></div><hr><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a href="https://github.com/wzpan/hexo-generator-search" target="_blank" rel="noopener" style="color:#49b1f5">hexo-generator-search</a>
+ <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div><div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.spacingElementById('content-inner')
+  else {
+    $.getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js', () => {
+      pangu.spacingElementById('content-inner')
+    })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguFn)</script><script src="/js/search/local-search.js"></script><script>var endLoading=function(){document.body.style.overflow="auto",document.getElementById("loading-box").classList.add("loaded")};window.addEventListener("load",endLoading)</script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    loader: {
+      source: {
+        '[tex]/amsCd': '[tex]/amscd'
+      }
+    },
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        addClass: [200,() => {
+          document.querySelectorAll('mjx-container:not([display=\'true\']').forEach( node => {
+            const target = node.parentNode
+            if (!target.classList.contains('has-jax')) {
+              target.classList.add('mathjax-overflow')
+            }
+          })
+        }, '', false]
+      }
+    }
+  }
+  
+  var script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script><script>function loadValine () {
+  function initValine () {
+    window.valine = new Valine({
+      el: '#vcomment',
+      appId: 'SVg8NY7xGdhfqBMmwyksops7-gzGzoHsz',
+      appKey: 'gMpBjTW5NEFR6cW6CUmhBITz',
+      placeholder: 'Please leave your footprints',
+      avatar: 'monsterid',
+      meta: 'nick,mail,link'.split(','),
+      pageSize: '10',
+      lang: 'zh-CN',
+      recordIP: false,
+      serverURLs: '',
+      emojiCDN: '',
+      emojiMaps: "",
+      enableQQ: false,
+      path: window.location.pathname,
+    });
+    if ('nick,mail') { valine.config.requiredFields= 'nick,mail'.split(',') }
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else $.getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js', initValine)
+}
+
+if ('Valine' === 'Valine' || !true) {
+  if (true) btf.loadComment(document.querySelector('#vcomment'),loadValine)
+  else setTimeout(() => loadValine(), 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script><script>function addGitalkSource () {
+  const ele = document.createElement('link')
+  ele.rel = 'stylesheet'
+  ele.href= 'https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css'
+  document.getElementsByTagName('head')[0].appendChild(ele)
+}
+
+function loadGitalk () {
+  function initGitalk () {
+    var gitalk = new Gitalk({
+      clientID: '769c8b0e30bdfa36fcdd',
+      clientSecret: '8ff1137eb46effb3547818440411a5f053db93fa',
+      repo: 'unnoyy.github.io',
+      owner: 'unnoyy',
+      admin: ['unnoyy'],
+      id: 'ae89819af929ca58418197cb05a92b60',
+      language: 'zh-CN',
+      perPage: 10,
+      distractionFreeMode: false,
+      pagerDirection: 'last',
+      createIssueManually: false,
+      updateCountCallback: commentCount
+    })
+    gitalk.render('gitalk-container')
+  }
+
+  if (typeof Gitalk === 'function') initGitalk()
+  else {
+    addGitalkSource()
+    $.getScript('https://cdn.jsdelivr.net/npm/gitalk@latest/dist/gitalk.min.js', initGitalk)
+  }
+}
+
+function commentCount(n){
+  let isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+  if (isCommentCount) {
+    isCommentCount.innerHTML= n
+  }
+}
+
+if ('Valine' === 'Gitalk' || !true) {
+  if (true) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+  else loadGitalk()
+} else {
+  function loadOtherComment () {
+    loadGitalk()
+  }
+}</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script src="/js/Beautify.js"></script><script src="/js/beautify2.js"></script><script src="/js/fishes.js"></script><script src="/js/calendar.js"></script><script src="/js/languages.js"></script><div class="app-refresh" id="app-refresh"> <div class="app-refresh-wrap"> <label>✨ 網站已更新最新版本 👉</label> <a href="javascript:void(0)" onclick="location.reload()">點擊刷新</a> </div></div><script>function showNotification(){if(GLOBAL_CONFIG.Snackbar){var t="light"===document.documentElement.getAttribute("data-theme")?GLOBAL_CONFIG.Snackbar.bgLight:GLOBAL_CONFIG.Snackbar.bgDark,e=GLOBAL_CONFIG.Snackbar.position;Snackbar.show({text:"已更新最新版本",backgroundColor:t,duration:5e5,pos:e,actionText:"點擊刷新",actionTextColor:"#fff",onActionClick:function(t){location.reload()}})}else{var o=`top: 0; background: ${"light"===document.documentElement.getAttribute("data-theme")?"#49b1f5":"#1f1f1f"};`;document.getElementById("app-refresh").style.cssText=o}}"serviceWorker"in navigator&&(navigator.serviceWorker.controller&&navigator.serviceWorker.addEventListener("controllerchange",function(){showNotification()}),window.addEventListener("load",function(){navigator.serviceWorker.register("/sw.js")}));</script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-heart.min.js" async></script></div></body></html>

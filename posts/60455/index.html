@@ -1,0 +1,269 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>出租车需求量预测论文集 | unnoyy</title><meta name="description" content="出租车需求量预测论文集"><meta name="keywords" content="taxi demand,paper,summary"><meta name="author" content="unnoyy"><meta name="copyright" content="unnoyy"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="shortcut icon" href="/pic/favicon.png"><link rel="canonical" href="http://unnoyy.github.io/posts/60455/"><link rel="preconnect" href="//cdn.jsdelivr.net"><link rel="preconnect" href="//busuanzi.ibruce.info"><link rel="preconnect" href="//zz.bdstatic.com"><meta property="og:type" content="article"><meta property="og:title" content="出租车需求量预测论文集"><meta property="og:url" content="http://unnoyy.github.io/posts/60455/"><meta property="og:site_name" content="unnoyy"><meta property="og:description" content="出租车需求量预测论文集"><meta property="og:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><meta property="article:published_time" content="2020-08-05T01:05:22.000Z"><meta property="article:modified_time" content="2021-03-25T14:43:54.338Z"><meta name="twitter:card" content="summary"><link rel="manifest" href="/pic/pwa/manifest.json"><meta name="msapplication-TileColor" content="#fff"><link rel="apple-touch-icon" sizes="180x180" href="/pic/pwa/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/pic/pwa/32.png"><link rel="icon" type="image/png" sizes="16x16" href="/pic/pwa/16.png"><link rel="mask-icon" href="/pic/pwa/safari-pinned-tab.svg" color="#5bbad5"><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  hexoversion: '4.2.0',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: {"defaultEncoding":1,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  bookmark: {
+    message_prev: '按',
+    message_next: '键将本页加入书签'
+  },
+  runtime: '天',
+  date_suffix: {"one_hour":"刚刚","hours":"小时前","day":"天前"},
+  copyright: {"limitCount":50,"languages":{"author":"作者: unnoyy","link":"链接: ","source":"来源: unnoyy","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  ClickShowText: undefined,
+  medium_zoom: false,
+  fancybox: true,
+  Snackbar: {"bookmark":{"message_prev":"按","message_next":"键将本页加入书签"},"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#121212","position":"bottom-left"},
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
+  baiduPush: true,
+  isPhotoFigcaption: true,
+  islazyload: true,
+  isanchor: false
+};
+
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+    const now = new Date()
+    const expiryDay = ttl * 86400000
+    const item = {
+      value: value,
+      expiry: now.getTime() + expiryDay,
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+    },
+
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}</script><script id="config_change">var GLOBAL_CONFIG_SITE={isPost:!0,isHome:!1,isHighlightShrink:!1,isSidebar:!0,postUpdate:"2021-03-25 22:43:54"}</script><noscript><style>#nav{opacity:1}.justified-gallery img{opacity:1}</style></noscript><script>var activateDarkMode=function(){document.documentElement.setAttribute("data-theme","dark"),null!==document.querySelector('meta[name="theme-color"]')&&document.querySelector('meta[name="theme-color"]').setAttribute("content","#0d0d0d")},activateLightMode=function(){document.documentElement.setAttribute("data-theme","light"),null!==document.querySelector('meta[name="theme-color"]')&&document.querySelector('meta[name="theme-color"]').setAttribute("content","#ffffff")},autoChangeMode="false",t=saveToLocal.get("theme");if("1"===autoChangeMode){var isDarkMode=window.matchMedia("(prefers-color-scheme: dark)").matches,isLightMode=window.matchMedia("(prefers-color-scheme: light)").matches,isNotSpecified=window.matchMedia("(prefers-color-scheme: no-preference)").matches,hasNoSupport=!isDarkMode&&!isLightMode&&!isNotSpecified;if(void 0===t){if(isLightMode)activateLightMode();else if(isDarkMode)activateDarkMode();else if(isNotSpecified||hasNoSupport){var now=new Date,hour=now.getHours(),isNight=hour<=6||18<=hour;isNight?activateDarkMode():activateLightMode()}window.matchMedia("(prefers-color-scheme: dark)").addListener(function(e){void 0===saveToLocal.get("theme")&&(e.matches?activateDarkMode():activateLightMode())})}else"light"===t?activateLightMode():activateDarkMode()}else"2"===autoChangeMode?(isNight=(hour=(now=new Date).getHours())<=6||18<=hour,void 0===t?isNight?activateDarkMode():activateLightMode():"light"===t?activateLightMode():activateDarkMode()):"dark"===t?activateDarkMode():"light"===t&&activateLightMode()</script><link rel="stylesheet" href="/css/background.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/sviptzk/StaticFile_HEXO@latest/butterfly/css/iconfont.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/sviptzk/HexoStaticFile@latest/Hexo/css/buttons.min.css"><style>.app-refresh{position:fixed;top:-2.2rem;left:0;right:0;z-index:99999;padding:0 1rem;font-size:15px;height:2.2rem;transition:all .3s ease}.app-refresh-wrap{display:flex;color:#fff;height:100%;align-items:center;justify-content:center}.app-refresh-wrap a{color:#fff;text-decoration:underline;cursor:pointer}</style><meta name="generator" content="Hexo 4.2.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" data-lazy-src="/pic/avatar.jpg" onerror='onerror=null,src="/img/friend_404.gif"' alt="avatar"></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">28</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">13</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">4</div></a></div></div></div><hr><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 休闲</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page" href="/book/"><i class="fa-fw fas fa-book"></i><span> 书籍</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart card-announcement-animation"></i><span> 关于</span></a></div></div></div></div><div id="body-wrap"><div id="web_bg" data-type="color"></div><div id="sidebar"><i class="fas fa-arrow-right on" id="toggle-sidebar"></i><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#demand-需求"><span class="toc-number">1.</span> <span class="toc-text">demand-需求</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#问题定义："><span class="toc-number">1.1.</span> <span class="toc-text">问题定义：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#概念："><span class="toc-number">1.2.</span> <span class="toc-text">概念：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#交通需求预测的四阶段法："><span class="toc-number">1.3.</span> <span class="toc-text">交通需求预测的四阶段法：</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#交通的发生与吸引"><span class="toc-number">1.3.1.</span> <span class="toc-text">交通的发生与吸引</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#交通的分布"><span class="toc-number">1.3.2.</span> <span class="toc-text">交通的分布</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#交通方式划分"><span class="toc-number">1.3.3.</span> <span class="toc-text">交通方式划分</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#交通流分配"><span class="toc-number">1.3.4.</span> <span class="toc-text">交通流分配</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数据集"><span class="toc-number">1.4.</span> <span class="toc-text">数据集</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#文献-中短期预测-："><span class="toc-number">1.5.</span> <span class="toc-text">文献(中短期预测)：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#交通预测存在的问题"><span class="toc-number">2.</span> <span class="toc-text">交通预测存在的问题</span></a></li></ol></div></div></div><header class="post-bg" id="page-header" style="background-image:url(https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg)"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">unnoyy</a></span><span id="menus"><div id="search_button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 休闲</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page" href="/book/"><i class="fa-fw fas fa-book"></i><span> 书籍</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart card-announcement-animation"></i><span> 关于</span></a></div></div><span class="close" id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="post-info"><div id="post-title"><div class="posttitle">出租车需求量预测论文集</div></div><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2020-08-05T01:05:22.000Z" title="发表于 2020-08-05 09:05:22">2020-08-05</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2021-03-25T14:43:54.338Z" title="更新于 2021-03-25 22:43:54">2021-03-25</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/paper/">paper</a></span></div><div class="meta-secondline"> <span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>8分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout_post" id="content-inner"><article id="post"><div class="post-content" id="article-container"><h2 id="demand-需求"><a href="#demand-需求" class="headerlink" title="demand-需求"></a>demand-需求</h2><h3 id="问题定义："><a href="#问题定义：" class="headerlink" title="问题定义："></a><strong>问题定义</strong>：</h3><ul>
+<li>如何使用历史请求数据来预测将来时间戳中某个区域的请求数，其中开始/提起或结束/下车的次数被用作表示该区域在给定的时间的需求。</li>
+<li>通常，交通预测的需求包括出租车和共享自行车的需求。</li>
+</ul>
+<h3 id="概念："><a href="#概念：" class="headerlink" title="概念："></a><strong>概念</strong>：</h3><ol>
+<li><h3 id="交通需求预测的四阶段法："><a href="#交通需求预测的四阶段法：" class="headerlink" title="交通需求预测的四阶段法："></a>交通需求预测的四阶段法：</h3></li>
+</ol>
+<h4 id="交通的发生与吸引"><a href="#交通的发生与吸引" class="headerlink" title="交通的发生与吸引"></a>交通的发生与吸引</h4><ul>
+<li>发生与吸引交通量的预测是交通需求预测四阶段预测中的第一个阶段，最基本的部分之一</li>
+<li>任务：求出对象地区的交通需求总量，即生成交通量（Trip Production）。然后在此约束下，求出各个交通小区的发生与吸引交通量。</li>
+</ul>
+<h4 id="交通的分布"><a href="#交通的分布" class="headerlink" title="交通的分布"></a>交通的分布</h4><h4 id="交通方式划分"><a href="#交通方式划分" class="headerlink" title="交通方式划分"></a>交通方式划分</h4><h4 id="交通流分配"><a href="#交通流分配" class="headerlink" title="交通流分配"></a>交通流分配</h4><h3 id="数据集"><a href="#数据集" class="headerlink" title="数据集"></a>数据集</h3><p>在同一预测任务下，不同数据集上的结果差异很大。例如，在需求预测任务中，在相同的时间间隔和预测时间下，NYC Taxi和TaxiBJ数据集的准确度分别为8.385和17.24。</p>
+<h3 id="文献-中短期预测-："><a href="#文献-中短期预测-：" class="headerlink" title="文献(中短期预测)："></a>文献(中短期预测)：</h3><ul>
+<li><p>X. Li, G. Pan, Z. Wu, G. Qi, S. Li, D. Zhang, W. Zhang, and Z. Wang, “Prediction of urban human mobility using large-scale taxi traces and its applications,” Frontiers of Computer Science, vol. 6, no. 1, pp. 111– 121, 2012. </p>
+</li>
+<li><p>L. Moreira-Matias, J. Gama, M. Ferreira, J. Mendes-Moreira, and L. Damas, “Predicting taxi–passenger demand using streaming data,”IEEE Transactions on Intelligent Transportation Systems,vol.14,no.3, pp. 1393–1402, 2013. </p>
+</li>
+<li><p>W. Li, J. Cao, J. Guan, S. Zhou, G. Liang, W. So, and M. Szczecinski, “A general framework for unmet demand prediction in on-demand transport services,” IEEE Transactions on Intelligent Transportation Systems, vol. 20, no. 8, pp. 2820–2830, 2018. </p>
+</li>
+<li><p>J. Guan, W. Wang, W. Li, and S. Zhou, “A uniﬁed framework for predicting kpis of on-demand transport services,” IEEE Access, vol. 6, pp. 32005–32014, 2018. </p>
+</li>
+<li><p>D. Salinas, M. Bohlke-Schneider, L. Callot, R. Medico, and J. Gasthaus, “High-dimensional multivariate forecasting with lowrank gaussian copula processes,” in Advances in Neural Information Processing Systems, 2019, pp. 6824–6834.</p>
+</li>
+<li><p>K. Ishibashi, S. Harada, and R. Kawahara, “Inferring latent trafﬁc demand offered to an overloaded link with modeling qos-degradation effect,” IEICE Transactions on Communications, 2018. </p>
+</li>
+<li><p>X. Geng, Y. Li, L. Wang, L. Zhang, Q. Yang, J. Ye, and Y. Liu, “Spatiotemporal multi-graph convolution network for ride-hailing demand forecasting,” in Proceedings of the AAAI Conference on Artiﬁcial Intelligence, vol. 33, 2019, pp. 3656–3663. </p>
+</li>
+<li><p>Y. Li, Z. Zhu, D. Kong, M. Xu, and Y. Zhao, “Learning heterogeneous spatial-temporal representation for bike-sharing demand prediction,” in Proceedings of the AAAI Conference on Artiﬁcial Intelligence, vol. 33, 2019, pp. 1004–1011. </p>
+</li>
+<li><p>Y. Li and J. Moura, “Forecaster: A graph transformer for forecasting spatial and time-dependent data,” arXiv preprint arXiv:1909.04019, 2019. </p>
+</li>
+<li><p>X. Geng, L. Zhang, S. Li, Y. Zhang, L. Zhang, L. Wang, Q. Yang, H. Zhu, and J. Ye, “{CGT}: Clustered graph transformer for urban spatio-temporal prediction,” in Proceedings of the International Conference on Learning Representations, 2020. [Online]. Available: <a href="https://openreview.net/forum?id=H1eJAANtvr" target="_blank" rel="noopener">https://openreview.net/forum?id=H1eJAANtvr</a></p>
+</li>
+<li><p>H. Yao, F. Wu, J. Ke, X. Tang, Y. Jia, S. Lu, P. Gong, J. Ye, and Z. Li, “Deep multi-view spatial-temporal network for taxi demand prediction,” in Thirty-Second AAAI Conference on Artiﬁcial Intelligence, 2018. </p>
+</li>
+<li><p>H. Yao, X. Tang, H. Wei, G. Zheng, and Z. Li, “Revisiting spatialtemporal similarity: A deep learning framework for trafﬁc prediction,” in Proceedings of the AAAI Conference on Artiﬁcial Intelligence, vol. 33, 2019, pp. 5668–5675. </p>
+</li>
+<li><p>J. Ke, H. Zheng, H. Yang, and X. Chen, “Short-term forecasting of passenger demand under on-demand ride services: A spatio-temporal deep learning approach,” Transportation Research Part C: Emerging Technologies, vol. 85, pp. 591–608, 2017. </p>
+</li>
+<li><p>J. Ye, L. Sun, B. Du, Y. Fu, X. Tong, and H. Xiong, “Co-prediction of multiple transportation demands based on deep spatio-temporal neural network,” in Proceedings of the 25th ACM SIGKDD International Conference on Knowledge Discovery &amp; Data Mining. ACM, 2019, pp. 305–313. </p>
+</li>
+<li><p>N. Davis, G. Raina, and K. Jagannathan, “Grids versus graphs: Partitioning space for improved taxi demand-supply forecasts,” arXiv preprint arXiv:1902.06515, 2019. </p>
+</li>
+<li><p>L. Liu, Z. Qiu, G. Li, Q. Wang, W. Ouyang, and L. Lin, “Contextualized spatial–temporal network for taxi origin-destination demand prediction,” IEEE Transactions on Intelligent Transportation Systems, vol. 20, no. 10, pp. 3875–3887, 2019. </p>
+</li>
+<li><p>D. Lee, S. Jung, Y. Cheon, D. Kim, and S. You, “Forecasting taxi demands with fully convolutional networks and temporal guided embedding,” in In Advances in Neural Information Processing Systems, 2018. </p>
+</li>
+<li><p>L. Bai, L. Yao, S. Kanhere, X. Wang, and Q. Sheng, “Stg2seq: spatialtemporal graph to sequence model for multi-step passenger demand forecasting,” in Proceedings of the 28th International Joint Conference on Artiﬁcial Intelligence. AAAI Press, 2019, pp. 1981–1987. </p>
+</li>
+<li><p>Y. Wang, H. Yin, H. Chen, T. Wo, J. Xu, and K. Zheng, “Origindestination matrix prediction via graph convolution: a new perspective of passenger demand modeling,” in Proceedings of the 25th ACM SIGKDD International Conference on Knowledge Discovery &amp; Data Mining. ACM, 2019, pp. 1227–1235. </p>
+</li>
+<li><p>J. Xu, R. Rahmatizadeh, L. B¨ ol¨oni, and D. Turgut, “Real-time prediction of taxi demand using recurrent neural networks,” IEEE Transactions on Intelligent Transportation Systems, vol. 19, no. 8, pp. 2572– 2581, 2017. </p>
+</li>
+<li><p>Z. Pan, Z. Wang, W. Wang, Y. Yu, J. Zhang, and Y. Zheng, “Matrix factorization for spatio-temporal neural networks with applications to urban ﬂow prediction,” in Proceedings of the 28th ACM International Conference on Information and Knowledge Management, 2019, pp. 2683–2691. </p>
+</li>
+</ul>
+<h2 id="交通预测存在的问题"><a href="#交通预测存在的问题" class="headerlink" title="交通预测存在的问题"></a>交通预测存在的问题</h2><ol>
+<li>现有研究专注于<strong>密集型数据</strong>，对于稀疏的城市来说，如何进行研究？多数现有解决方案都是数据密集型的。但是，<strong>异常情况</strong>（极端天气，临时交通控制等）通常是非周期性的，因此很难获得数据，这使得训练样本的大小和学习情况比正常交通条件下的要困难得多。此外，由于不同城市的发展水平不平衡，许多城市还存在数据不足的问题。但是，足够的数据通常是深度学习方法的先决条件。解决此问题的一种可能方法是使用迁移学习技术在整个城市中执行深度时空预测任务。该技术旨在有效地将知识从数据丰富的源城市转移到数据稀缺的目标城市。尽管已经提出了新的方法（[51]，[71]，[75]），但是尚未对这些研究进行彻底的研究，例如如何设计高质量的数学模型以匹配两个区域，或者如何集成其他可用的辅助数据源等。仍然值得考虑和调查。</li>
+<li><strong>知识图融合</strong>:知识图是知识集成的重要工具。 它是一个复杂的关系网络，由许多概念，实体，实体关系和属性组成。 运输领域的知识隐藏在多源和庞大的交通大数据中。 大规模运输知识图的构建，学习和深度知识搜索可以帮助挖掘更深的交通语义信息，提高预测性能。</li>
+<li><strong>长期预测</strong>：现有的交通量预测方法主要基于<strong>短期到中期</strong>的预测，关于长期预测的研究很少。 由于更复杂的时空依存关系和更多不确定因素，长期预测更加困难。 对于长期预测，历史信息可能不会对短期预测方法产生太大影响，因此可能需要考虑其他补充信息。</li>
+<li><strong>多源数据</strong>：如为了提高交通流量预测的性能，我们可以考虑诸如道路网络结构，交通量数据，兴趣点（POI）和城市人口等信息。 有效融合多个数据可以填补丢失的数据并提高预测的准确性。</li>
+<li><strong>实时预测</strong>：实时交通预测的目的是在短时间内进行数据处理和交通状况评估。 但是，由于数据，模型大小和参数的增加，算法的运行时间过长，无法满足实时预测的要求。 因此，如何设计有效的轻量级神经网络以减少网络计算量并加速网络是一个巨大的挑战。</li>
+<li>模型的<strong>可解释性</strong>：由于神经网络的结构复杂，参数量大，算法透明性低，因此验证其可靠性是众所周知的。 缺乏可解释性可能会给交通预测带来潜在的问题。 考虑到复杂的数据类型和交通数据的表示形式，设计可解释的深度学习模型比其他类型的数据（例如图像和文本）更具挑战性。</li>
+<li><strong>基准流量预测</strong>：随着领域的增长，提出了越来越多的模型，并且这些模型通常以相似的方式呈现。 评估新的交通量预测方法的有效性并在缺乏标准化基准和连续实验设置和大型数据集的情况下对模型进行比较已变得越来越困难。 另外，模型的设计变得越来越复杂。 尽管消融研究已在大多数方法中进行，但仍不清楚每个组件如何改进算法。 因此，设计具有标准通用数据集的可再现基准框架非常重要。</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+</div><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">unnoyy</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://unnoyy.github.io/posts/60455/">http://unnoyy.github.io/posts/60455/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://unnoyy.github.io" target="_blank">unnoyy</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/taxi-demand/">taxi demand</a><a class="post-meta__tags" href="/tags/paper/">paper</a><a class="post-meta__tags" href="/tags/summary/">summary</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/38577/"><img class="prev-cover" data-lazy-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror='onerror=null,src="/img/404.jpg"'><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">出租车需求量预测小总结</div></div></a></div><div class="next-post pull-right"><a href="/posts/9621/"><img class="next-cover" data-lazy-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror='onerror=null,src="/img/404.jpg"'><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">船运到达时间比赛-数据集分析</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span> 相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/25131/" title="论文笔记 AM-GCN"><img class="cover" data-lazy-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-09-08</div><div class="title">论文笔记 AM-GCN</div></div></a></div><div><a href="/posts/57948/" title="论文笔记 L-CNN"><img class="cover" data-lazy-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-08-28</div><div class="title">论文笔记 L-CNN</div></div></a></div><div><a href="/posts/43102/" title="论文笔记 ST-MGCN"><img class="cover" data-lazy-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-09-03</div><div class="title">论文笔记 ST-MGCN</div></div></a></div><div><a href="/posts/29557/" title="论文笔记"><img class="cover" data-lazy-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-08-20</div><div class="title">论文笔记</div></div></a></div><div><a href="/posts/38577/" title="出租车需求量预测小总结"><img class="cover" data-lazy-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-08-06</div><div class="title">出租车需求量预测小总结</div></div></a></div><div><a href="/posts/9621/" title="船运到达时间比赛-数据集分析"><img class="cover" data-lazy-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-07-30</div><div class="title">船运到达时间比赛-数据集分析</div></div></a></div></div></div><hr><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div><div class="comment-switch"><span class="first-comment">Valine</span><label><input id="switch-comments-btn" type="checkbox"><span class="slider"></span></label><span class="second-comment">Gitalk</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div><div><div id="gitalk-container"></div></div></div></div></article></main><footer id="footer" data-type="color"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2021 By unnoyy</div><div class="framework-info"><span>框架 </span><a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a href="https://github.com/jerryc127/hexo-theme-butterfly" target="_blank" rel="noopener">Butterfly</a></div><div class="footer_custom_text">欢迎来到<a href="https://unnoyy.github.io/">小屋</a>!</div></div></footer></div><section id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">简</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></section><div class="search-dialog" id="local-search"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"></div></div></div><hr><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a href="https://github.com/wzpan/hexo-generator-search" target="_blank" rel="noopener" style="color:#49b1f5">hexo-generator-search</a>
+ <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div><div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.spacingElementById('content-inner')
+  else {
+    $.getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js', () => {
+      pangu.spacingElementById('content-inner')
+    })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguFn)</script><script src="/js/search/local-search.js"></script><script>var endLoading=function(){document.body.style.overflow="auto",document.getElementById("loading-box").classList.add("loaded")};window.addEventListener("load",endLoading)</script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    loader: {
+      source: {
+        '[tex]/amsCd': '[tex]/amscd'
+      }
+    },
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        addClass: [200,() => {
+          document.querySelectorAll('mjx-container:not([display=\'true\']').forEach( node => {
+            const target = node.parentNode
+            if (!target.classList.contains('has-jax')) {
+              target.classList.add('mathjax-overflow')
+            }
+          })
+        }, '', false]
+      }
+    }
+  }
+  
+  var script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script><script>function loadValine () {
+  function initValine () {
+    window.valine = new Valine({
+      el: '#vcomment',
+      appId: 'SVg8NY7xGdhfqBMmwyksops7-gzGzoHsz',
+      appKey: 'gMpBjTW5NEFR6cW6CUmhBITz',
+      placeholder: 'Please leave your footprints',
+      avatar: 'monsterid',
+      meta: 'nick,mail,link'.split(','),
+      pageSize: '10',
+      lang: 'zh-CN',
+      recordIP: false,
+      serverURLs: '',
+      emojiCDN: '',
+      emojiMaps: "",
+      enableQQ: false,
+      path: window.location.pathname,
+    });
+    if ('nick,mail') { valine.config.requiredFields= 'nick,mail'.split(',') }
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else $.getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js', initValine)
+}
+
+if ('Valine' === 'Valine' || !true) {
+  if (true) btf.loadComment(document.querySelector('#vcomment'),loadValine)
+  else setTimeout(() => loadValine(), 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script><script>function addGitalkSource () {
+  const ele = document.createElement('link')
+  ele.rel = 'stylesheet'
+  ele.href= 'https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css'
+  document.getElementsByTagName('head')[0].appendChild(ele)
+}
+
+function loadGitalk () {
+  function initGitalk () {
+    var gitalk = new Gitalk({
+      clientID: '769c8b0e30bdfa36fcdd',
+      clientSecret: '8ff1137eb46effb3547818440411a5f053db93fa',
+      repo: 'unnoyy.github.io',
+      owner: 'unnoyy',
+      admin: ['unnoyy'],
+      id: '83d8a464dffe651243e0e5a6d5d610cd',
+      language: 'zh-CN',
+      perPage: 10,
+      distractionFreeMode: false,
+      pagerDirection: 'last',
+      createIssueManually: false,
+      updateCountCallback: commentCount
+    })
+    gitalk.render('gitalk-container')
+  }
+
+  if (typeof Gitalk === 'function') initGitalk()
+  else {
+    addGitalkSource()
+    $.getScript('https://cdn.jsdelivr.net/npm/gitalk@latest/dist/gitalk.min.js', initGitalk)
+  }
+}
+
+function commentCount(n){
+  let isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+  if (isCommentCount) {
+    isCommentCount.innerHTML= n
+  }
+}
+
+if ('Valine' === 'Gitalk' || !true) {
+  if (true) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+  else loadGitalk()
+} else {
+  function loadOtherComment () {
+    loadGitalk()
+  }
+}</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script src="/js/Beautify.js"></script><script src="/js/beautify2.js"></script><script src="/js/fishes.js"></script><script src="/js/calendar.js"></script><script src="/js/languages.js"></script><div class="app-refresh" id="app-refresh"> <div class="app-refresh-wrap"> <label>✨ 網站已更新最新版本 👉</label> <a href="javascript:void(0)" onclick="location.reload()">點擊刷新</a> </div></div><script>function showNotification(){if(GLOBAL_CONFIG.Snackbar){var t="light"===document.documentElement.getAttribute("data-theme")?GLOBAL_CONFIG.Snackbar.bgLight:GLOBAL_CONFIG.Snackbar.bgDark,e=GLOBAL_CONFIG.Snackbar.position;Snackbar.show({text:"已更新最新版本",backgroundColor:t,duration:5e5,pos:e,actionText:"點擊刷新",actionTextColor:"#fff",onActionClick:function(t){location.reload()}})}else{var o=`top: 0; background: ${"light"===document.documentElement.getAttribute("data-theme")?"#49b1f5":"#1f1f1f"};`;document.getElementById("app-refresh").style.cssText=o}}"serviceWorker"in navigator&&(navigator.serviceWorker.controller&&navigator.serviceWorker.addEventListener("controllerchange",function(){showNotification()}),window.addEventListener("load",function(){navigator.serviceWorker.register("/sw.js")}));</script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-heart.min.js" async></script></div></body></html>

@@ -1,0 +1,364 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>driver behavior datasets | unnoyy</title><meta name="description" content="Summary传感器、驾驶事件   Name Provider Samples Sensor label Object paper model    Vehicle driving behavior(noget) IEEE DataPort 10,000 accelerometer、gyroscope 5acceleration  normal drivingcollisionleft turnr"><meta name="author" content="unnoyy"><meta name="copyright" content="unnoyy"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="shortcut icon" href="/pic/favicon.png"><link rel="canonical" href="http://unnoyy.github.io/posts/44404/"><link rel="preconnect" href="//cdn.jsdelivr.net"><link rel="preconnect" href="//busuanzi.ibruce.info"><link rel="preconnect" href="//zz.bdstatic.com"><meta property="og:type" content="article"><meta property="og:title" content="driver behavior datasets"><meta property="og:url" content="http://unnoyy.github.io/posts/44404/"><meta property="og:site_name" content="unnoyy"><meta property="og:description" content="Summary传感器、驾驶事件   Name Provider Samples Sensor label Object paper model    Vehicle driving behavior(noget) IEEE DataPort 10,000 accelerometer、gyroscope 5acceleration  normal drivingcollisionleft turnr"><meta property="og:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><meta property="article:published_time" content="2020-10-29T02:14:23.000Z"><meta property="article:modified_time" content="2020-11-04T08:02:54.922Z"><meta name="twitter:card" content="summary"><link rel="manifest" href="/pic/pwa/manifest.json"><meta name="msapplication-TileColor" content="#fff"><link rel="apple-touch-icon" sizes="180x180" href="/pic/pwa/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/pic/pwa/32.png"><link rel="icon" type="image/png" sizes="16x16" href="/pic/pwa/16.png"><link rel="mask-icon" href="/pic/pwa/safari-pinned-tab.svg" color="#5bbad5"><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  hexoversion: '4.2.0',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: {"defaultEncoding":1,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  bookmark: {
+    message_prev: '按',
+    message_next: '键将本页加入书签'
+  },
+  runtime: '天',
+  date_suffix: {"one_hour":"刚刚","hours":"小时前","day":"天前"},
+  copyright: {"limitCount":50,"languages":{"author":"作者: unnoyy","link":"链接: ","source":"来源: unnoyy","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  ClickShowText: undefined,
+  medium_zoom: false,
+  fancybox: true,
+  Snackbar: {"bookmark":{"message_prev":"按","message_next":"键将本页加入书签"},"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#121212","position":"bottom-left"},
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
+  baiduPush: true,
+  isPhotoFigcaption: true,
+  islazyload: true,
+  isanchor: false
+};
+
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+    const now = new Date()
+    const expiryDay = ttl * 86400000
+    const item = {
+      value: value,
+      expiry: now.getTime() + expiryDay,
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+    },
+
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}</script><script id="config_change">var GLOBAL_CONFIG_SITE={isPost:!0,isHome:!1,isHighlightShrink:!1,isSidebar:!0,postUpdate:"2020-11-04 16:02:54"}</script><noscript><style>#nav{opacity:1}.justified-gallery img{opacity:1}</style></noscript><script>var activateDarkMode=function(){document.documentElement.setAttribute("data-theme","dark"),null!==document.querySelector('meta[name="theme-color"]')&&document.querySelector('meta[name="theme-color"]').setAttribute("content","#0d0d0d")},activateLightMode=function(){document.documentElement.setAttribute("data-theme","light"),null!==document.querySelector('meta[name="theme-color"]')&&document.querySelector('meta[name="theme-color"]').setAttribute("content","#ffffff")},autoChangeMode="false",t=saveToLocal.get("theme");if("1"===autoChangeMode){var isDarkMode=window.matchMedia("(prefers-color-scheme: dark)").matches,isLightMode=window.matchMedia("(prefers-color-scheme: light)").matches,isNotSpecified=window.matchMedia("(prefers-color-scheme: no-preference)").matches,hasNoSupport=!isDarkMode&&!isLightMode&&!isNotSpecified;if(void 0===t){if(isLightMode)activateLightMode();else if(isDarkMode)activateDarkMode();else if(isNotSpecified||hasNoSupport){var now=new Date,hour=now.getHours(),isNight=hour<=6||18<=hour;isNight?activateDarkMode():activateLightMode()}window.matchMedia("(prefers-color-scheme: dark)").addListener(function(e){void 0===saveToLocal.get("theme")&&(e.matches?activateDarkMode():activateLightMode())})}else"light"===t?activateLightMode():activateDarkMode()}else"2"===autoChangeMode?(isNight=(hour=(now=new Date).getHours())<=6||18<=hour,void 0===t?isNight?activateDarkMode():activateLightMode():"light"===t?activateLightMode():activateDarkMode()):"dark"===t?activateDarkMode():"light"===t&&activateLightMode()</script><link rel="stylesheet" href="/css/background.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/sviptzk/StaticFile_HEXO@latest/butterfly/css/iconfont.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/sviptzk/HexoStaticFile@latest/Hexo/css/buttons.min.css"><style>.app-refresh{position:fixed;top:-2.2rem;left:0;right:0;z-index:99999;padding:0 1rem;font-size:15px;height:2.2rem;transition:all .3s ease}.app-refresh-wrap{display:flex;color:#fff;height:100%;align-items:center;justify-content:center}.app-refresh-wrap a{color:#fff;text-decoration:underline;cursor:pointer}</style><meta name="generator" content="Hexo 4.2.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" data-lazy-src="/pic/avatar.jpg" onerror='onerror=null,src="/img/friend_404.gif"' alt="avatar"></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">28</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">13</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">4</div></a></div></div></div><hr><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 休闲</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page" href="/book/"><i class="fa-fw fas fa-book"></i><span> 书籍</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart card-announcement-animation"></i><span> 关于</span></a></div></div></div></div><div id="body-wrap"><div id="web_bg" data-type="color"></div><div id="sidebar"><i class="fas fa-arrow-right on" id="toggle-sidebar"></i><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Summary"><span class="toc-number">1.</span> <span class="toc-text">Summary</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#传感器、驾驶事件"><span class="toc-number">1.1.</span> <span class="toc-text">传感器、驾驶事件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#自动驾驶行为预测的数据集（带有视频的数据集、车载数据）"><span class="toc-number">1.2.</span> <span class="toc-text">自动驾驶行为预测的数据集（带有视频的数据集、车载数据）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Vehicle-driving-behavior-IEEE-DataPort"><span class="toc-number">2.</span> <span class="toc-text">Vehicle driving behavior | IEEE DataPort</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#数据集描述"><span class="toc-number">2.1.</span> <span class="toc-text">数据集描述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数据集格式"><span class="toc-number">2.2.</span> <span class="toc-text">数据集格式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#driverbehavior-datasets-已获得"><span class="toc-number">3.</span> <span class="toc-text">driverbehavior datasets(已获得)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Mendeley-Data-Driving-Behavior-Dataset（已获得）"><span class="toc-number">4.</span> <span class="toc-text">Mendeley Data - Driving Behavior Dataset（已获得）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#comma2k19"><span class="toc-number">5.</span> <span class="toc-text">comma2k19</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DBASA-已获得"><span class="toc-number">6.</span> <span class="toc-text">DBASA(已获得)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#一些其他驾驶行为方面的数据集"><span class="toc-number">7.</span> <span class="toc-text">一些其他驾驶行为方面的数据集</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#视频类数据，推断车辆行为："><span class="toc-number">8.</span> <span class="toc-text">视频类数据，推断车辆行为：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#自动驾驶行为预测的数据集"><span class="toc-number">9.</span> <span class="toc-text">自动驾驶行为预测的数据集</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#一些获取数据集的网站"><span class="toc-number">10.</span> <span class="toc-text">一些获取数据集的网站</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#驾驶事件识别一些应用"><span class="toc-number">11.</span> <span class="toc-text">驾驶事件识别一些应用</span></a></li></ol></div></div></div><header class="post-bg" id="page-header" style="background-image:url(https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg)"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">unnoyy</a></span><span id="menus"><div id="search_button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 休闲</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page" href="/book/"><i class="fa-fw fas fa-book"></i><span> 书籍</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart card-announcement-animation"></i><span> 关于</span></a></div></div><span class="close" id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="post-info"><div id="post-title"><div class="posttitle">driver behavior datasets</div></div><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2020-10-29T02:14:23.000Z" title="发表于 2020-10-29 10:14:23">2020-10-29</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2020-11-04T08:02:54.922Z" title="更新于 2020-11-04 16:02:54">2020-11-04</time></span></div><div class="meta-secondline"> <span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.9k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>7分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout_post" id="content-inner"><article id="post"><div class="post-content" id="article-container"><h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><h3 id="传感器、驾驶事件"><a href="#传感器、驾驶事件" class="headerlink" title="传感器、驾驶事件"></a>传感器、驾驶事件</h3><table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Provider</th>
+<th>Samples</th>
+<th>Sensor</th>
+<th>label</th>
+<th>Object</th>
+<th>paper model</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Vehicle driving behavior(noget)</td>
+<td>IEEE DataPort</td>
+<td>10,000</td>
+<td>accelerometer、gyroscope</td>
+<td>5<br>acceleration <br> normal driving<br>collision<br>left turn<br>right turn</td>
+<td>idenepsy the driver’s driving behavior</td>
+<td>MV-CNN</td>
+</tr>
+<tr>
+<td>driverbehavior datasets(get)</td>
+<td>github</td>
+<td>69</td>
+<td>accelerometer、gyroscope、aceleracaoLinear、campoMagnetico</td>
+<td>7<br>Aggressive breaking<br>Aggressive acceleration<br>Aggressive left turn<br>Aggressive right turn<br>Aggressive left lane change<br>Aggressive right lane change<br>Non-aggressive event</td>
+<td>driving behavior classification</td>
+<td>ANN 、SVM、RF、BN</td>
+</tr>
+<tr>
+<td>Mendeley Data - Driving Behavior Dataset(get)</td>
+<td>mendeley</td>
+<td>1,149</td>
+<td>accelerometer、gyroscope</td>
+<td>4<br>Sudden Acceleration<br>Sudden Left turn<br>Sudden Right turn<br>Sudden Break</td>
+<td>driving behavior classification</td>
+<td>—</td>
+</tr>
+<tr>
+<td>DBASA(get)</td>
+<td>github</td>
+<td>accelerometer、gyroscope</td>
+<td>—</td>
+<td>AA AR AL AB(无法进行标签对应，还需要再研究一下)</td>
+<td>driving behavior classification</td>
+<td>—</td>
+</tr>
+</tbody></table>
+<ol>
+<li><a href="https://ieee-dataport.org/documents/vehicle-driving-behavior" target="_blank" rel="noopener">Vehicle driving behavior</a></li>
+<li><a href="https://github.com/jair-jr/driverBehaviorDataset" target="_blank" rel="noopener">driverbehavior datasets</a></li>
+<li><a href="https://data.mendeley.com/datasets/jj3tw8kj6h/2" target="_blank" rel="noopener">Mendeley Data - Driving Behavior Dataset</a></li>
+<li><a href="https://github.com/absarar/ruhdriversdataset" target="_blank" rel="noopener">DBASA</a></li>
+</ol>
+<h3 id="自动驾驶行为预测的数据集（带有视频的数据集、车载数据）"><a href="#自动驾驶行为预测的数据集（带有视频的数据集、车载数据）" class="headerlink" title="自动驾驶行为预测的数据集（带有视频的数据集、车载数据）"></a>自动驾驶行为预测的数据集（带有视频的数据集、车载数据）</h3><p><img src="/img/loading.gif" data-lazy-src="/image/survey/g.png" alt=""></p>
+<ol>
+<li><a href="https://github.com/driving-behavior/DBNet" target="_blank" rel="noopener">DBNet</a></li>
+<li><a href="https://usa.honda-ri.com/hdd" target="_blank" rel="noopener">HDD(发邮件获取)</a> 需要发送邮件获取</li>
+<li><a href="https://github.com/commaai/comma2k19" target="_blank" rel="noopener">comma2k19</a><a href="https://academictorrents.com/details/65a2fbc964078aff62076ff4e103f18b951c5ddb" target="_blank" rel="noopener">原始数据get</a></li>
+<li><a href="https://docs.google.com/document/d/1HM0CSmjO8nOpUeTvmPjopcBcVCk7KXvLUuiZFS6TWSg/pub" target="_blank" rel="noopener">DDD17(需翻墙)</a>  <a href="https://sites.google.com/view/davis-driving-dataset-2020/home" target="_blank" rel="noopener">DDD20</a><br><a href="https://github.com/SensorsINI/ddd20-utils" target="_blank" rel="noopener">数据查看工具github</a><br><a href="https://www.pkuml.org/resources/pku-ddd17-car.html" target="_blank" rel="noopener">PKU-DDD17-CAR Dataset</a></li>
+<li><a href="">Brain4Cars</a> <a href="https://arxiv.org/pdf/1601.00740.pdf">论文</a></li>
+<li><a href="https://github.com/ndrplz/dreyeve" target="_blank" rel="noopener">Dr(eye)ve</a> <a href="https://arxiv.org/pdf/1705.03854.pdf" target="_blank" rel="noopener">论文</a></li>
+<li><a href="http://data.nvision2.eecs.yorku.ca/JAAD_dataset/" target="_blank" rel="noopener">JAAD</a> [论文]</li>
+<li><a href="">UAH</a></li>
+<li><a href="">Elektra(DrivFace)</a></li>
+<li><a href="https://github.com/udacity/self-driving-car/tree/master/datasets" target="_blank" rel="noopener">Udacity</a></li>
+<li><a href="https://github.com/commaai/research" target="_blank" rel="noopener">comma.ai</a></li>
+<li><a href="">DIPLECS Surrey</a></li>
+<li><a href="">DIPLECS Sweden</a></li>
+<li><a href="">EISATS(Set 11)</a></li>
+</ol>
+<hr>
+<h2 id="Vehicle-driving-behavior-IEEE-DataPort"><a href="#Vehicle-driving-behavior-IEEE-DataPort" class="headerlink" title="Vehicle driving behavior | IEEE DataPort"></a>Vehicle driving behavior | IEEE DataPort</h2><p><a href="https://ieee-dataport.org/documents/vehicle-driving-behavior" target="_blank" rel="noopener">数据集来源</a></p>
+<h3 id="数据集描述"><a href="#数据集描述" class="headerlink" title="数据集描述"></a>数据集描述</h3><p>提供了两个txt文件,一个是原始数据集(RAW_DataSet.txt),另一个是增强数据集(Augmented_dataset.txt)</p>
+<p>首次使用这个数据集的论文是”Vehicle Driving Behavior Recognition Based on Multi-View Convolutional Neural Network (MV-CNN) with Joint Data Augmentation”<br>我们开发了一个实验系统来收集驾驶行为数据和评估我们提出的方法。数据采集模块选择六轴传感器(MPU 6050)，利用Wi-Fi模块实时传输数据。集成的三轴加速度计和三轴陀螺仪在动态环境下精确输出模块当前姿态。<br>数据采集设备采用STM32与MPU 6050集成，实现运动处理器的实时数据采集。分别安装SD卡和Wi-Fi无线传输模块进行存储和实时数据传输。<br>MPU 6050芯片被焊接在车辆的中心，其正面朝上。芯片x轴的正方向就是车辆头部的方向。正的y轴方向为左侧方向，正的z轴方向垂直于水平方向。<br>收集装置安装在遥控车上，然后接通电源。持续采集数据，通过Wi-Fi模块以10hz的频率发送到接收服务器。同时，我们在收集过程中记录了各种动作的日志信息，包括当前动作标记、开始时间戳和结束时间戳。在车辆加速、碰撞、左转弯、右转弯和正常行驶过程中进行数据采集。每个操作都存储在一个十六进制数据文件中，该文件还包括示例的特定操作标签和时间戳。<br>最终收集1032个事件，其中加速、碰撞、左转弯、右转弯和正常驾驶事件146、224、196、200和266个。<br>本数据集使用拉格朗日插值将每个事件调整为300个样本。采集的原始数据分别包含x轴、y轴和z轴的加速度计和陀螺仪值。</p>
+<p>使用MAWF从1032个原始样本中生成2500个扩增样本。应用BNF算法后，2500个样本扩展到5000个样本。随后，采用RC算法将5000个样本扩展到10000个样本。将原始不平衡数据转换为平衡数据集，其中每个事件样本的数量相等。最后我们得到了10,000个样本用于我们的实验。</p>
+<h3 id="数据集格式"><a href="#数据集格式" class="headerlink" title="数据集格式"></a>数据集格式</h3><p>Event: {‘acc’: array([[x_axis], [y_axis], [z_axis], ‘gyr’,array([x_axis], [y_axis], [z_axis], ‘label’: No ]</p>
+<ul>
+<li>No =1 means acceleration.</li>
+<li>No =2 means normal driving.</li>
+<li>No =3 means collision.</li>
+<li>No =4 means left turn.</li>
+<li>No =5 means right turn.</li>
+</ul>
+<p>包含两个传感器：accelerometer 和 gyroscope 以及对应的label(5个)</p>
+<h2 id="driverbehavior-datasets-已获得"><a href="#driverbehavior-datasets-已获得" class="headerlink" title="driverbehavior datasets(已获得)"></a>driverbehavior datasets(已获得)</h2><p><a href="https://github.com/jair-jr/driverBehaviorDataset" target="_blank" rel="noopener">数据集来源</a></p>
+<p>包含四个传感器：accelerometer 和 gyroscope 以及对应的label(7个)</p>
+<p>智能手机四个传感器数据，包含7个标签</p>
+<h2 id="Mendeley-Data-Driving-Behavior-Dataset（已获得）"><a href="#Mendeley-Data-Driving-Behavior-Dataset（已获得）" class="headerlink" title="Mendeley Data - Driving Behavior Dataset（已获得）"></a>Mendeley Data - Driving Behavior Dataset（已获得）</h2><p><a href="https://data.mendeley.com/datasets/jj3tw8kj6h/2" target="_blank" rel="noopener">数据集来源</a></p>
+<p>包含下面两个传感器的数据：</p>
+<ol>
+<li>accelerometer (X,Y,Z axis in meters per second squared (m/s2)) </li>
+<li>gyroscope (X,Y, Z axis in degrees per second (°/s) )</li>
+</ol>
+<p>采样率：平均每秒2个样本(行)<br>车：Ford Fiesta 1.4,  Ford Fiesta 1.25, Hyundai i20<br>驾驶员：3 different drivers with the ages of 27, 28 and 37<br>Driver Behaviors: </p>
+<ul>
+<li>Sudden Acceleration (Class Label: 1)</li>
+<li>Sudden Right Turn (Class Label: 2)</li>
+<li>Sudden Left Turn (Class Label: 3)</li>
+<li>Sudden Break (Class Label: 4)</li>
+</ul>
+<p>Best Window Size: 14 seconds<br>Sensor: MPU6050<br>Device: Raspberry Pi 3 Model B</p>
+<p>包含两个传感器：accelerometer 和 gyroscope 以及对应的label(4个)</p>
+<h2 id="comma2k19"><a href="#comma2k19" class="headerlink" title="comma2k19"></a>comma2k19</h2><p><a href="https://github.com/commaai/comma2k19" target="_blank" rel="noopener">数据来源</a></p>
+<p>这是加利福尼亚280高速公路上超过33小时通勤的数据集。<br>在加利福尼亚州圣何塞和旧金山之间20公里的高速公路上行驶了2019段，每段1分钟。<br>comma2k19是一个完全可重现且可扩展的数据集。<br>数据采用comma EONs收集，其传感器类似于任何现代智能手机，包括道路相机，手机GPS，温度计和9轴IMU。<br>此外，EON还使用comma  grey panda捕获原始GNSS测量值和汽车发送的所有CAN数据。</p>
+<p>数据被分成10块，每一块大约200分钟的车程。数据集的1-2块是RAV4，其余的是civic。RAV4的dongle_id是b0c9d2329ad1606b, civic的dongle_id是99c94dc769b5d96e。</p>
+<h2 id="DBASA-已获得"><a href="#DBASA-已获得" class="headerlink" title="DBASA(已获得)"></a>DBASA(已获得)</h2><p><a href="https://github.com/absarar/ruhdriversdataset" target="_blank" rel="noopener">数据来源</a></p>
+<p>15个驾驶员，每个里面包含两个传感器：accelerometer 和 gyroscope<br>有个最终的数据集，记录AR、AL、AA、AB的值以及是否Aggressive</p>
+<p>暂时无法对应相应的标签(是否Aggressive)</p>
+<h2 id="一些其他驾驶行为方面的数据集"><a href="#一些其他驾驶行为方面的数据集" class="headerlink" title="一些其他驾驶行为方面的数据集"></a>一些其他驾驶行为方面的数据集</h2><ol>
+<li><a href="https://github.com/driving-behavior/DBNet" target="_blank" rel="noopener">DBNet</a>：厦门大学 SCSC 实验室李军教授团队与上海交大 MVIG 实验室卢策吾教授团队联合发布大规模驾驶行为数据集。DBNet 是专为研究驾驶行为的策略学习而设置的。DBNet 数据集记录了视频、激光雷达点云，以及对应的资深驾驶员（驾龄超过 10 年）的真实驾驶行为。</li>
+<li><a href="https://usa.honda-ri.com/HDD" target="_blank" rel="noopener">HDD</a> hdd@honda-ri.com<br>3个摄像头：记录影像最终被压缩成1280*720分辨率、30fps；<br>1个水平激光雷达：水平视角360度，垂直视角26.9度；<br>1个汽车动力运动分析器：记录陀螺仪、加速计和GPS信号；<br>1个汽车控制器区域网络（CAN）：记录油门角度、刹车压力、轮胎角度、偏航率和速度等信息。</li>
+<li><a href="https://usa.honda-ri.com/h3d" target="_blank" rel="noopener">H3D</a></li>
+<li><a href="http://www.cvlibs.net/datasets/kitti/raw_data.php" target="_blank" rel="noopener">KTTI</a>:数据集的语义标签包括‘Road’，‘City’，‘Person’，‘Campus’和‘Residential’五大类。对于3D物体检测，label细分为car, van, truck, pedestrian, pedestrian(sitting), cyclist, tram以及misc组成。</li>
+<li><a href="http://bdd-data.berkeley.edu" target="_blank" rel="noopener">伯克利DeepDrive</a></li>
+<li><a href="https://github.com/commaai/research" target="_blank" rel="noopener">comma.ai</a></li>
+<li><a href="https://github.com/udacity/self-driving-car/tree/master/datasets" target="_blank" rel="noopener">Udacity</a></li>
+<li><a href="https://github.com/cloudpose/smartphone_driving_dataset" target="_blank" rel="noopener">smartphone_driving_dataset</a>: image、CAN、smartphone</li>
+<li><a href="http://www.cvl.isy.liu.se/en/research/datasets/amuse/" target="_blank" rel="noopener">AMUSE</a></li>
+<li><a href="https://www.nhtsa.gov/" target="_blank" rel="noopener">NHTSA</a></li>
+<li><a href="https://www.cis.fordham.edu/wisdm/dataset.php" target="_blank" rel="noopener">WISDM</a> 人类行为标签、 加速计和gps</li>
+<li><a href="https://www.kaggle.com/malekzadeh/motionsense-dataset" target="_blank" rel="noopener">MotionSense Dataset : Smartphone Sensor Data - HAR</a> 人类行为标签、 加速计和gps</li>
+<li><a href="https://lbd.udc.es/research/real-life-HAR-dataset/" target="_blank" rel="noopener">A Public Domain Dataset For Real-life Human Activity Recognition Using Smartphone Sensors</a></li>
+<li><a href="https://insight.shrp2nds.us/profile/applyForQualifiedResearcher" target="_blank" rel="noopener">SHPR2</a></li>
+</ol>
+<h2 id="视频类数据，推断车辆行为："><a href="#视频类数据，推断车辆行为：" class="headerlink" title="视频类数据，推断车辆行为："></a>视频类数据，推断车辆行为：</h2><ol>
+<li><p><a href="http://apolloscape.auto/scene.html" target="_blank" rel="noopener">Apollo-scape数据集</a>:1):Apollo-scape拥有广泛的驾驶场景/机动，如超车、变道。里面包含了大量复杂行为的实例，如超车，变道。一段驾驶视频</p>
+</li>
+<li><p><a href="http://www.cvlibs.net/datasets/kitti/eval_tracking.php" target="_blank" rel="noopener">KITTI</a>:<br>该数据集仅限于一个城市和城市周边地区，并且只有很少的高速公路。<a href="http://www.cvlibs.net/datasets/kitti/eval_tracking.php" target="_blank" rel="noopener">get</a> </p>
+<h2 id="自动驾驶行为预测的数据集"><a href="#自动驾驶行为预测的数据集" class="headerlink" title="自动驾驶行为预测的数据集"></a>自动驾驶行为预测的数据集</h2><ol>
+<li><a href="https://github.com/driving-behavior/DBNet" target="_blank" rel="noopener">DBNet</a></li>
+<li><a href="https://usa.honda-ri.com/hdd" target="_blank" rel="noopener">HDD(发邮件获取)</a> 需要发送邮件获取</li>
+<li><a href="https://github.com/commaai/comma2k19" target="_blank" rel="noopener">comma2k19</a><a href="https://academictorrents.com/details/65a2fbc964078aff62076ff4e103f18b951c5ddb" target="_blank" rel="noopener">原始数据get</a></li>
+<li><a href="https://docs.google.com/document/d/1HM0CSmjO8nOpUeTvmPjopcBcVCk7KXvLUuiZFS6TWSg/pub" target="_blank" rel="noopener">DDD17(需翻墙)</a>  <a href="https://sites.google.com/view/davis-driving-dataset-2020/home" target="_blank" rel="noopener">DDD20</a><br><a href="https://github.com/SensorsINI/ddd20-utils" target="_blank" rel="noopener">数据查看工具github</a><br><a href="https://www.pkuml.org/resources/pku-ddd17-car.html" target="_blank" rel="noopener">PKU-DDD17-CAR Dataset</a></li>
+<li><a href="">Brain4Cars</a> <a href="https://arxiv.org/pdf/1601.00740.pdf">论文</a></li>
+<li><a href="https://github.com/ndrplz/dreyeve" target="_blank" rel="noopener">Dr(eye)ve</a> <a href="https://arxiv.org/pdf/1705.03854.pdf" target="_blank" rel="noopener">论文</a></li>
+<li><a href="http://data.nvision2.eecs.yorku.ca/JAAD_dataset/" target="_blank" rel="noopener">JAAD</a> [论文]</li>
+<li><a href="">UAH</a></li>
+<li><a href="">Elektra(DrivFace)</a></li>
+<li><a href="https://github.com/udacity/self-driving-car/tree/master/datasets" target="_blank" rel="noopener">Udacity</a></li>
+<li><a href="https://github.com/commaai/research" target="_blank" rel="noopener">comma.ai</a></li>
+<li><a href="">DIPLECS Surrey</a></li>
+<li><a href="">DIPLECS Sweden</a></li>
+<li><a href="">EISATS(Set 11)</a></li>
+</ol>
+</li>
+</ol>
+<h2 id="一些获取数据集的网站"><a href="#一些获取数据集的网站" class="headerlink" title="一些获取数据集的网站"></a>一些获取数据集的网站</h2><ol>
+<li><a href="http://www.shujujishi.com/dataset.html" target="_blank" rel="noopener">数据集市</a></li>
+<li><a href="https://www.polymtl.ca/wikitransport/index.php?title=Public_Transportation_Datasets" target="_blank" rel="noopener">Public Transportation Datasets</a></li>
+<li><a href="http://archive.ics.uci.edu/ml/datasets.php" target="_blank" rel="noopener">UCI</a></li>
+<li><a href="https://tianchi.aliyun.com/dataset" target="_blank" rel="noopener">天池</a></li>
+<li><a href="https://www.graviti.cn/open-datasets" target="_blank" rel="noopener">格物钛</a></li>
+<li><a href="https://grouplens.org/datasets/" target="_blank" rel="noopener"></a></li>
+<li><a href="http://yacvid.hayko.at/" target="_blank" rel="noopener">YACVID</a></li>
+<li><a href="https://www.utwente.nl/en/eemcs/ps/research/dataset/" target="_blank" rel="noopener">手机相关方面的数据</a></li>
+<li><a href="http://sensors.ini.uzh.ch/databases.html" target="_blank" rel="noopener">sensor Dataset</a></li>
+</ol>
+<h2 id="驾驶事件识别一些应用"><a href="#驾驶事件识别一些应用" class="headerlink" title="驾驶事件识别一些应用"></a>驾驶事件识别一些应用</h2><p><a href="https://github.com/amrit015/Driver-Behavior-Analysis" target="_blank" rel="noopener">Driver-Behavior-Analysis</a><br><a href="https://github.com/mohebbihr/Recognition-of-Driver-behavior-using-Smartphone" target="_blank" rel="noopener">Recognition-of-Driver-behavior-using-Smartphone</a><br><a href="https://github.com/keencyclist/driving" target="_blank" rel="noopener">driving</a><br><a href="https://www.sentiance.com/2016/02/11/driving-behavior/" target="_blank" rel="noopener">driving-behavior</a><br><a href="https://github.com/mghatee/Overall-Driving-Behavior-Recognition-By-Smartphone" target="_blank" rel="noopener">Overall-Driving-Behavior-Recognition-By-Smartphone</a></p>
+<p>驾驶风格识别。驾驶风格的定义有很多种，包括油耗、刹车、保持距离和侵略性。建立司机风格可以用来调整驾驶策略，如车道合并或提醒司机，如果他是鲁莽的[9]。最后，一些数据集[52]也收集了行人意向数据，如图3.10所示。然后可以训练算法来识别行人是否想过马路，并帮助防止碰撞。</p>
+</div><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">unnoyy</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://unnoyy.github.io/posts/44404/">http://unnoyy.github.io/posts/44404/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://unnoyy.github.io" target="_blank">unnoyy</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/8726/"><img class="prev-cover" data-lazy-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror='onerror=null,src="/img/404.jpg"'><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">特征提取挖掘</div></div></a></div><div class="next-post pull-right"><a href="/posts/18430/"><img class="next-cover" data-lazy-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror='onerror=null,src="/img/404.jpg"'><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">智能手机对理解驾驶行为的当前挑战</div></div></a></div></nav><hr><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div><div class="comment-switch"><span class="first-comment">Valine</span><label><input id="switch-comments-btn" type="checkbox"><span class="slider"></span></label><span class="second-comment">Gitalk</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div><div><div id="gitalk-container"></div></div></div></div></article></main><footer id="footer" data-type="color"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2021 By unnoyy</div><div class="framework-info"><span>框架 </span><a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a href="https://github.com/jerryc127/hexo-theme-butterfly" target="_blank" rel="noopener">Butterfly</a></div><div class="footer_custom_text">欢迎来到<a href="https://unnoyy.github.io/">小屋</a>!</div></div></footer></div><section id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">简</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></section><div class="search-dialog" id="local-search"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"></div></div></div><hr><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a href="https://github.com/wzpan/hexo-generator-search" target="_blank" rel="noopener" style="color:#49b1f5">hexo-generator-search</a>
+ <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div><div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.spacingElementById('content-inner')
+  else {
+    $.getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js', () => {
+      pangu.spacingElementById('content-inner')
+    })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguFn)</script><script src="/js/search/local-search.js"></script><script>var endLoading=function(){document.body.style.overflow="auto",document.getElementById("loading-box").classList.add("loaded")};window.addEventListener("load",endLoading)</script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    loader: {
+      source: {
+        '[tex]/amsCd': '[tex]/amscd'
+      }
+    },
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        addClass: [200,() => {
+          document.querySelectorAll('mjx-container:not([display=\'true\']').forEach( node => {
+            const target = node.parentNode
+            if (!target.classList.contains('has-jax')) {
+              target.classList.add('mathjax-overflow')
+            }
+          })
+        }, '', false]
+      }
+    }
+  }
+  
+  var script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script><script>function loadValine () {
+  function initValine () {
+    window.valine = new Valine({
+      el: '#vcomment',
+      appId: 'SVg8NY7xGdhfqBMmwyksops7-gzGzoHsz',
+      appKey: 'gMpBjTW5NEFR6cW6CUmhBITz',
+      placeholder: 'Please leave your footprints',
+      avatar: 'monsterid',
+      meta: 'nick,mail,link'.split(','),
+      pageSize: '10',
+      lang: 'zh-CN',
+      recordIP: false,
+      serverURLs: '',
+      emojiCDN: '',
+      emojiMaps: "",
+      enableQQ: false,
+      path: window.location.pathname,
+    });
+    if ('nick,mail') { valine.config.requiredFields= 'nick,mail'.split(',') }
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else $.getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js', initValine)
+}
+
+if ('Valine' === 'Valine' || !true) {
+  if (true) btf.loadComment(document.querySelector('#vcomment'),loadValine)
+  else setTimeout(() => loadValine(), 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script><script>function addGitalkSource () {
+  const ele = document.createElement('link')
+  ele.rel = 'stylesheet'
+  ele.href= 'https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css'
+  document.getElementsByTagName('head')[0].appendChild(ele)
+}
+
+function loadGitalk () {
+  function initGitalk () {
+    var gitalk = new Gitalk({
+      clientID: '769c8b0e30bdfa36fcdd',
+      clientSecret: '8ff1137eb46effb3547818440411a5f053db93fa',
+      repo: 'unnoyy.github.io',
+      owner: 'unnoyy',
+      admin: ['unnoyy'],
+      id: 'af836787306df934e23c1df7bccdf9fe',
+      language: 'zh-CN',
+      perPage: 10,
+      distractionFreeMode: false,
+      pagerDirection: 'last',
+      createIssueManually: false,
+      updateCountCallback: commentCount
+    })
+    gitalk.render('gitalk-container')
+  }
+
+  if (typeof Gitalk === 'function') initGitalk()
+  else {
+    addGitalkSource()
+    $.getScript('https://cdn.jsdelivr.net/npm/gitalk@latest/dist/gitalk.min.js', initGitalk)
+  }
+}
+
+function commentCount(n){
+  let isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+  if (isCommentCount) {
+    isCommentCount.innerHTML= n
+  }
+}
+
+if ('Valine' === 'Gitalk' || !true) {
+  if (true) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+  else loadGitalk()
+} else {
+  function loadOtherComment () {
+    loadGitalk()
+  }
+}</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script src="/js/Beautify.js"></script><script src="/js/beautify2.js"></script><script src="/js/fishes.js"></script><script src="/js/calendar.js"></script><script src="/js/languages.js"></script><div class="app-refresh" id="app-refresh"> <div class="app-refresh-wrap"> <label>✨ 網站已更新最新版本 👉</label> <a href="javascript:void(0)" onclick="location.reload()">點擊刷新</a> </div></div><script>function showNotification(){if(GLOBAL_CONFIG.Snackbar){var t="light"===document.documentElement.getAttribute("data-theme")?GLOBAL_CONFIG.Snackbar.bgLight:GLOBAL_CONFIG.Snackbar.bgDark,e=GLOBAL_CONFIG.Snackbar.position;Snackbar.show({text:"已更新最新版本",backgroundColor:t,duration:5e5,pos:e,actionText:"點擊刷新",actionTextColor:"#fff",onActionClick:function(t){location.reload()}})}else{var o=`top: 0; background: ${"light"===document.documentElement.getAttribute("data-theme")?"#49b1f5":"#1f1f1f"};`;document.getElementById("app-refresh").style.cssText=o}}"serviceWorker"in navigator&&(navigator.serviceWorker.controller&&navigator.serviceWorker.addEventListener("controllerchange",function(){showNotification()}),window.addEventListener("load",function(){navigator.serviceWorker.register("/sw.js")}));</script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-heart.min.js" async></script></div></body></html>

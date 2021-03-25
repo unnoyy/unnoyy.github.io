@@ -1,0 +1,406 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>论文笔记 AM-GCN | unnoyy</title><meta name="description" content="自适应多通道图形卷积网络"><meta name="keywords" content="taxi demand,paper,summary"><meta name="author" content="unnoyy"><meta name="copyright" content="unnoyy"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="shortcut icon" href="/pic/favicon.png"><link rel="canonical" href="http://unnoyy.github.io/posts/25131/"><link rel="preconnect" href="//cdn.jsdelivr.net"><link rel="preconnect" href="//busuanzi.ibruce.info"><link rel="preconnect" href="//zz.bdstatic.com"><meta property="og:type" content="article"><meta property="og:title" content="论文笔记 AM-GCN"><meta property="og:url" content="http://unnoyy.github.io/posts/25131/"><meta property="og:site_name" content="unnoyy"><meta property="og:description" content="自适应多通道图形卷积网络"><meta property="og:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><meta property="article:published_time" content="2020-09-08T01:12:29.000Z"><meta property="article:modified_time" content="2021-03-25T14:54:46.932Z"><meta name="twitter:card" content="summary"><link rel="manifest" href="/pic/pwa/manifest.json"><meta name="msapplication-TileColor" content="#fff"><link rel="apple-touch-icon" sizes="180x180" href="/pic/pwa/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/pic/pwa/32.png"><link rel="icon" type="image/png" sizes="16x16" href="/pic/pwa/16.png"><link rel="mask-icon" href="/pic/pwa/safari-pinned-tab.svg" color="#5bbad5"><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  hexoversion: '4.2.0',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: {"defaultEncoding":1,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  bookmark: {
+    message_prev: '按',
+    message_next: '键将本页加入书签'
+  },
+  runtime: '天',
+  date_suffix: {"one_hour":"刚刚","hours":"小时前","day":"天前"},
+  copyright: {"limitCount":50,"languages":{"author":"作者: unnoyy","link":"链接: ","source":"来源: unnoyy","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  ClickShowText: undefined,
+  medium_zoom: false,
+  fancybox: true,
+  Snackbar: {"bookmark":{"message_prev":"按","message_next":"键将本页加入书签"},"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#121212","position":"bottom-left"},
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
+  baiduPush: true,
+  isPhotoFigcaption: true,
+  islazyload: true,
+  isanchor: false
+};
+
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+    const now = new Date()
+    const expiryDay = ttl * 86400000
+    const item = {
+      value: value,
+      expiry: now.getTime() + expiryDay,
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+    },
+
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}</script><script id="config_change">var GLOBAL_CONFIG_SITE={isPost:!0,isHome:!1,isHighlightShrink:!1,isSidebar:!0,postUpdate:"2021-03-25 22:54:46"}</script><noscript><style>#nav{opacity:1}.justified-gallery img{opacity:1}</style></noscript><script>var activateDarkMode=function(){document.documentElement.setAttribute("data-theme","dark"),null!==document.querySelector('meta[name="theme-color"]')&&document.querySelector('meta[name="theme-color"]').setAttribute("content","#0d0d0d")},activateLightMode=function(){document.documentElement.setAttribute("data-theme","light"),null!==document.querySelector('meta[name="theme-color"]')&&document.querySelector('meta[name="theme-color"]').setAttribute("content","#ffffff")},autoChangeMode="false",t=saveToLocal.get("theme");if("1"===autoChangeMode){var isDarkMode=window.matchMedia("(prefers-color-scheme: dark)").matches,isLightMode=window.matchMedia("(prefers-color-scheme: light)").matches,isNotSpecified=window.matchMedia("(prefers-color-scheme: no-preference)").matches,hasNoSupport=!isDarkMode&&!isLightMode&&!isNotSpecified;if(void 0===t){if(isLightMode)activateLightMode();else if(isDarkMode)activateDarkMode();else if(isNotSpecified||hasNoSupport){var now=new Date,hour=now.getHours(),isNight=hour<=6||18<=hour;isNight?activateDarkMode():activateLightMode()}window.matchMedia("(prefers-color-scheme: dark)").addListener(function(e){void 0===saveToLocal.get("theme")&&(e.matches?activateDarkMode():activateLightMode())})}else"light"===t?activateLightMode():activateDarkMode()}else"2"===autoChangeMode?(isNight=(hour=(now=new Date).getHours())<=6||18<=hour,void 0===t?isNight?activateDarkMode():activateLightMode():"light"===t?activateLightMode():activateDarkMode()):"dark"===t?activateDarkMode():"light"===t&&activateLightMode()</script><link rel="stylesheet" href="/css/background.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/sviptzk/StaticFile_HEXO@latest/butterfly/css/iconfont.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/sviptzk/HexoStaticFile@latest/Hexo/css/buttons.min.css"><style>.app-refresh{position:fixed;top:-2.2rem;left:0;right:0;z-index:99999;padding:0 1rem;font-size:15px;height:2.2rem;transition:all .3s ease}.app-refresh-wrap{display:flex;color:#fff;height:100%;align-items:center;justify-content:center}.app-refresh-wrap a{color:#fff;text-decoration:underline;cursor:pointer}</style><meta name="generator" content="Hexo 4.2.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" data-lazy-src="/pic/avatar.jpg" onerror='onerror=null,src="/img/friend_404.gif"' alt="avatar"></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">28</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">13</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">4</div></a></div></div></div><hr><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 休闲</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page" href="/book/"><i class="fa-fw fas fa-book"></i><span> 书籍</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart card-announcement-animation"></i><span> 关于</span></a></div></div></div></div><div id="body-wrap"><div id="web_bg" data-type="color"></div><div id="sidebar"><i class="fas fa-arrow-right on" id="toggle-sidebar"></i><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#AM-GCN"><span class="toc-number">1.</span> <span class="toc-text">AM-GCN</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#摘要"><span class="toc-number">1.1.</span> <span class="toc-text">摘要</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#介绍"><span class="toc-number">1.2.</span> <span class="toc-text">介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#GCNs的融合能力：实验调研"><span class="toc-number">1.3.</span> <span class="toc-text">GCNs的融合能力：实验调研</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#情况1：随机拓扑和相关的节点特征"><span class="toc-number">1.3.1.</span> <span class="toc-text">情况1：随机拓扑和相关的节点特征</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#情况2：相关的拓扑和随机节点特征"><span class="toc-number">1.3.2.</span> <span class="toc-text">情况2：相关的拓扑和随机节点特征</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#总结"><span class="toc-number">1.3.3.</span> <span class="toc-text">总结</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#AM-GCN-THE-PROPOSED-MODEL"><span class="toc-number">1.4.</span> <span class="toc-text">AM-GCN: THE PROPOSED MODEL</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Problem-Settings"><span class="toc-number">1.4.1.</span> <span class="toc-text">Problem Settings</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#AM-GCN-的整体框架"><span class="toc-number">1.4.2.</span> <span class="toc-text">AM-GCN 的整体框架</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Specific-Convolution-Module"><span class="toc-number">1.4.3.</span> <span class="toc-text">Specific Convolution Module</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Common-Convolution-Module"><span class="toc-number">1.4.4.</span> <span class="toc-text">Common Convolution Module</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Attention-Mechanism"><span class="toc-number">1.4.5.</span> <span class="toc-text">Attention Mechanism</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Objective-Function-目标函数"><span class="toc-number">1.4.6.</span> <span class="toc-text">Objective Function(目标函数)</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Consistency-Constraint（一致性约束）"><span class="toc-number">1.4.6.1.</span> <span class="toc-text">Consistency Constraint（一致性约束）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Disparity-Constraint（视差约束）"><span class="toc-number">1.4.6.2.</span> <span class="toc-text">Disparity Constraint（视差约束）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Optimization-Objective-优化目标"><span class="toc-number">1.4.6.3.</span> <span class="toc-text">Optimization Objective (优化目标)</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#实验"><span class="toc-number">1.5.</span> <span class="toc-text">实验</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#实验设置"><span class="toc-number">1.5.1.</span> <span class="toc-text">实验设置</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#数据集"><span class="toc-number">1.5.1.1.</span> <span class="toc-text">数据集</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#基线"><span class="toc-number">1.5.1.2.</span> <span class="toc-text">基线</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#参数设置"><span class="toc-number">1.5.1.3.</span> <span class="toc-text">参数设置</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#节点分类"><span class="toc-number">1.5.2.</span> <span class="toc-text">节点分类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#变体分析-Analysis-of-Variants"><span class="toc-number">1.5.3.</span> <span class="toc-text">变体分析 Analysis of Variants</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Visualization"><span class="toc-number">1.5.4.</span> <span class="toc-text">Visualization</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Analysis-of-Attention-Mechanism"><span class="toc-number">1.5.5.</span> <span class="toc-text">Analysis of Attention Mechanism</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Analysis-of-attention-distributions"><span class="toc-number">1.5.5.1.</span> <span class="toc-text">Analysis of attention distributions</span></a></li></ol></li></ol></li></ol></li></ol></div></div></div><header class="post-bg" id="page-header" style="background-image:url(https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg)"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">unnoyy</a></span><span id="menus"><div id="search_button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 休闲</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page" href="/book/"><i class="fa-fw fas fa-book"></i><span> 书籍</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart card-announcement-animation"></i><span> 关于</span></a></div></div><span class="close" id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="post-info"><div id="post-title"><div class="posttitle">论文笔记 AM-GCN</div></div><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2020-09-08T01:12:29.000Z" title="发表于 2020-09-08 09:12:29">2020-09-08</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2021-03-25T14:54:46.932Z" title="更新于 2021-03-25 22:54:46">2021-03-25</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/paper/">paper</a></span></div><div class="meta-secondline"> <span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">6k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>20分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout_post" id="content-inner"><article id="post"><div class="post-content" id="article-container"><h1 id="AM-GCN"><a href="#AM-GCN" class="headerlink" title="AM-GCN"></a>AM-GCN</h1><p>《AM-GCN:Adaptive Multi-channel Graph Convolutional Networks》<br>论文题目：自适应多通道图形卷积网络</p>
+<h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p><strong>提出的问题</strong>：</p>
+<ul>
+<li>GCNs是否能将节点特征和拓扑结构最优地整合在一个信息丰富的复杂图形中。</li>
+</ul>
+<p><strong>调查的结果</strong>：</p>
+<ul>
+<li>最新的GCN在融合节点特征和拓扑结构方面的能力与最佳甚至令人满意的目标相去甚远。 该弱点可能会严重阻碍某些分类任务中GCN的功能，因为GCN可能无法自适应地学习拓扑结构和节点特征之间的某些深层相关信息。</li>
+</ul>
+<p><strong>面临的挑战</strong>：</p>
+<ul>
+<li>是否可以弥补这一弱点并设计出一种新型的GCN，这些GCN既可以保留最新的GCN的优势，又可以大大增强融合拓扑结构和节点特征的能力？</li>
+</ul>
+<p><strong>解决方法</strong>:</p>
+<ul>
+<li>本文提出了一种用于半监督分类的自适应多通道图卷积网络（AM-GCN）</li>
+<li>AM-GCN中心思想是，从节点特征，拓扑结构及其组合中同时提取特定的嵌入和常见的嵌入，并使用注意力机制来学习嵌入的自适应重要性权重。 </li>
+<li>本文在基准数据集上进行的广泛实验清楚地表明，AM-GCN从节点特征和拓扑结构中提取出最相关的信息，并以明显的余量提高了分类精度。</li>
+</ul>
+<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>图卷积网络（GCN），一种整个过程部分受节点标签的监督。GCN的巨大成功部分归功于GCN提供了一种拓扑结构和节点特征的融合策略以学习节点嵌入，并且融合过程受到了端到端的监督 学习框架。设计用于学习图数据的神经网络，在解决图分析问题方面表现出了很高的知名度，例如节点分类[1,31]，图分类[7,37]，链接预测[13，36]和推荐[6,34]。<br>典型的GCN [14]及其变量[11,16,27,30,36]通常遵循消息传递方式。 关键步骤是特征聚合，即节点在每个卷积层中聚合来自其拓扑邻居的特征信息。 这样，特征信息通过网络拓扑传播到节点嵌入，然后将这样学习的节点嵌入用于分类任务。整个过程部分受节点标签的监督。GCN的巨大成功部分归功于GCN提供了一种拓扑结构和节点特征的融合策略以学习节点嵌入，并且融合过程受到了端到端的学习框架的监督。<br>但是，最近的一些研究揭示了最新的GCN在融合节点特征和拓扑结构方面的某些弱点。 例如，Li等。 [15]表明，GCN实际上对节点特征执行拉普拉斯平滑化，并使嵌入网络的节点逐渐收敛。Nt和Maehara [20]和Wuet等[30]证明拓扑结构起着低通的作用。 当特征信息通过网络拓扑结构传播时，对节点特征进行过滤。 高等。 [8]在GCN中设计一个条件随机字段（CRF）层，以明确保留节点之间的连接性。<br>GCNs从拓扑结构和节点特征中真正学习和融合了哪些信息?这是一个基本的问题。GCNs经常被用作端到端的学习框架。正确回答这个问题，有助于我们有原则地理解GCNs的能力和局限性。这立即激励了我们的学习。</p>
+<p>本文的贡献：</p>
+<ul>
+<li>我们通过实验评估了GCNs融合拓扑结构和节点特征的能力，并指出了GCN的不足之处。我们进一步研究了如何大幅度提高GCN的融合能力进行分类的问题。</li>
+<li>我们提出了一种新的自适应多通道GCN框架AM-GCN，它在拓扑空间和特征空间上执行图的卷积操作。结合注意机制，可以充分融合不同的信息。</li>
+<li>我们在一系列基准数据集上进行的大量实验清楚地表明，AM-GCN的性能优于目前最先进的GCNs，并且能够很好地从节点特征和拓扑结构中提取出最多的相关信息，用于具有挑战性的分类任务。</li>
+</ul>
+<h2 id="GCNs的融合能力：实验调研"><a href="#GCNs的融合能力：实验调研" class="headerlink" title="GCNs的融合能力：实验调研"></a>GCNs的融合能力：实验调研</h2><p>在本节中，我们使用两个简单而直观的案例来检查最新的GCN是否可以从图中的节点特征和拓扑结构中自适应学习，并将它们充分融合以用于分类任务。<br>主要思想是，我们将清楚地分别建立具有网络拓扑的节点标情况1：随机拓扑和相关的节点特征<br>签和节点特征之间的高度相关性，然后我们将检查这两种简单情况下GCN的性能。 良好的GCN融合能力应在节点标签的监督下自适应地提取相关信息，从而获得良好的结果，但是，如果性能与基线相比急剧下降，则表明GCN无法从节点特征和拓扑中自适应地提取信息。 结构，即使节点特征或带有节点标签的拓扑结构之间也具有高度相关性。</p>
+<h3 id="情况1：随机拓扑和相关的节点特征"><a href="#情况1：随机拓扑和相关的节点特征" class="headerlink" title="情况1：随机拓扑和相关的节点特征"></a>情况1：随机拓扑和相关的节点特征</h3><p>我们生成了一个由900个节点组成的随机网络，其中在任意两个节点之间构建边缘的概率为0.03。 每个节点都有一个50维的特征向量。 为了生成节点特征，我们为900个节点随机分配了3个标签，对于具有相同标签的节点，我们使用一种高斯分布来生成节点特征。 这三类节点的高斯分布具有相同的协方差矩阵，但三个彼此远离的不同中心。 在此数据集中，节点标签与节点特征高度相关，但与拓扑结构无关。</p>
+<p>我们应用GCN [14]训练此网络。对于每个类，我们随机选择20个节点进行训练，另外选择200个节点进行测试。 我们仔细调整超参数以报告最佳性能，并避免过度平滑。 另外，我们仅将MLP [21]应用于节点特征。 GCN和MLP的分类准确度分别为75.2％和100％。<br>结果符合预期。 由于节点特征是与所述节点的标签高度相关的，MLP显示出优异的性能。 GCN从节点特征和拓扑结构中提取信息，但是无法自适应地融合它们以避免拓扑结构的干扰。 它无法比拟的MLP的高性能。</p>
+<h3 id="情况2：相关的拓扑和随机节点特征"><a href="#情况2：相关的拓扑和随机节点特征" class="headerlink" title="情况2：相关的拓扑和随机节点特征"></a>情况2：相关的拓扑和随机节点特征</h3><p>我们生成另一个具有900个节点的网络。 这一次，将随机生成50个维中的每个维的节点特征。 对于拓扑结构，我们采用随机块模型（SBM）[12]将节点分为3个社区（分别为节点0-299、300-599、600-899）。 在每个社区内，建立边缘的概率设置为0.03，在不同社区的节点之间建立边缘的概率设置为0.0015。 在此数据集中，节点标签由社区确定，即，同一社区中的节点具有相同的标签。<br>同样，我们将GCN应用于此网络。 我们还将DeepWalk [22]应用于网络拓扑，也就是说，DeepWalk会忽略这些功能。 GCN和DeepWalk的分类准确度分别为87％和100％。<br>DeepWalk表现出色，因为它可以对网络拓扑结构进行全面建模。 GCN从节点特征和拓扑结构中提取信息，但是无法自适应地融合它们，以避免受到节点特征的干扰。 它无法比拟DeepWalk的高性能。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>这些情况表明，目前的GCN融合机制[14]远未达到理想甚至令人满意的程度。 即使节点标签与网络拓扑或节点特征之间的相关性很高，当前的GCN也无法充分利用节点标签的监督来自适应地提取最相关的信息。 但是，实际情况更加复杂，因为很难知道拓扑或节点特征是否与最终任务更加相关，这促使我们重新考虑当前的GCN机制。</p>
+<h2 id="AM-GCN-THE-PROPOSED-MODEL"><a href="#AM-GCN-THE-PROPOSED-MODEL" class="headerlink" title="AM-GCN: THE PROPOSED MODEL"></a>AM-GCN: THE PROPOSED MODEL</h2><h3 id="Problem-Settings"><a href="#Problem-Settings" class="headerlink" title="Problem Settings"></a>Problem Settings</h3><p>我们将重点放在属性图$G =（A，X）$上的半监督节点分类中，</p>
+<ul>
+<li>$A\in \mathbb R^{n×n}$是具有$n$个节点的对称邻接矩阵</li>
+<li>$X\in \mathbb R^{n×d}$是节点特征矩阵，$d$是节点特征的维数。</li>
+</ul>
+<p>具体来说，$A_{ij} = 1$表示节点$i$和$j$之间存在一条边，否则，$A_{ij} = 0$。<br>我们假设每个节点都属于$C$中的一个类。</p>
+<h3 id="AM-GCN-的整体框架"><a href="#AM-GCN-的整体框架" class="headerlink" title="AM-GCN 的整体框架"></a>AM-GCN 的整体框架</h3><p><img src="/img/loading.gif" data-lazy-src="attachment:image.png" alt="image.png"></p>
+<p><strong>关键思想</strong>：</p>
+<ul>
+<li>AM-GCN不仅允许节点特征在拓扑空间中传播，而且还可以在特征空间中传播，并且应该从这两个空间中提取与节点标签最相关的信息。</li>
+<li>我们基于节点特征$X$构造了一个特征图。然后，通过两个特定的卷积模块，$X$能够在特征图和拓扑图上传播，以分别学习两个特定的嵌入$Z_F$和$Z_T$。</li>
+<li>此外，考虑到这两个空间中的信息具有共同的特征，我们设计了一个具有参数共享策略的共同卷积模块，以学习共同的嵌入$Z_{CF}$和$Z_{CT}$，并且一致性约束$\mathcal L_c$用于增强$Z_{CF}$和$Z_{CT}$的“公共”属性。</li>
+<li>此外，视差约束$\mathcal L_d$是为了确保$Z_F$和$Z_{CF}$之间以及$Z_T$和$Z_{CT}$之间的独立性。 考虑到节点标签可能与拓扑或特征或两者相关联，AM-GCN利用注意力机制将这些嵌入与学习的权重进行自适应融合，从而提取出最相关的信息$Z$进行最终分类任务。</li>
+</ul>
+<h3 id="Specific-Convolution-Module"><a href="#Specific-Convolution-Module" class="headerlink" title="Specific Convolution Module"></a>Specific Convolution Module</h3><p>首先，为了捕获特征空间中节点的底层结构，我们基于节点特征矩阵$X$构造了一个$k$最近邻（kNN）图$G_f =(A_f，X)$，其中$A_f$是$kNN$图的邻接矩阵。 具体来说，我们首先计算n个节点之间的相似度矩阵$S \in \mathbb R^{n×n}$。 </p>
+<p>得到$S$的两种方法：【其中$x_i$和$x_j$是节点$i$和$j$的特征向量】</p>
+<ol>
+<li><p><strong>Cosine Similarity（余弦相似度）</strong><br>它使用两个向量之间的角度的余弦值来测量相似度：<br>$$<br>S_{ij} = \frac{x_i \cdot x_j}{|x_i||x_j|}<br>$$</p>
+</li>
+<li><p><strong>Heat Kernel（热核）</strong><br>$$<br>S_{ij} = e^{- \frac{\lVert x_i-x_j \rVert ^2}{t}}<br>$$</p>
+<ul>
+<li>其中t是热传导方程中的时间参数，取t=2.</li>
+</ul>
+</li>
+</ol>
+<p>本文统一选择<strong>余弦相似度</strong>来获得相似度矩阵$S$，然后为每个节点选择top $k$个相似节点对来设置边，最终得到邻接矩阵$A_f$。<br>然后使用特征空间中的输入图$（A_f，X）$，第$l$层输出$Z^{（l）}_f$可以表示为：<br>$$<br>Z^{(l)}_f = ReLU(\tilde D_f^{- \frac{1}{2}} \tilde A_f \tilde D_f^{- \frac{1}{2}} Z^{(l-1)}_f W^{(l)}_f)<br>$$</p>
+<ul>
+<li>$W^{(l)}_f$是GCN中第l层的权重矩阵（weight matrix）</li>
+<li>ReLU是ReLU激活函数</li>
+<li>初始化$Z^{(0)}_f = X$</li>
+<li>$\tilde A_f = A_f + I_f$和$\tilde D_f$是$\tilde A_f$的对角度矩阵(diagonal degree matrix)</li>
+<li>表示最后一层的输出嵌入作为$Z_F$</li>
+</ul>
+<p>用上面的方式，可以学习到能够在特征空间中捕获到特殊的信息$Z_F$的节点嵌入；<br>对于拓扑空间，原始的输入图$G_t = (A_t,X_t)$，其中$A_t = A$和$X_t = X$；<br>将基于拓扑图的嵌入$Z_T$的学习输出嵌入可以在特征空间中以相同的方式计算。因此，可以提取出拓扑空间中编码的特定信息。</p>
+<h3 id="Common-Convolution-Module"><a href="#Common-Convolution-Module" class="headerlink" title="Common Convolution Module"></a>Common Convolution Module</h3><p><strong>存在的问题</strong>：</p>
+<ul>
+<li>事实上，特征空间和拓扑空间不是完全相关的；</li>
+<li>节点分类任务基本上可能与特征空间、拓扑空间或两者都存在关联，这是很难预先知道的。因此，我们不仅需要提取这两个空间中嵌入的特定节点，还需要提取这两个空间共享的公共信息。这样，任务就可以更加灵活地确定哪一部分信息是最相关的。</li>
+</ul>
+<p><strong>本文的解决方法</strong>：</p>
+<ul>
+<li>设计了一个具有参数共享策略的公共gcn，使嵌入共享到两个空间中。</li>
+</ul>
+<p><strong>过程</strong>：</p>
+<ol>
+<li>首先，我们从拓扑图$(A_t,X)$中使用Common-GCN来提取节点嵌入$Z^{(l)}<em>{ct}$<br>$$<br>Z^{(l)}</em>{ct} = ReLU(\tilde D_t^{- \frac{1}{2}} \tilde A_t \tilde D_t^{- \frac{1}{2}} Z^{(l-1)}_{ct} W_c^{(l)})<br>$$<ul>
+<li>$W_c^{(l)}$ 是Common-GCN的第l层的权重矩阵(weight matrix)</li>
+<li>$Z^{(l-1)}<em>{ct}$ 是第l-1层的节点嵌入，且$Z^{(0)}</em>{ct} = X$</li>
+</ul>
+</li>
+<li>利用Common-GCN从特征图(feature graph)$(A_f,X)$中学习节点嵌入,为了提取共享信息，本文对每一层Common-GCN共享相同的权值矩阵$W_c^{(l)}$<br>$$<br>Z^{(l-1)}_{ct} = ReLU(\tilde D_f^{- \frac{1}{2}} \tilde A_f \tilde D_f^{- \frac{1}{2}} Z^{(l-1)}_f W^{(l)}_c)<br>$$<ul>
+<li>$Z^{(l-1)}_{cf}$ 是第l-1层的节点嵌入，且$Z^{(0)}_f = X$</li>
+</ul>
+</li>
+<li>共享权矩阵(shared weight matrix)可以过滤出两个空间中的共享特征。根据不同的输入图形，我们可以得到两个输出嵌入$Z_CT$和$Z_CF$，两个空间的共同嵌入$Z_C$为:<br>$$<br>Z_C = (Z_{CT} + Z_{CF})/2<br>$$</li>
+</ol>
+<h3 id="Attention-Mechanism"><a href="#Attention-Mechanism" class="headerlink" title="Attention Mechanism"></a>Attention Mechanism</h3><p>现在我们有两个特定的嵌入$Z_T$和$Z_F$，和一个常见的嵌入$Z_C$。考虑到节点标签可以与其中一个甚至是它们的组合关联，我们使用注意机制$att(Z_T, Z_C, Z_F)$来了解它们对应的重要性$(\alpha_t,\alpha_c,\alpha_f)$:<br>$$<br>(\alpha_t,\alpha_c,\alpha_f) = att(Z_T,Z_C,Z_F)<br>$$</p>
+<ul>
+<li>$\alpha_t,\alpha_c,\alpha_f \in \mathbb R^{n \times 1}$表示嵌入$Z_T、Z_C、Z_F$的n个节点的注意值  </li>
+</ul>
+<p>这里我们关注节点$i$，它嵌入在$Z_T$中的是$z^i_T \in \mathbb R^{1 \times h}$(即$Z_T$的第$i$行).本文首先通过非线性变换对嵌入进行变换，然后使用一个共享的注意向量$q \in \mathbb R^{h’ \times 1}$去获得注意力值$\omega^i_T$<br>$$<br>\omega^i_T = q^T \cdot tanh(W \cdot (z^i_T)^T + b)<br>$$</p>
+<ul>
+<li>$W \in \mathbb R^{h’ \times h}$ 是weight matrix</li>
+<li>$b \in \mathbb R^{h’ \times 1}$ 是bias vector（偏差向量）</li>
+</ul>
+<p>类似的，我们可以从嵌入矩阵$Z_C$和$Z_F$获取节点$i$的注意力值$\omega^i_C$和$\omega^i_F$。本文使用softmax函数去归一化注意力的值$\omega^i_T \omega^i_C, \omega^i_F$从而获得最终的权重。<br>$$<br>\alpha^i_T = softmax(\omega^i_T) = \frac{exp(\omega^i_T)}{exp(\omega^i_T)+exp(\omega^i_C)+exp(\omega^i_F)}<br>$$</p>
+<ul>
+<li>$\alpha^i_T$越大，对应的嵌入越重要。</li>
+<li>$\alpha^i_C = softmax(\omega^i_C)$,$\alpha^i_F = softmax(\omega^i_F)$</li>
+</ul>
+<p>对于所有的n节点，我们学习的权重$\alpha_t=[\alpha^i_T],\alpha_c=[\alpha^i_C],\alpha_f=[\alpha^i_F] \in \mathbb R^{n \times 1}$,并且表示$\alpha_T = diag(\alpha_t)$,$\alpha_C = diag(\alpha_c)$和$\alpha_F = diag(\alpha_f)$，然后我们结合这三个嵌入来得到最终的嵌入$Z$:<br>$$<br>Z = \alpha_T \cdot Z_T + \alpha_C \cdot Z_C + \alpha_F \cdot Z_F<br>$$</p>
+<h3 id="Objective-Function-目标函数"><a href="#Objective-Function-目标函数" class="headerlink" title="Objective Function(目标函数)"></a>Objective Function(目标函数)</h3><h4 id="Consistency-Constraint（一致性约束）"><a href="#Consistency-Constraint（一致性约束）" class="headerlink" title="Consistency Constraint（一致性约束）"></a>Consistency Constraint（一致性约束）</h4><p>对于两个输出嵌入Common-GCN的$Z_{CT}$和$Z_{CF}$，虽然Common-GCN的权值矩阵是共享的，但是这里我们设计了一个一致性约束来进一步增强它们的通用性。</p>
+<ol>
+<li>首先用l2归一化的方法将嵌入矩阵归一化为$Z_{CTnor}, Z_{CFnor}$。</li>
+<li>然后，这两个归一化矩阵可以用来捕获n个节点的相似度，如$S_T$和$S_F$<br>$$<br>S_T = Z_{CTnor} \cdot Z_{CTnor}^T \<br>S_F = Z_{CFnor} \cdot Z_{CFnor}^T<br>$$<br>一致性意味着两个相似矩阵应该是相似的，这就产生了下面的约束:<br>$$<br>\mathcal L_c = \lVert S_T - S_F \rVert ^2_F<br>$$</li>
+</ol>
+<h4 id="Disparity-Constraint（视差约束）"><a href="#Disparity-Constraint（视差约束）" class="headerlink" title="Disparity Constraint（视差约束）"></a>Disparity Constraint（视差约束）</h4><p>这里因为嵌入$Z_T$和$Z_{CT}$是从相同图$G_t = (A_t,X_t)$中学习得到,为了确保他们能捕获不同的信息，本文应用<strong>Hilbert-Schmidt Independence Criterion (HSIC)</strong>【一个简单而有效的独立措施，以增强这两个嵌入的差距】</p>
+<p>$Z_T$和$Z_{CT}$的HSIC约束<br>$$<br>HSIC(Z_T,Z_{CT}) = (n-1)^{-2} tr(RK_T RK_CT)<br>$$</p>
+<ul>
+<li>$K_T$ 是$k_{T,ij} = k_T(z^i_T,z^j_T)$的 Gram matrices</li>
+<li>$K_CT$ 是$k_{CT,ij} = k_CT(z^i_CT,z^j_CT)$的 Gram matrices</li>
+<li>$R = I - \frac{1}{n}ee^T$<ul>
+<li>$I$ 是单位矩阵</li>
+<li>$e$ 是一个全一的列向量<br>在本文的实现中，我们对$K_T$和$K_{CT}$使用内积核函数(inner product kernel function)<br>同样，考虑到ZF和ZCF的嵌入，也可以从同一个图(Af)中学习到,他们的差距也应该通过HSIC得到加强:<br>$$<br>HSIC(Z_F,Z_{CF}) = (n-1)^{-2} tr(RK_F RK_CF)<br>$$<br>视差约束$\mathcal L_d$<br>$$<br>\mathcal L_d = HSIC(Z_T,Z_{CT}) + HSIC(Z_F,Z_{CF})<br>$$</li>
+</ul>
+</li>
+</ul>
+<h4 id="Optimization-Objective-优化目标"><a href="#Optimization-Objective-优化目标" class="headerlink" title="Optimization Objective (优化目标)"></a>Optimization Objective (优化目标)</h4><p>n个节点的预测表示为$\hat Y =[\mathcal{\hat{y_{ic}}}] \in \mathbb R^{n \times C}$<br>其中$\mathcal{\hat{y_{ic}}}$ 是节点i属于类c的概率<br>$$<br>\hat Y = softmax(W \cdot Z + b)<br>$$</p>
+<ul>
+<li>$softmax(x) = \frac{exp(x)}{\sum^C_{c=1} exp(x_c)}$是跨所有类的normalizer</li>
+</ul>
+<p>假设训练集是L,对于每个$L∈L$真正的标签是$Y_l$和预测的标签是$\hat Y_L$,则所有训练节点的节点分类交叉熵损失表示为$\mathcal L_t$<br>$$<br>\mathcal L_t = -\sum_{l \in L} \sum^C_{i = 1} Y_{li} ln \hat Y_{li}<br>$$</p>
+<p>结合节点分类任务和约束条件，得到如下总体目标函数<br>$$<br>\mathcal L = \mathcal L_t + \gamma \mathcal L_c + \beta \mathcal L_d<br>$$</p>
+<ul>
+<li>$\gamma$和$\beta$是一致性和视差约束条件的参数</li>
+</ul>
+<p>在标签数据的引导下，我们可以通过反向传播来优化所提出的模型，学习用于分类的节点嵌入</p>
+<h2 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h2><h3 id="实验设置"><a href="#实验设置" class="headerlink" title="实验设置"></a>实验设置</h3><h4 id="数据集"><a href="#数据集" class="headerlink" title="数据集"></a>数据集</h4><p>本文提出的AM-GCN是在6个真实世界数据集上进行评估的，这些数据集总结在表1中。此外，为了重现性，我们在附录中提供了所有的数据网站</p>
+<ul>
+<li><strong>Citeseer</strong></li>
+</ul>
+<p>Citeseer是一个研究论文引文网络，节点为出版物，边缘为引文链接。节点属性是论文的单词包表示，所有节点被划分为6个区域。</p>
+<ul>
+<li><strong>UAI2010</strong></li>
+</ul>
+<p>本文使用的数据集有3067个节点和28311条边已在图卷积网络中测试，用于[28]中的社区检测</p>
+<ul>
+<li><strong>ACM</strong></li>
+</ul>
+<p>这个网络是从ACM数据集中提取的，其中节点代表论文，如果两篇论文的作者相同，那么它们之间就会有一条边。所有论文分为3个类(Database, Wireless Communication,<br>DataMining)。特征是论文关键词的词包表示</p>
+<ul>
+<li><strong>BlogCatalog</strong></li>
+</ul>
+<p>这是一个博客和他们的社会关系从博客目录网站的社交网络。节点属性由用户配置文件的关键字构造，标签代表作者提供的主题类别，所有节点被划分为6个类</p>
+<ul>
+<li><strong>Flickr</strong></li>
+</ul>
+<p>Flickr是一个图片和视频托管网站，在这里用户可以通过照片分享来相互交流。它是一个社交网络，节点代表用户，边代表用户之间的关系，所有节点根据用户的兴趣分组被分成9个类。</p>
+<ul>
+<li><strong>CoraFull</strong></li>
+</ul>
+<p>这是著名的引文网络Cora数据集的放大版，其中节点表示论文，边表示它们的引用，节点根据论文主题进行标记。</p>
+<h4 id="基线"><a href="#基线" class="headerlink" title="基线"></a>基线</h4><p>本文比较了AM-GCN和两种最先进的方法，包括两种网络嵌入算法和六种基于图神经网络的方法。此外，我们为了重现性在补充中提供了所有的代码网站</p>
+<ul>
+<li><strong>DeepWalk</strong></li>
+<li><strong>LINE</strong></li>
+<li><strong>Chebyshev</strong></li>
+<li><strong>GCN</strong></li>
+<li><strong>kNN-GCN</strong></li>
+<li><strong>GAT</strong></li>
+<li><strong>DEMO-Net</strong></li>
+<li><strong>MixHop</strong></li>
+</ul>
+<h4 id="参数设置"><a href="#参数设置" class="headerlink" title="参数设置"></a>参数设置</h4><p>更全面地评估我们的模型,我们选择三个标签利率训练集(例如,20、40、60标记节点每个类),选择1000个节点作为测试集。所有的基线都使用相同的参数初始化提出了他们的论文,我们也进一步仔细把参数来获得最佳的性能。</p>
+<ul>
+<li>对于我们的模型，我们同时训练三个具有相同隐含层维数($nhid1$)和相同输出维数($nhid2$)的两层GCNs，其中$nhid1 ∈ { 512, 768 }$ 和 $nhid2 ∈ { 32, 128, 256}$。</li>
+<li>learning rate with Adam optimizer（Adam优化器的学习率）：$ 0.0001 ∼ 0.0005 $ </li>
+<li>the dropout rate（丢包率）：$ 0.5 $</li>
+<li>$weight decay（权重衰减） ∈ { 5e − 3, 5e − 4} $</li>
+<li>$k ∈ { 2 … 10}$ for k-nearest neighbor graph（k近邻邻居图）.</li>
+<li>The coefficient of consistency constraint and disparity constraints：${ 0.01, 0.001, 0.0001}$和${ 1e−10, 5e−9, 1e−9, 5e−8, 1e−8}$</li>
+<li>对于所有方法，本文在同一个分区上运行5次，并报告平均结果。</li>
+<li>本文使用Accuracy (ACC)和macro F1-score (F1)来评价模型的性能。</li>
+</ul>
+<h3 id="节点分类"><a href="#节点分类" class="headerlink" title="节点分类"></a>节点分类</h3><p><img src="/img/loading.gif" data-lazy-src="attachment:image.png" alt="image.png"></p>
+<p>节点分类结果如上图所示，其中L/C表示每类标注节点的数量。本文有以下几点看法:</p>
+<ul>
+<li>与所有基线相比，本文提出的AM-GCN在所有标签率的数据集上通常都能获得最佳性能。特别对于ACC，AM-GCN获得了最大的相关提高，在BlogCatalog是8.59%，在Flickr是8.63%。结果表示AM-GCN的方法是有效的。</li>
+<li>在所有数据集上，AM-GCN的表现都优于GCN和kNN-GCN，说明了AM-GCN自适应融合机制的有效性，因为它比分别执行GCN和kNNGCN可以提取更多有用的信息。</li>
+<li>通过与GCN和kNN-GCN进行比较，可以发现拓扑图和特征图之间存在结构上的差异，在传统拓扑图上进行GCN并不总是比在特征图上进行GCN效果更好。例如，在BlogCatalog、Flickr和UAI2010中，特征图的性能优于拓扑。这进一步证实了在GCN中引入特征图的必要性</li>
+<li>此外，与GCN相比，AMGCN在feature graph (kNN)更好的数据集(如UAI2010、BlogCatalog、Flickr)上的改进更为实质性。这说明AM-GCN引入了一个更好更适合标签的kNN图来监督特征传播和节点表示学习。</li>
+</ul>
+<h3 id="变体分析-Analysis-of-Variants"><a href="#变体分析-Analysis-of-Variants" class="headerlink" title="变体分析 Analysis of Variants"></a>变体分析 Analysis of Variants</h3><p>在本节中，我们将在所有数据集中比较AM-GCN与其三个变体，以验证约束的有效性。</p>
+<ul>
+<li><strong>AM-GCN-w/o</strong>: AM-GCN without constraints $\mathcal L_c$ and $\mathcal L_d$</li>
+<li><strong>AM-GCN-c</strong>: AM-GCN with the consistency constraint $\mathcal L_c$ .</li>
+<li><strong>AM-GCN-d</strong>: AM-GCN with the disparity constraint $\mathcal L_d$</li>
+</ul>
+<p><img src="/img/loading.gif" data-lazy-src="attachment:image.png" alt="image.png"></p>
+<p>从上图中可以得出以下的结论：</p>
+<ul>
+<li>AM-GCN的结果始终优于其他三种变体，说明了这两种约束同时使用的有效性。</li>
+<li>对于所有标签率的数据集，AM-GCN-c和AM-GCN-d的结果通常都优于AM-GCN-w/o，验证了这两个约束条件的有效性。</li>
+<li>AM-GCNc在所有数据集上都优于AM-GCN-d，说明一致性约束在该框架中发挥了更重要的作用。</li>
+<li>对比图2和表2的结果可以发现AM-GCN-w/o虽然没有任何限制，但仍然取得了成功</li>
+</ul>
+<h3 id="Visualization"><a href="#Visualization" class="headerlink" title="Visualization"></a>Visualization</h3><p>为了更直观地进行比较并进一步展示我们所提出模型的有效性，我们对BlogCatalog数据集进行了可视化。我们将输出嵌入在softmax之前的AM-GCN(或GCN, GAT)的最后一层上，用t-SNE[26]将学习到的测试集嵌入图绘制出来。图3中的BlogCatalog的结果由真实的标签着色。</p>
+<p><img src="/img/loading.gif" data-lazy-src="attachment:image.png" alt="image.png"></p>
+<h3 id="Analysis-of-Attention-Mechanism"><a href="#Analysis-of-Attention-Mechanism" class="headerlink" title="Analysis of Attention Mechanism"></a>Analysis of Attention Mechanism</h3><p>为了考察我们所提出的模型所学习到的注意值是否有意义，我们分别分析了注意力分布和注意力学习趋势。</p>
+<h4 id="Analysis-of-attention-distributions"><a href="#Analysis-of-attention-distributions" class="headerlink" title="Analysis of attention distributions"></a>Analysis of attention distributions</h4><p>AM-GCN学习了两个特定的嵌入和一个常见的嵌入，每个嵌入都与注意值相关。我们对标签率为20的所有数据集进行了注意分布分析，结果显示为图4。</p>
+<p>可以看出，对于Citeseer、ACM、CoraFull，拓扑空间中特定嵌入的注意值大于特征空间中的注意值，而公共嵌入的注意值介于它们之间。这意味着拓扑空间中的信息应该比特征空间中的信息更重要。为了验证这一点，我们可以看到，在表2中这些数据集上，GCN的结果优于kNN-GCN。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+</div><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">unnoyy</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://unnoyy.github.io/posts/25131/">http://unnoyy.github.io/posts/25131/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://unnoyy.github.io" target="_blank">unnoyy</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/taxi-demand/">taxi demand</a><a class="post-meta__tags" href="/tags/paper/">paper</a><a class="post-meta__tags" href="/tags/summary/">summary</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/%E8%AE%BA%E6%96%87%E8%B0%83%E7%A0%94/"><img class="prev-cover" data-lazy-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror='onerror=null,src="/img/404.jpg"'><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">论文调研</div></div></a></div><div class="next-post pull-right"><a href="/posts/43102/"><img class="next-cover" data-lazy-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror='onerror=null,src="/img/404.jpg"'><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">论文笔记 ST-MGCN</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span> 相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/57948/" title="论文笔记 L-CNN"><img class="cover" data-lazy-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-08-28</div><div class="title">论文笔记 L-CNN</div></div></a></div><div><a href="/posts/43102/" title="论文笔记 ST-MGCN"><img class="cover" data-lazy-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-09-03</div><div class="title">论文笔记 ST-MGCN</div></div></a></div><div><a href="/posts/29557/" title="论文笔记"><img class="cover" data-lazy-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-08-20</div><div class="title">论文笔记</div></div></a></div><div><a href="/posts/38577/" title="出租车需求量预测小总结"><img class="cover" data-lazy-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-08-06</div><div class="title">出租车需求量预测小总结</div></div></a></div><div><a href="/posts/60455/" title="出租车需求量预测论文集"><img class="cover" data-lazy-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-08-05</div><div class="title">出租车需求量预测论文集</div></div></a></div><div><a href="/posts/9621/" title="船运到达时间比赛-数据集分析"><img class="cover" data-lazy-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-07-30</div><div class="title">船运到达时间比赛-数据集分析</div></div></a></div></div></div><hr><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div><div class="comment-switch"><span class="first-comment">Valine</span><label><input id="switch-comments-btn" type="checkbox"><span class="slider"></span></label><span class="second-comment">Gitalk</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div><div><div id="gitalk-container"></div></div></div></div></article></main><footer id="footer" data-type="color"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2021 By unnoyy</div><div class="framework-info"><span>框架 </span><a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a href="https://github.com/jerryc127/hexo-theme-butterfly" target="_blank" rel="noopener">Butterfly</a></div><div class="footer_custom_text">欢迎来到<a href="https://unnoyy.github.io/">小屋</a>!</div></div></footer></div><section id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">简</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></section><div class="search-dialog" id="local-search"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"></div></div></div><hr><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a href="https://github.com/wzpan/hexo-generator-search" target="_blank" rel="noopener" style="color:#49b1f5">hexo-generator-search</a>
+ <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div><div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.spacingElementById('content-inner')
+  else {
+    $.getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js', () => {
+      pangu.spacingElementById('content-inner')
+    })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguFn)</script><script src="/js/search/local-search.js"></script><script>var endLoading=function(){document.body.style.overflow="auto",document.getElementById("loading-box").classList.add("loaded")};window.addEventListener("load",endLoading)</script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    loader: {
+      source: {
+        '[tex]/amsCd': '[tex]/amscd'
+      }
+    },
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        addClass: [200,() => {
+          document.querySelectorAll('mjx-container:not([display=\'true\']').forEach( node => {
+            const target = node.parentNode
+            if (!target.classList.contains('has-jax')) {
+              target.classList.add('mathjax-overflow')
+            }
+          })
+        }, '', false]
+      }
+    }
+  }
+  
+  var script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script><script>function loadValine () {
+  function initValine () {
+    window.valine = new Valine({
+      el: '#vcomment',
+      appId: 'SVg8NY7xGdhfqBMmwyksops7-gzGzoHsz',
+      appKey: 'gMpBjTW5NEFR6cW6CUmhBITz',
+      placeholder: 'Please leave your footprints',
+      avatar: 'monsterid',
+      meta: 'nick,mail,link'.split(','),
+      pageSize: '10',
+      lang: 'zh-CN',
+      recordIP: false,
+      serverURLs: '',
+      emojiCDN: '',
+      emojiMaps: "",
+      enableQQ: false,
+      path: window.location.pathname,
+    });
+    if ('nick,mail') { valine.config.requiredFields= 'nick,mail'.split(',') }
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else $.getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js', initValine)
+}
+
+if ('Valine' === 'Valine' || !true) {
+  if (true) btf.loadComment(document.querySelector('#vcomment'),loadValine)
+  else setTimeout(() => loadValine(), 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script><script>function addGitalkSource () {
+  const ele = document.createElement('link')
+  ele.rel = 'stylesheet'
+  ele.href= 'https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css'
+  document.getElementsByTagName('head')[0].appendChild(ele)
+}
+
+function loadGitalk () {
+  function initGitalk () {
+    var gitalk = new Gitalk({
+      clientID: '769c8b0e30bdfa36fcdd',
+      clientSecret: '8ff1137eb46effb3547818440411a5f053db93fa',
+      repo: 'unnoyy.github.io',
+      owner: 'unnoyy',
+      admin: ['unnoyy'],
+      id: '6df39242b9f54760f3e980f432a83e0a',
+      language: 'zh-CN',
+      perPage: 10,
+      distractionFreeMode: false,
+      pagerDirection: 'last',
+      createIssueManually: false,
+      updateCountCallback: commentCount
+    })
+    gitalk.render('gitalk-container')
+  }
+
+  if (typeof Gitalk === 'function') initGitalk()
+  else {
+    addGitalkSource()
+    $.getScript('https://cdn.jsdelivr.net/npm/gitalk@latest/dist/gitalk.min.js', initGitalk)
+  }
+}
+
+function commentCount(n){
+  let isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+  if (isCommentCount) {
+    isCommentCount.innerHTML= n
+  }
+}
+
+if ('Valine' === 'Gitalk' || !true) {
+  if (true) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+  else loadGitalk()
+} else {
+  function loadOtherComment () {
+    loadGitalk()
+  }
+}</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script src="/js/Beautify.js"></script><script src="/js/beautify2.js"></script><script src="/js/fishes.js"></script><script src="/js/calendar.js"></script><script src="/js/languages.js"></script><div class="app-refresh" id="app-refresh"> <div class="app-refresh-wrap"> <label>✨ 網站已更新最新版本 👉</label> <a href="javascript:void(0)" onclick="location.reload()">點擊刷新</a> </div></div><script>function showNotification(){if(GLOBAL_CONFIG.Snackbar){var t="light"===document.documentElement.getAttribute("data-theme")?GLOBAL_CONFIG.Snackbar.bgLight:GLOBAL_CONFIG.Snackbar.bgDark,e=GLOBAL_CONFIG.Snackbar.position;Snackbar.show({text:"已更新最新版本",backgroundColor:t,duration:5e5,pos:e,actionText:"點擊刷新",actionTextColor:"#fff",onActionClick:function(t){location.reload()}})}else{var o=`top: 0; background: ${"light"===document.documentElement.getAttribute("data-theme")?"#49b1f5":"#1f1f1f"};`;document.getElementById("app-refresh").style.cssText=o}}"serviceWorker"in navigator&&(navigator.serviceWorker.controller&&navigator.serviceWorker.addEventListener("controllerchange",function(){showNotification()}),window.addEventListener("load",function(){navigator.serviceWorker.register("/sw.js")}));</script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-heart.min.js" async></script></div></body></html>

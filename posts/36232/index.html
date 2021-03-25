@@ -1,0 +1,360 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>论文笔记-出租车需求预测3 | unnoyy</title><meta name="description" content="基于图卷积的起点-终点矩阵预测：旅客需求建模的新视角"><meta name="keywords" content="taxi demand,paper,summary"><meta name="author" content="unnoyy"><meta name="copyright" content="unnoyy"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="shortcut icon" href="/pic/favicon.png"><link rel="canonical" href="http://unnoyy.github.io/posts/36232/"><link rel="preconnect" href="//cdn.jsdelivr.net"><link rel="preconnect" href="//busuanzi.ibruce.info"><link rel="preconnect" href="//zz.bdstatic.com"><meta property="og:type" content="article"><meta property="og:title" content="论文笔记-出租车需求预测3"><meta property="og:url" content="http://unnoyy.github.io/posts/36232/"><meta property="og:site_name" content="unnoyy"><meta property="og:description" content="基于图卷积的起点-终点矩阵预测：旅客需求建模的新视角"><meta property="og:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><meta property="article:published_time" content="2020-07-25T02:10:46.000Z"><meta property="article:modified_time" content="2021-03-25T14:39:02.100Z"><meta name="twitter:card" content="summary"><link rel="manifest" href="/pic/pwa/manifest.json"><meta name="msapplication-TileColor" content="#fff"><link rel="apple-touch-icon" sizes="180x180" href="/pic/pwa/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/pic/pwa/32.png"><link rel="icon" type="image/png" sizes="16x16" href="/pic/pwa/16.png"><link rel="mask-icon" href="/pic/pwa/safari-pinned-tab.svg" color="#5bbad5"><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  hexoversion: '4.2.0',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: {"defaultEncoding":1,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  bookmark: {
+    message_prev: '按',
+    message_next: '键将本页加入书签'
+  },
+  runtime: '天',
+  date_suffix: {"one_hour":"刚刚","hours":"小时前","day":"天前"},
+  copyright: {"limitCount":50,"languages":{"author":"作者: unnoyy","link":"链接: ","source":"来源: unnoyy","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  ClickShowText: undefined,
+  medium_zoom: false,
+  fancybox: true,
+  Snackbar: {"bookmark":{"message_prev":"按","message_next":"键将本页加入书签"},"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#121212","position":"bottom-left"},
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
+  baiduPush: true,
+  isPhotoFigcaption: true,
+  islazyload: true,
+  isanchor: false
+};
+
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+    const now = new Date()
+    const expiryDay = ttl * 86400000
+    const item = {
+      value: value,
+      expiry: now.getTime() + expiryDay,
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+    },
+
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}</script><script id="config_change">var GLOBAL_CONFIG_SITE={isPost:!0,isHome:!1,isHighlightShrink:!1,isSidebar:!0,postUpdate:"2021-03-25 22:39:02"}</script><noscript><style>#nav{opacity:1}.justified-gallery img{opacity:1}</style></noscript><script>var activateDarkMode=function(){document.documentElement.setAttribute("data-theme","dark"),null!==document.querySelector('meta[name="theme-color"]')&&document.querySelector('meta[name="theme-color"]').setAttribute("content","#0d0d0d")},activateLightMode=function(){document.documentElement.setAttribute("data-theme","light"),null!==document.querySelector('meta[name="theme-color"]')&&document.querySelector('meta[name="theme-color"]').setAttribute("content","#ffffff")},autoChangeMode="false",t=saveToLocal.get("theme");if("1"===autoChangeMode){var isDarkMode=window.matchMedia("(prefers-color-scheme: dark)").matches,isLightMode=window.matchMedia("(prefers-color-scheme: light)").matches,isNotSpecified=window.matchMedia("(prefers-color-scheme: no-preference)").matches,hasNoSupport=!isDarkMode&&!isLightMode&&!isNotSpecified;if(void 0===t){if(isLightMode)activateLightMode();else if(isDarkMode)activateDarkMode();else if(isNotSpecified||hasNoSupport){var now=new Date,hour=now.getHours(),isNight=hour<=6||18<=hour;isNight?activateDarkMode():activateLightMode()}window.matchMedia("(prefers-color-scheme: dark)").addListener(function(e){void 0===saveToLocal.get("theme")&&(e.matches?activateDarkMode():activateLightMode())})}else"light"===t?activateLightMode():activateDarkMode()}else"2"===autoChangeMode?(isNight=(hour=(now=new Date).getHours())<=6||18<=hour,void 0===t?isNight?activateDarkMode():activateLightMode():"light"===t?activateLightMode():activateDarkMode()):"dark"===t?activateDarkMode():"light"===t&&activateLightMode()</script><link rel="stylesheet" href="/css/background.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/sviptzk/StaticFile_HEXO@latest/butterfly/css/iconfont.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/sviptzk/HexoStaticFile@latest/Hexo/css/buttons.min.css"><style>.app-refresh{position:fixed;top:-2.2rem;left:0;right:0;z-index:99999;padding:0 1rem;font-size:15px;height:2.2rem;transition:all .3s ease}.app-refresh-wrap{display:flex;color:#fff;height:100%;align-items:center;justify-content:center}.app-refresh-wrap a{color:#fff;text-decoration:underline;cursor:pointer}</style><meta name="generator" content="Hexo 4.2.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" data-lazy-src="/pic/avatar.jpg" onerror='onerror=null,src="/img/friend_404.gif"' alt="avatar"></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">28</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">13</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">4</div></a></div></div></div><hr><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 休闲</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page" href="/book/"><i class="fa-fw fas fa-book"></i><span> 书籍</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart card-announcement-animation"></i><span> 关于</span></a></div></div></div></div><div id="body-wrap"><div id="web_bg" data-type="color"></div><div id="sidebar"><i class="fas fa-arrow-right on" id="toggle-sidebar"></i><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Origin-Destination-Matrix-Prediction-via-Graph-Convolution-a-New-Perspective-of-Passenger-Demand-Modeling"><span class="toc-number">1.</span> <span class="toc-text">Origin-Destination Matrix Prediction via Graph Convolution a New Perspective of Passenger Demand Modeling</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#摘要"><span class="toc-number">1.1.</span> <span class="toc-text">摘要</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#介绍"><span class="toc-number">1.2.</span> <span class="toc-text">介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#前提条件"><span class="toc-number">1.3.</span> <span class="toc-text">前提条件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#定义"><span class="toc-number">1.3.1.</span> <span class="toc-text">定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#OD矩阵预测"><span class="toc-number">1.3.2.</span> <span class="toc-text">OD矩阵预测</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#方法"><span class="toc-number">1.4.</span> <span class="toc-text">方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Grid-Embedding"><span class="toc-number">1.4.1.</span> <span class="toc-text">Grid Embedding</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Geographical-Neighborhood"><span class="toc-number">1.4.1.1.</span> <span class="toc-text">Geographical Neighborhood</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Semantic-Neighborhood"><span class="toc-number">1.4.1.2.</span> <span class="toc-text">Semantic Neighborhood</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Pre-Weighted-Aggregator-for-Grid-Embedding"><span class="toc-number">1.4.1.3.</span> <span class="toc-text">Pre-Weighted Aggregator for Grid Embedding</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Multi-TaskLearning"><span class="toc-number">1.4.2.</span> <span class="toc-text">Multi-TaskLearning</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Periodic-Skip-LSTM"><span class="toc-number">1.4.2.1.</span> <span class="toc-text">Periodic-Skip LSTM</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Main-Task-Predicting-the-OD-Matrix"><span class="toc-number">1.4.2.2.</span> <span class="toc-text">Main Task: Predicting the OD Matrix</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Two-Subtasks-Predicting-the-In-and-Out-Degrees"><span class="toc-number">1.4.2.3.</span> <span class="toc-text">Two Subtasks:Predicting the In-and Out-Degrees</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Loss-Functions"><span class="toc-number">1.4.2.4.</span> <span class="toc-text">Loss Functions</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#评价"><span class="toc-number">1.5.</span> <span class="toc-text">评价</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#数据集"><span class="toc-number">1.5.1.</span> <span class="toc-text">数据集</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#基线"><span class="toc-number">1.5.2.</span> <span class="toc-text">基线</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#实验设置"><span class="toc-number">1.5.3.</span> <span class="toc-text">实验设置</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#相关工作"><span class="toc-number">1.6.</span> <span class="toc-text">相关工作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-number">1.7.</span> <span class="toc-text">总结</span></a></li></ol></li></ol></div></div></div><header class="post-bg" id="page-header" style="background-image:url(https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg)"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">unnoyy</a></span><span id="menus"><div id="search_button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 休闲</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page" href="/book/"><i class="fa-fw fas fa-book"></i><span> 书籍</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart card-announcement-animation"></i><span> 关于</span></a></div></div><span class="close" id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="post-info"><div id="post-title"><div class="posttitle">论文笔记-出租车需求预测3</div></div><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2020-07-25T02:10:46.000Z" title="发表于 2020-07-25 10:10:46">2020-07-25</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2021-03-25T14:39:02.100Z" title="更新于 2021-03-25 22:39:02">2021-03-25</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/paper/">paper</a></span></div><div class="meta-secondline"> <span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">3.7k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>11分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout_post" id="content-inner"><article id="post"><div class="post-content" id="article-container"><h1 id="Origin-Destination-Matrix-Prediction-via-Graph-Convolution-a-New-Perspective-of-Passenger-Demand-Modeling"><a href="#Origin-Destination-Matrix-Prediction-via-Graph-Convolution-a-New-Perspective-of-Passenger-Demand-Modeling" class="headerlink" title="Origin-Destination Matrix Prediction via Graph Convolution a New Perspective of Passenger Demand Modeling"></a>Origin-Destination Matrix Prediction via Graph Convolution a New Perspective of Passenger Demand Modeling</h1><p>论文题目：基于图卷积的起点-终点矩阵预测：旅客需求建模的新视角</p>
+<p>参考笔记：<a href="https://cloud.tencent.com/developer/article/1619218" target="_blank" rel="noopener">https://cloud.tencent.com/developer/article/1619218</a></p>
+<h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><ul>
+<li>为了获得乘客的出行模式，打车平台需要提前预测一个地区到另一个地区的乘客需求数量，即OD矩阵预测(ODMP)问题。OD矩阵预测比普通需求预测更具挑战性。</li>
+<li>除了要预测一个地区的需求产生量，还需要预测需求的目的地。此外，数据稀疏性是一个严重的问题。</li>
+<li>因此本文提出了一种基于网格嵌入的单馈多任务学习模型(GEML)。该模型主要包含两个部分，分别提取时间信息和空间信息。</li>
+<li>网格嵌入部分是为了对乘客的空间移动模式和不同区域的相邻关系进行建模，其预加权聚合器的目的是感知数据的稀疏性和范围；</li>
+<li>多任务学习部分则侧重于时间属性建模和捕获ODMP问题目标。两个数据集UCAR和Didi的结果表明GEML方法优于基准模型。</li>
+</ul>
+<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>除了预测某一区域内可能的乘客需求数量外，了解每次出行的来源地和目的地的乘客需求也很重要。因为不同时段两个区域之间的需求量不仅承载着乘客需求的强度，而且有利于挖掘有用的出行模式。</p>
+<p>本文从一个新的角度研究了乘客需求模型，即OD矩阵预测（ODMP）</p>
+<p><strong>O</strong>rigin-<strong>D</strong>estination <strong>M</strong>atrix <strong>P</strong>rediction（<strong>ODMP</strong>）</p>
+<p>OD矩阵包含两个方面的信息: </p>
+<ol>
+<li>不同的OD组合</li>
+<li>每个OD对的旅客需求数量。</li>
+</ol>
+<p>ODMP的<strong>目标</strong>：预测在给定时间段内从一个地理区域到另一个地理区域的叫车订单数量。</p>
+<p>为了同时兼顾出行产生量和目的地，时空特性以及数据稀疏性，本文提出了一种基于网格嵌入的单馈多任务学习模型(GEML)，以基于图对出行模式进行建模。具体来说，我们用图表示与地理区域相关的乘客订单记录，其中节点表示地理区域(以网格形式定义)，节点之间的边表示乘客需求，边权重表示订单数量。利用改进后的网格，可以构造出给定时间间隔内的OD矩阵。如图1所示，将区域划分为16个网格，订单记录汇总在相应的OD矩阵中。<br><img src="/img/loading.gif" data-lazy-src="attachment:image.png" alt="image.png"></p>
+<p>本文模型的灵感来自于最近大火的GCNs，然而如果我们直接将已有的GCNs应用到OD矩阵所生成的图上，由于数据稀疏，学习到的具有很少订单的网格嵌入往往是不可靠和无效的，此外，如果没有任何历史订单记录的孤立节点(例如，新建社区)，学习到的网格嵌入也是不可行的(无论作为O点还是D点)。为了缓解数据的稀疏性问题，我们提出基于地理学第一定律探索网格的地理相关性，即所有的东西都是相关的，但附近的东西比遥远的东西更相关。例如，在两个地理位置相近的网格中，乘客需求的数量往往接近彼此。特别地，我们考虑了网格嵌入部分的两种邻域，即地理邻域（地理上相邻的）和语义领域（通过OD流连接起来的）。前者用于度量一个网格与其邻域之间的内在紧密程度，后者用于对网络OD之间的交通流强度建模。</p>
+<p>基于网格嵌入学习得到的网格的表示，结合乘客需求的重要时间信息，设计了一个面向ODMP的多任务神经网络。受既有工作的启发，我们对一个网格的流入流和流出流分别建模，预测每个网格在不同时间段的流入和流出需求数量。引入这两个子任务的基本原理是，我们能够在每个网格上单独捕获更多的动态出行模式。通过补充两个单独的子任务，总体需求预测任务可以捕获更强的内在时间模式，因为每个网格中的总体需求具有更大的规模或粒度。例如，在早高峰时段，当网格划分的粒度很小时，网约车需求的目的地可能存在很大不同，导致数据稀疏性问题，这意味着乘客需求的目的地可能分布得非常广泛，但这些网格的总流入流和流出流是非常大的。</p>
+<p>本文的主要贡献：</p>
+<ul>
+<li>提出了一种新颖的问题ODMP，即OD矩阵预测问题。预测给定时间段内给定起点和终点的乘客需求，这可以极大地帮助乘车平台准备汽车和调度订单。</li>
+<li>通过将感兴趣的区域划分为地图上的网格来制定ODMP问题。然后设计网格嵌入网络，以通过新颖定义的网格邻域（地理和语义邻居）之间的图卷积为每个网格执行嵌入，该模型通过模仿GCN中的消息传递模式来建模不同网格之间的流量传输关系。</li>
+<li>设计了一个多任务学习网络，该网络依靠长期短期记忆循环网络（LSTM）来捕获旅客需求的时间趋势。两个子任务预测网格中的单个流入流和流出流需求，而主任务预测每对网格之间的需求。</li>
+<li>在两个真实大规模叫车数据集上的大量实验表明提出的GEML模型性能优于基准模型。</li>
+</ul>
+<h2 id="前提条件"><a href="#前提条件" class="headerlink" title="前提条件"></a>前提条件</h2><h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><ol>
+<li><p>Grid（网格）：整个感兴趣的空间区域（例如特定城市）被划分为n个不重叠的网格，表示为$G = {g_1，g_2，…，g_n}$。一个网格示例其中区域分为16个网格，每个网格的范围由最大和最小坐标定义。</p>
+</li>
+<li><p>Time Slot:将时间划分为t个时隙序列,表示为${Slot_1,Slot_2,…,Slot_t}$。任何两个连续时隙之间的间隔是恒定的。</p>
+</li>
+<li><p>OD Matrix:定义OD矩阵为$M \in \mathbb{N}^{G \times G}$，每个输入$m_{i,j}\in M$表示从网格 $g_i$到网格 $g_j$的乘客需求数量。</p>
+<ul>
+<li>在每个时隙中，对于任何两个网格$g_i, g_j \in G $，从$g_i$到$g_j$的旅行需求总数表示为$m_{i,j}$。</li>
+</ul>
+</li>
+</ol>
+<h3 id="OD矩阵预测"><a href="#OD矩阵预测" class="headerlink" title="OD矩阵预测"></a>OD矩阵预测</h3><p>问题定义：</p>
+<ul>
+<li>对于t个时隙，给定t个观察到的OD矩阵${M1，M2，…，Mt}$的序列和一组辅助特征$X_aux$（根据可用性可选），起源-目标矩阵预测（ODMP）是一个回归任务以预测下一个时隙$Slot_{t + 1}$中的OD矩阵$M_{t + 1}$。</li>
+</ul>
+<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><p><img src="/img/loading.gif" data-lazy-src="attachment:image.png" alt="image.png"></p>
+<p>步骤：</p>
+<ul>
+<li>OD矩阵可以从乘车服务提供商的出行记录中提取,(如果可获得)外部数据源将用于产生辅助功能</li>
+<li>GEML的网格嵌入部分通过两种邻域的信息聚合来学习每个网格的嵌入向量：地理邻域和语义邻域</li>
+<li>每个网格的顺序矢量表示将被馈入多任务神经网络，以学习最近时隙$t_a$中网格的表示。</li>
+<li>利用网格的矢量表示来生成预测的OD矩阵。</li>
+</ul>
+<p>GEML模型能同时捕获空间和时间特性。</p>
+<ul>
+<li>从<strong>空间角度</strong>出发，提出了一种基于邻域的网格嵌入方法，通过聚集邻域信息来学习每个网格的向量表示。</li>
+<li>从<strong>时间的角度</strong>，我们设计了一个多任务学习框架来模拟乘客需求随时间的动态趋势。接下来，我们将介绍网格嵌入和多任务学习的技术细节。</li>
+</ul>
+<h3 id="Grid-Embedding"><a href="#Grid-Embedding" class="headerlink" title="Grid Embedding"></a>Grid Embedding</h3><ul>
+<li>由于GCN在低需求网格上的局限性，我们在ODMP的背景下提出了两种邻域函数用于乘客需求建模，即地理邻域和语义邻域。</li>
+<li>它们被用来测量一个网格与其相邻网格之间的内在紧密度，并分别捕获网格网络中始发地与目的地之间的业务流的语义强度。</li>
+<li>前者用于度量一个网格与其邻域之间的内在紧密程度，后者用于对网络OD之间的交通流强度建模</li>
+</ul>
+<h4 id="Geographical-Neighborhood"><a href="#Geographical-Neighborhood" class="headerlink" title="Geographical Neighborhood"></a>Geographical Neighborhood</h4><ul>
+<li>两个区域中心点之间的距离小于一定的阈值可定义为地理邻域。</li>
+</ul>
+<p>$$<br>\Phi_i = {g_i|dis(g_i,g_j) \leq L }<br>$$</p>
+<ul>
+<li>$dis(g_i,g_j)$表示两个网格中心的空间距离</li>
+</ul>
+<h4 id="Semantic-Neighborhood"><a href="#Semantic-Neighborhood" class="headerlink" title="Semantic Neighborhood"></a>Semantic Neighborhood</h4><ul>
+<li>如果两个区域之间至少有一个OD流 (可以是相反方向), 即可定义为两者为语义邻域。</li>
+<li>在任意时间段$t′= 1, 2,…，t$我们可以通过公式获取网格i的语义邻域。</li>
+</ul>
+<p>$$<br>\Omega_{t′}^i = {g_i|m_{i,j} &gt; 0 || m_{j,i} &gt; 0, m_{i,j} \in M_t′,m_{j,i} \in M_t′ }<br>$$</p>
+<ul>
+<li>由公式可知，不同网格在不同时间间隔的语义邻居个数是不确定的。由于ODMP问题对时间敏感，因此考虑不同网格在不同时间间隔的语义关系至关重要。</li>
+</ul>
+<h4 id="Pre-Weighted-Aggregator-for-Grid-Embedding"><a href="#Pre-Weighted-Aggregator-for-Grid-Embedding" class="headerlink" title="Pre-Weighted Aggregator for Grid Embedding"></a>Pre-Weighted Aggregator for Grid Embedding</h4><ul>
+<li>通过聚合地理邻域$\Phi_i$和语义邻域$\Omega_{t′}^i$推断在时隙$t_k$时的每个网格$g_i$的向量表示</li>
+<li>不是为每个网格训练一个不同的嵌入向量，而是训练一个聚合器函数，它学会从网格的邻域中积累和选择特征信息</li>
+</ul>
+<p>朴素聚合器形式：</p>
+<p>$$<br>\mathbf v_i = \sigma \Big (\mathbf W \cdot MEAN({ \mathbf v_i’}  { \mathbf v_j’,g_j \in N_i)}) \Big )<br>$$</p>
+<ul>
+<li><p>vi是网格gi的嵌入向量</p>
+</li>
+<li><p>MEAN(·)表示对应元素均值</p>
+</li>
+<li><p>vj是网格gj的嵌入向量</p>
+</li>
+<li><p>朴素聚合方法：计算vi’和vj’对应元素的均值，并将它们连接到之前的特性vi’</p>
+</li>
+<li><p>尽管有一些基本聚合器的变体(例如pooling aggregator and LSTM aggregator)，现有的图卷积聚合方法在ODMP场景下缺乏充分捕捉不同网格之间关系的能力，无法进行需求建模，原因是这些聚合器在融合每个网格邻居的所有特性时无法区分它们的重要性，直观地说，两个网格之间的地理距离越近，它们的属性就越相似。此外，在语义邻居集中，邻居网格的受欢迎程度应该对聚合过程产生影响，因为它保留了具有代表性的出行模式。</p>
+</li>
+</ul>
+<p>在此基础上，提出了一种<strong>预加权聚合器</strong>，该聚合器可以选择性地将重点放在网格嵌入的重要邻域上。对于网格的地理邻域，我们利用相邻区域之间的距离作为聚合器的权重因子。因此，我们将<strong>地理邻域的预加权聚合器</strong>表示为：</p>
+<p><img src="/img/loading.gif" data-lazy-src="attachment:image.png" alt="image.png"></p>
+<p>对于<strong>语义邻域</strong>，degree代表OD流量，即两个区域之间的OD流（从i到j或从j到i），$\epsilon$是一个非常小的值接近于零,以防$degree(g_j) = 0$。</p>
+<p>注意，两种表示都是随时间变化的，是一个动态指标。最后，将两种语义表示连接起来得到一个网格最终的语义表示。</p>
+<h3 id="Multi-TaskLearning"><a href="#Multi-TaskLearning" class="headerlink" title="Multi-TaskLearning"></a>Multi-TaskLearning</h3><ul>
+<li>一种具有periodic-skip LSTM的多任务学习方案</li>
+</ul>
+<p><img src="/img/loading.gif" data-lazy-src="attachment:image.png" alt="image.png"></p>
+<h4 id="Periodic-Skip-LSTM"><a href="#Periodic-Skip-LSTM" class="headerlink" title="Periodic-Skip LSTM"></a>Periodic-Skip LSTM</h4><p>ht = LSTM(xt,ht−1). </p>
+<p>在预测下一小时的乘客需求时，LSTM中的序列建模方案将迫使模型从之前的连续小时中收集信息。这可能对需求预测没有多大帮助，因为不相关的输入会产生很多噪音。为此，为了更好地对周期性进行建模，我们取网格嵌入序列{vi1, vi2，…， vit}作为输入，进一步将Eq.(8)转换为Periodic-Skip LSTM，跳过不相关的顺序模式。</p>
+<p>hi t = LSTMps(vi t,hi t−p) </p>
+<ul>
+<li>其中p是跳过的隐藏状态数</li>
+</ul>
+<h4 id="Main-Task-Predicting-the-OD-Matrix"><a href="#Main-Task-Predicting-the-OD-Matrix" class="headerlink" title="Main Task: Predicting the OD Matrix"></a>Main Task: Predicting the OD Matrix</h4><p>由periodic-skip LSTM框架,我们可以得到在时间t网格gi的向量表示。为了得到OD矩阵中每一项mij的值，我们构造了一个过渡矩阵Wm∈R（d×d）以对OD流进行建模。此时，预测值m可由下式计算。损失函数为均方误差。</p>
+<p>mi,j = (Wmhi t)⊤hj t, (10) andweusemeansquarederrortocomputethelossfunctionfor themaintask:<br>LODMP =<br>1 |Mt+1|×N<br>N Õ n=1||Mt+1− ˆ Mt+1||, (11) wheremi,j ∈ Mt+1 is the real value in the OD matrix at time t +1,n ≤ N istheindexofthetrainingsample. </p>
+<h4 id="Two-Subtasks-Predicting-the-In-and-Out-Degrees"><a href="#Two-Subtasks-Predicting-the-In-and-Out-Degrees" class="headerlink" title="Two Subtasks:Predicting the In-and Out-Degrees"></a>Two Subtasks:Predicting the In-and Out-Degrees</h4><p>在预测上述总体OD矩阵的主要任务的同时，我们还分别对流入流（p）和流出流（q）进行了建模。</p>
+<ul>
+<li>Win和Wout是用于将网格嵌入投影到标量的两个投影权重</li>
+<li>损失函数为均方误差，G是网格的个数。</li>
+</ul>
+<h4 id="Loss-Functions"><a href="#Loss-Functions" class="headerlink" title="Loss Functions"></a>Loss Functions</h4><p>针对上述三个任务，我们将主要任务的损失和两个子任务的损失结合起来，制定出总体损失函数。</p>
+<h2 id="评价"><a href="#评价" class="headerlink" title="评价"></a>评价</h2><p>四个问题：</p>
+<ol>
+<li>GEML在ODMP任务上的效果如何？</li>
+<li>模型的每个拟议组成部分如何对GEML的性能做出贡献？</li>
+<li>每个主要超参数如何影响GEML的预测性能？</li>
+<li>GEML学习了哪些实际的移动性模式？</li>
+</ol>
+<h3 id="数据集"><a href="#数据集" class="headerlink" title="数据集"></a>数据集</h3><ul>
+<li>UCAR:北京，2016 8.1-8.31</li>
+<li>Didi:成都 2016 11.1-11.30 </li>
+</ul>
+<h3 id="基线"><a href="#基线" class="headerlink" title="基线"></a>基线</h3><ul>
+<li>HA</li>
+<li>LSTM</li>
+<li>LSTNet</li>
+<li>GCRN</li>
+</ul>
+<p>变体：</p>
+<ul>
+<li>GEML-S1</li>
+<li>GEML-S2</li>
+<li>GEML-S3</li>
+<li>GEML-S4</li>
+<li>GEML-AF</li>
+</ul>
+<h3 id="实验设置"><a href="#实验设置" class="headerlink" title="实验设置"></a>实验设置</h3><p>指标</p>
+<ul>
+<li>RMSE</li>
+<li>SMAPE</li>
+</ul>
+<h2 id="相关工作"><a href="#相关工作" class="headerlink" title="相关工作"></a>相关工作</h2><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ol>
+<li>定义了乘客需求的ODMP问题</li>
+<li>不仅需要预测区域中的需求数量，还需要预测需求的目的地。</li>
+<li>通过区域邻居的信息对区域的移动性模型进行建模，在此基础上设计了网格嵌入框架。</li>
+<li>在其聚合过程中添加了预加权函数，以便它可以感知数据的范围和稀疏性。</li>
+<li>利用具有非周期性跳过成分的多任务LSTM对时间趋势进行建模。</li>
+<li>子任务可以通过扩大每个网格内总体需求的规模或粒度来协助主要任务捕获更强大的固有时间模式。</li>
+<li>整个过程是一个端到端模型，称为基于网格嵌入的多任务学习（GEML）。</li>
+<li>在两个现实世界和大规模的乘车数据集上评估了模型</li>
+</ol>
+<p><strong>缺点</strong>：有一个致命弱点，即没有考虑行程时间，由O点到D点需要一定的行程时间，因此实时的OD矩阵是不可能得到的，因此利用真实的历史OD矩阵作为输入在实时预测中是不可行的。</p>
+</div><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">unnoyy</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://unnoyy.github.io/posts/36232/">http://unnoyy.github.io/posts/36232/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://unnoyy.github.io" target="_blank">unnoyy</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/taxi-demand/">taxi demand</a><a class="post-meta__tags" href="/tags/paper/">paper</a><a class="post-meta__tags" href="/tags/summary/">summary</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/25088/"><img class="prev-cover" data-lazy-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror='onerror=null,src="/img/404.jpg"'><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">论文笔记-出租车需求预测4</div></div></a></div><div class="next-post pull-right"><a href="/posts/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/"><img class="next-cover" data-lazy-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror='onerror=null,src="/img/404.jpg"'><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">论文笔记-出租车需求预测2</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span> 相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/25131/" title="论文笔记 AM-GCN"><img class="cover" data-lazy-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-09-08</div><div class="title">论文笔记 AM-GCN</div></div></a></div><div><a href="/posts/57948/" title="论文笔记 L-CNN"><img class="cover" data-lazy-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-08-28</div><div class="title">论文笔记 L-CNN</div></div></a></div><div><a href="/posts/43102/" title="论文笔记 ST-MGCN"><img class="cover" data-lazy-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-09-03</div><div class="title">论文笔记 ST-MGCN</div></div></a></div><div><a href="/posts/29557/" title="论文笔记"><img class="cover" data-lazy-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-08-20</div><div class="title">论文笔记</div></div></a></div><div><a href="/posts/38577/" title="出租车需求量预测小总结"><img class="cover" data-lazy-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-08-06</div><div class="title">出租车需求量预测小总结</div></div></a></div><div><a href="/posts/60455/" title="出租车需求量预测论文集"><img class="cover" data-lazy-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-08-05</div><div class="title">出租车需求量预测论文集</div></div></a></div></div></div><hr><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div><div class="comment-switch"><span class="first-comment">Valine</span><label><input id="switch-comments-btn" type="checkbox"><span class="slider"></span></label><span class="second-comment">Gitalk</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div><div><div id="gitalk-container"></div></div></div></div></article></main><footer id="footer" data-type="color"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2021 By unnoyy</div><div class="framework-info"><span>框架 </span><a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a href="https://github.com/jerryc127/hexo-theme-butterfly" target="_blank" rel="noopener">Butterfly</a></div><div class="footer_custom_text">欢迎来到<a href="https://unnoyy.github.io/">小屋</a>!</div></div></footer></div><section id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">简</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></section><div class="search-dialog" id="local-search"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"></div></div></div><hr><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a href="https://github.com/wzpan/hexo-generator-search" target="_blank" rel="noopener" style="color:#49b1f5">hexo-generator-search</a>
+ <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div><div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.spacingElementById('content-inner')
+  else {
+    $.getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js', () => {
+      pangu.spacingElementById('content-inner')
+    })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguFn)</script><script src="/js/search/local-search.js"></script><script>var endLoading=function(){document.body.style.overflow="auto",document.getElementById("loading-box").classList.add("loaded")};window.addEventListener("load",endLoading)</script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    loader: {
+      source: {
+        '[tex]/amsCd': '[tex]/amscd'
+      }
+    },
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        addClass: [200,() => {
+          document.querySelectorAll('mjx-container:not([display=\'true\']').forEach( node => {
+            const target = node.parentNode
+            if (!target.classList.contains('has-jax')) {
+              target.classList.add('mathjax-overflow')
+            }
+          })
+        }, '', false]
+      }
+    }
+  }
+  
+  var script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script><script>function loadValine () {
+  function initValine () {
+    window.valine = new Valine({
+      el: '#vcomment',
+      appId: 'SVg8NY7xGdhfqBMmwyksops7-gzGzoHsz',
+      appKey: 'gMpBjTW5NEFR6cW6CUmhBITz',
+      placeholder: 'Please leave your footprints',
+      avatar: 'monsterid',
+      meta: 'nick,mail,link'.split(','),
+      pageSize: '10',
+      lang: 'zh-CN',
+      recordIP: false,
+      serverURLs: '',
+      emojiCDN: '',
+      emojiMaps: "",
+      enableQQ: false,
+      path: window.location.pathname,
+    });
+    if ('nick,mail') { valine.config.requiredFields= 'nick,mail'.split(',') }
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else $.getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js', initValine)
+}
+
+if ('Valine' === 'Valine' || !true) {
+  if (true) btf.loadComment(document.querySelector('#vcomment'),loadValine)
+  else setTimeout(() => loadValine(), 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script><script>function addGitalkSource () {
+  const ele = document.createElement('link')
+  ele.rel = 'stylesheet'
+  ele.href= 'https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css'
+  document.getElementsByTagName('head')[0].appendChild(ele)
+}
+
+function loadGitalk () {
+  function initGitalk () {
+    var gitalk = new Gitalk({
+      clientID: '769c8b0e30bdfa36fcdd',
+      clientSecret: '8ff1137eb46effb3547818440411a5f053db93fa',
+      repo: 'unnoyy.github.io',
+      owner: 'unnoyy',
+      admin: ['unnoyy'],
+      id: '93806036580b443dfbe42e2fff27c893',
+      language: 'zh-CN',
+      perPage: 10,
+      distractionFreeMode: false,
+      pagerDirection: 'last',
+      createIssueManually: false,
+      updateCountCallback: commentCount
+    })
+    gitalk.render('gitalk-container')
+  }
+
+  if (typeof Gitalk === 'function') initGitalk()
+  else {
+    addGitalkSource()
+    $.getScript('https://cdn.jsdelivr.net/npm/gitalk@latest/dist/gitalk.min.js', initGitalk)
+  }
+}
+
+function commentCount(n){
+  let isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+  if (isCommentCount) {
+    isCommentCount.innerHTML= n
+  }
+}
+
+if ('Valine' === 'Gitalk' || !true) {
+  if (true) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+  else loadGitalk()
+} else {
+  function loadOtherComment () {
+    loadGitalk()
+  }
+}</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script src="/js/Beautify.js"></script><script src="/js/beautify2.js"></script><script src="/js/fishes.js"></script><script src="/js/calendar.js"></script><script src="/js/languages.js"></script><div class="app-refresh" id="app-refresh"> <div class="app-refresh-wrap"> <label>✨ 網站已更新最新版本 👉</label> <a href="javascript:void(0)" onclick="location.reload()">點擊刷新</a> </div></div><script>function showNotification(){if(GLOBAL_CONFIG.Snackbar){var t="light"===document.documentElement.getAttribute("data-theme")?GLOBAL_CONFIG.Snackbar.bgLight:GLOBAL_CONFIG.Snackbar.bgDark,e=GLOBAL_CONFIG.Snackbar.position;Snackbar.show({text:"已更新最新版本",backgroundColor:t,duration:5e5,pos:e,actionText:"點擊刷新",actionTextColor:"#fff",onActionClick:function(t){location.reload()}})}else{var o=`top: 0; background: ${"light"===document.documentElement.getAttribute("data-theme")?"#49b1f5":"#1f1f1f"};`;document.getElementById("app-refresh").style.cssText=o}}"serviceWorker"in navigator&&(navigator.serviceWorker.controller&&navigator.serviceWorker.addEventListener("controllerchange",function(){showNotification()}),window.addEventListener("load",function(){navigator.serviceWorker.register("/sw.js")}));</script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-heart.min.js" async></script></div></body></html>

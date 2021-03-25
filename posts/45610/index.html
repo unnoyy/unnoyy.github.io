@@ -1,0 +1,589 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>论文笔记-出租车需求预测5 | unnoyy</title><meta name="description" content="结合时间序列和文本数据以预测活动区域中的出租车需求：深度学习方法"><meta name="keywords" content="taxi demand,paper,summary"><meta name="author" content="unnoyy"><meta name="copyright" content="unnoyy"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="shortcut icon" href="/pic/favicon.png"><link rel="canonical" href="http://unnoyy.github.io/posts/45610/"><link rel="preconnect" href="//cdn.jsdelivr.net"><link rel="preconnect" href="//busuanzi.ibruce.info"><link rel="preconnect" href="//zz.bdstatic.com"><meta property="og:type" content="article"><meta property="og:title" content="论文笔记-出租车需求预测5"><meta property="og:url" content="http://unnoyy.github.io/posts/45610/"><meta property="og:site_name" content="unnoyy"><meta property="og:description" content="结合时间序列和文本数据以预测活动区域中的出租车需求：深度学习方法"><meta property="og:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><meta property="article:published_time" content="2020-07-28T02:01:33.000Z"><meta property="article:modified_time" content="2021-03-25T14:38:43.916Z"><meta name="twitter:card" content="summary"><link rel="manifest" href="/pic/pwa/manifest.json"><meta name="msapplication-TileColor" content="#fff"><link rel="apple-touch-icon" sizes="180x180" href="/pic/pwa/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/pic/pwa/32.png"><link rel="icon" type="image/png" sizes="16x16" href="/pic/pwa/16.png"><link rel="mask-icon" href="/pic/pwa/safari-pinned-tab.svg" color="#5bbad5"><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  hexoversion: '4.2.0',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: {"defaultEncoding":1,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  bookmark: {
+    message_prev: '按',
+    message_next: '键将本页加入书签'
+  },
+  runtime: '天',
+  date_suffix: {"one_hour":"刚刚","hours":"小时前","day":"天前"},
+  copyright: {"limitCount":50,"languages":{"author":"作者: unnoyy","link":"链接: ","source":"来源: unnoyy","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  ClickShowText: undefined,
+  medium_zoom: false,
+  fancybox: true,
+  Snackbar: {"bookmark":{"message_prev":"按","message_next":"键将本页加入书签"},"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#121212","position":"bottom-left"},
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
+  baiduPush: true,
+  isPhotoFigcaption: true,
+  islazyload: true,
+  isanchor: false
+};
+
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+    const now = new Date()
+    const expiryDay = ttl * 86400000
+    const item = {
+      value: value,
+      expiry: now.getTime() + expiryDay,
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+    },
+
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}</script><script id="config_change">var GLOBAL_CONFIG_SITE={isPost:!0,isHome:!1,isHighlightShrink:!1,isSidebar:!0,postUpdate:"2021-03-25 22:38:43"}</script><noscript><style>#nav{opacity:1}.justified-gallery img{opacity:1}</style></noscript><script>var activateDarkMode=function(){document.documentElement.setAttribute("data-theme","dark"),null!==document.querySelector('meta[name="theme-color"]')&&document.querySelector('meta[name="theme-color"]').setAttribute("content","#0d0d0d")},activateLightMode=function(){document.documentElement.setAttribute("data-theme","light"),null!==document.querySelector('meta[name="theme-color"]')&&document.querySelector('meta[name="theme-color"]').setAttribute("content","#ffffff")},autoChangeMode="false",t=saveToLocal.get("theme");if("1"===autoChangeMode){var isDarkMode=window.matchMedia("(prefers-color-scheme: dark)").matches,isLightMode=window.matchMedia("(prefers-color-scheme: light)").matches,isNotSpecified=window.matchMedia("(prefers-color-scheme: no-preference)").matches,hasNoSupport=!isDarkMode&&!isLightMode&&!isNotSpecified;if(void 0===t){if(isLightMode)activateLightMode();else if(isDarkMode)activateDarkMode();else if(isNotSpecified||hasNoSupport){var now=new Date,hour=now.getHours(),isNight=hour<=6||18<=hour;isNight?activateDarkMode():activateLightMode()}window.matchMedia("(prefers-color-scheme: dark)").addListener(function(e){void 0===saveToLocal.get("theme")&&(e.matches?activateDarkMode():activateLightMode())})}else"light"===t?activateLightMode():activateDarkMode()}else"2"===autoChangeMode?(isNight=(hour=(now=new Date).getHours())<=6||18<=hour,void 0===t?isNight?activateDarkMode():activateLightMode():"light"===t?activateLightMode():activateDarkMode()):"dark"===t?activateDarkMode():"light"===t&&activateLightMode()</script><link rel="stylesheet" href="/css/background.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/sviptzk/StaticFile_HEXO@latest/butterfly/css/iconfont.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/sviptzk/HexoStaticFile@latest/Hexo/css/buttons.min.css"><style>.app-refresh{position:fixed;top:-2.2rem;left:0;right:0;z-index:99999;padding:0 1rem;font-size:15px;height:2.2rem;transition:all .3s ease}.app-refresh-wrap{display:flex;color:#fff;height:100%;align-items:center;justify-content:center}.app-refresh-wrap a{color:#fff;text-decoration:underline;cursor:pointer}</style><meta name="generator" content="Hexo 4.2.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" data-lazy-src="/pic/avatar.jpg" onerror='onerror=null,src="/img/friend_404.gif"' alt="avatar"></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">28</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">13</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">4</div></a></div></div></div><hr><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 休闲</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page" href="/book/"><i class="fa-fw fas fa-book"></i><span> 书籍</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart card-announcement-animation"></i><span> 关于</span></a></div></div></div></div><div id="body-wrap"><div id="web_bg" data-type="color"></div><div id="sidebar"><i class="fas fa-arrow-right on" id="toggle-sidebar"></i><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Combining-time-series-and-textual-data-for-taxi-demand-prediction-in-event-areas-a-deep-learning-approach"><span class="toc-number">1.</span> <span class="toc-text">Combining time-series and textual data for taxi demand prediction in event areas: a deep learning approach</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#摘要"><span class="toc-number">1.1.</span> <span class="toc-text">摘要</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#介绍"><span class="toc-number">1.2.</span> <span class="toc-text">介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#相关工作"><span class="toc-number">1.3.</span> <span class="toc-text">相关工作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#城市交通和特殊事件"><span class="toc-number">1.3.1.</span> <span class="toc-text">城市交通和特殊事件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#时间序列和文本的数据融合"><span class="toc-number">1.3.2.</span> <span class="toc-text">时间序列和文本的数据融合</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#交通领域中的深度学习"><span class="toc-number">1.3.3.</span> <span class="toc-text">交通领域中的深度学习</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#提议方法"><span class="toc-number">1.4.</span> <span class="toc-text">提议方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#时间序列趋势（Time-series-detrending）"><span class="toc-number">1.4.1.</span> <span class="toc-text">时间序列趋势（Time-series detrending）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#文本数据预处理（Text-data-preprocessing-）"><span class="toc-number">1.4.2.</span> <span class="toc-text">文本数据预处理（Text data preprocessing ）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#神经网络架构"><span class="toc-number">1.4.3.</span> <span class="toc-text">神经网络架构</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#实验"><span class="toc-number">1.5.</span> <span class="toc-text">实验</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#数据集和样例研究"><span class="toc-number">1.5.1.</span> <span class="toc-text">数据集和样例研究</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#实验设置"><span class="toc-number">1.5.2.</span> <span class="toc-text">实验设置</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#基线"><span class="toc-number">1.5.2.1.</span> <span class="toc-text">基线</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#指标"><span class="toc-number">1.5.2.2.</span> <span class="toc-text">指标</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#结果"><span class="toc-number">1.5.2.3.</span> <span class="toc-text">结果</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-number">1.6.</span> <span class="toc-text">总结</span></a></li></ol></li></ol></div></div></div><header class="post-bg" id="page-header" style="background-image:url(https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg)"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">unnoyy</a></span><span id="menus"><div id="search_button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 休闲</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page" href="/book/"><i class="fa-fw fas fa-book"></i><span> 书籍</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart card-announcement-animation"></i><span> 关于</span></a></div></div><span class="close" id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="post-info"><div id="post-title"><div class="posttitle">论文笔记-出租车需求预测5</div></div><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2020-07-28T02:01:33.000Z" title="发表于 2020-07-28 10:01:33">2020-07-28</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2021-03-25T14:38:43.916Z" title="更新于 2021-03-25 22:38:43">2021-03-25</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/paper/">paper</a></span></div><div class="meta-secondline"> <span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">8k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>23分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout_post" id="content-inner"><article id="post"><div class="post-content" id="article-container"><h1 id="Combining-time-series-and-textual-data-for-taxi-demand-prediction-in-event-areas-a-deep-learning-approach"><a href="#Combining-time-series-and-textual-data-for-taxi-demand-prediction-in-event-areas-a-deep-learning-approach" class="headerlink" title="Combining time-series and textual data for taxi demand prediction in event areas: a deep learning approach"></a>Combining time-series and textual data for taxi demand prediction in event areas: a deep learning approach</h1><p>论文题目：结合时间序列和文本数据以预测活动区域中的出租车需求：深度学习方法</p>
+<h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p><strong>翻译</strong>：<br>准确的时间序列预测对于交通，能源，金融，经济等众多应用领域至关重要。但是，尽管现代技术能够探索大量的时间数据以建立预测模型，但它们通常会忽略有价值的信息通常以非结构化文本的形式提供。尽管此数据的格式完全不同，但它通常包含在时间数据中观察到的许多模式的上下文解释。在本文中，我们提出了两种深度学习架构，这些架构利用单词嵌入，卷积层和注意力机制将文本信息与时间序列数据相结合。我们将这些方法应用于活动区域的出租车需求预测问题。通过使用纽约公开提供的出租车数据，我们经验表明，通过融合这两个互补的交叉模式信息源，所提出的模型能够显着减少预测中的误差。</p>
+<p><strong>总结</strong>：</p>
+<ul>
+<li>提出了两种深度学习架构，这些架构利用单词嵌入，卷积层和注意力机制将文本信息与时间序列数据相结合。</li>
+<li>方法应用于活动区域的出租车需求预测问题</li>
+<li>使用纽约公开提供的出租车数据</li>
+<li>融合这两个互补的交叉模式信息源，所提出的模型能够显着减少预测中的误差。</li>
+</ul>
+<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><ul>
+<li><p>典型的方法仅集中于捕获与习惯/例行行为有关的复发性移动趋势[1]，以及利用与近期观察模式的短期相关性[2，3]。</p>
+<ul>
+<li>这种方法对于长期规划应用或在诸如居民区这样的非重要区域，在容易发生多个特殊事件（例如音乐演唱会）的活跃且高度动态的区域中对需求进行建模可以成功</li>
+<li>体育比赛，节日，游行和抗议，这些方法无法准确地模拟出行需求[4]。</li>
+<li>这种情况涉及需求激增，这强调了良好的预期能力的需求。</li>
+</ul>
+</li>
+<li><p>大多数事件信息通常采用非结构化自然语言文本的形式。</p>
+</li>
+<li><p>跨域数据融合挑战问题</p>
+</li>
+<li><p>在时序数据中观察到的来自Web的文本数据可以提供上下文来解释某些模式</p>
+</li>
+<li><p>将时间序列和文本数据相结合，以预测事件区域中的移动需求。</p>
+</li>
+<li><p>深度学习已被证明能够胜过传统的出租车需求预测方法，并获得最新的最新成果[9，10]</p>
+</li>
+<li><p>以前的方法都没有探索有关事件的Web数据，特别是非结构化文本形式的Web数据，以便开发更准确的需求预测模型。</p>
+</li>
+<li><p>提出的神经网络体系结构结合了词嵌入，卷积层和注意机制，以构建事件文本描述和历史出租车需求数据的联合模型，用于未来需求预测。而且，这两个提议的体系结构非常通用，可以应用于来自不同域的类似数据融合问题。</p>
+</li>
+<li><p>使用来自纽约的11亿次出租车出行的大规模公共数据集和来自Web的事件数据</p>
+</li>
+</ul>
+<h2 id="相关工作"><a href="#相关工作" class="headerlink" title="相关工作"></a>相关工作</h2><h3 id="城市交通和特殊事件"><a href="#城市交通和特殊事件" class="headerlink" title="城市交通和特殊事件"></a>城市交通和特殊事件</h3><ul>
+<li><p>可伸缩的需求预测解决方案（如本文中提出的需求解决方案）基于从Web上自动提取的事件数据，然后为自己展现出预测事件影响并为事件和动态区域提供可靠预测的潜力。</p>
+</li>
+<li><p>4步模型：基于调查响应数据，他们针对每种事件预测出行的次数，类型，行进时间，行进起点/目的地（OD），模式和由于这些事件而产生的行车里程/过境登机牌。<br>缺点：没有考虑事件特征。事件特征会影响对移动性的影响。</p>
+</li>
+<li><p>作者凭经验表明，事件类别在可用时确实是预测公共交通需求的有价值的输入。</p>
+</li>
+<li><p>推广这些方法的<strong>关键困难</strong>在于，大多数相关事件信息通常都以非结构化文本的形式提供</p>
+</li>
+<li><p><strong>解决方法</strong>：开发跨域数据融合技术，以便将这些信息纳入需求预测模型中。</p>
+</li>
+</ul>
+<h3 id="时间序列和文本的数据融合"><a href="#时间序列和文本的数据融合" class="headerlink" title="时间序列和文本的数据融合"></a>时间序列和文本的数据融合</h3><ul>
+<li><p>一个非常重要但具有挑战性的问题：将时间序列数据与文本信息相结合以更好地理解现实世界中的现象</p>
+</li>
+<li><p>文本信息可能包含与时间序列观察相关的线索，并且至少在某种程度上解释了它们的行为。 </p>
+</li>
+<li><p>跨域数据融合问题的普遍性</p>
+</li>
+<li><p>金融，Ruiz等人[22]分析了Twitter中微博活动之间的相关性，例如与公司相关的推文和转发的数量以及股市事件。 他们的结果表明，这些指标对于改善股票市场的交易策略很有用。</p>
+</li>
+<li><p>一种方法来分析新闻报道中某些词的存在，这些词是从网络上自动提取的。 为了选择相关的单词，作者依赖于一组用于识别相关文档的手动预定义单词，然后允许他们根据其概率比（PR）选择最相关的单词。</p>
+</li>
+<li><p>一个结合ARIMA和支持向量回归（SVR）的模型来预测六家证券公司的季度权益收益率（ROE）这个想法是ARIMA模型能够分析序列的线性自回归分量，但仅基于文本特征向量的非线性SVR模型可以对其进行补充。 在这种情况下，作者依靠TF-IDF来表示文本数据。</p>
+</li>
+<li><p>研究了推文中的文本情感与民意测验的时间序列数据之间的关系。 通过使用10亿条推文的数据集，作者使用一组预先定义的关键字来标识与某些主题相关的推文，例如奥巴马与麦凯恩当选。 然后根据单词情感词典根据它们包含的单词的情感来分析这些单词。 获得的结果表明，与某些情感相关的单词频率可以与民意测验密切相关（最多80％）</p>
+</li>
+<li><p>Twitter被广泛用于政治审议，而只有少数党的提及准确地反映了选举结果。</p>
+</li>
+<li><p>通过解释文本数据中的信息以解释观察的时间序列，所有这些工作都与本文提出的工作有关。 </p>
+</li>
+<li><p>但是它们通过依赖于与某些主题或情感相关的单个单词的预定词典而明显不同。 </p>
+</li>
+<li><p>本文提出的方法使用卷积神经网络层在联合建模方法中自动学习与观察到的时间序列数据相关的单词模式或序列，从而避免使用临时启发式方法，例如情感词频率和预先定义的词典 。</p>
+</li>
+<li><p>研究了使用事件数据来帮助预测公共交通需求的问题</p>
+</li>
+<li><p>包括使用事件描述的词袋表示来学习主题模型（即潜在狄利克雷分配（LDA）），并将主题分配用作浅层神经网络模型的特征。</p>
+</li>
+</ul>
+<p>本文的优势：</p>
+<ul>
+<li>不依赖词袋表示，因此不会忽略词的顺序。能够捕获文本中的多单词模式。</li>
+</ul>
+<p>数据融合的方法（三大类）：</p>
+<ol>
+<li>平等对待不同数据源并将从中提取的特征汇总到一个单一特征向量中的方法</li>
+<li>在不同阶段使用不同数据源的方法</li>
+<li>将不同的数据集同时馈入模型的不同部分的方法</li>
+</ol>
+<p>本文提出的深度学习模型属于第3类。</p>
+<h3 id="交通领域中的深度学习"><a href="#交通领域中的深度学习" class="headerlink" title="交通领域中的深度学习"></a>交通领域中的深度学习</h3><ul>
+<li><p>使用堆叠式自动编码器（SAE）模型来学习通用的流量特征，然后将其用于流量预测。</p>
+</li>
+<li><p>根据来自全加州各州高速公路系统中部署的15.000个单独流量检测器的数据，他们的经验结果表明，SAE的性能优于基于SVR和径向基函数（RBF）的更为传统的方法。</p>
+</li>
+<li><p>研究了长期短期记忆（LSTM）网络在行进速度预测中的使用。 他们从北京获得的经验结果表明，LSTM优于其他方法，例如ARIMA和SVR，作者证明LSTM具有捕获时间序列中长期依赖关系的能力。</p>
+</li>
+<li><p>一种基于卷积层和残差连接的深度学习架构，用于联合预测整个城市范围内的人群流量，即区域之间的流入和流出。利用北京的出租车数据和纽约市的自行车共享数据，作者凭经验表明，他们提出的体系结构优于ARIMA和矢量自回归模型等标准方法。</p>
+</li>
+<li><p>LSTM和混合密度网络（MDN）的组合来预测纽约市出租车的需求。在他们的方法中，先将城市划分为较小的区域，然后使用基于LSTM的模型来联合预测所有区域中下一时间段（20-60分钟）的出租车需求。</p>
+</li>
+</ul>
+<p><strong>缺点</strong>：均未考虑事件的影响以改善其预测</p>
+<p><strong>本文的目标</strong>：旨在通过关注事件区域并显示将事件的文本数据与流动性需求的时间序列观察相结合的数据融合技术来显着改善预测，从而弥合这一差距。</p>
+<h2 id="提议方法"><a href="#提议方法" class="headerlink" title="提议方法"></a>提议方法</h2><h3 id="时间序列趋势（Time-series-detrending）"><a href="#时间序列趋势（Time-series-detrending）" class="headerlink" title="时间序列趋势（Time-series detrending）"></a>时间序列趋势（Time-series detrending）</h3><ul>
+<li><p>准备时间序列数据以供分析的最重要步骤之一就是降低趋势</p>
+</li>
+<li><p>识别这些每日或每周重复模式的简单但非常有效的方法是构建历史平均值模型，该模型包括根据历史数据（来自）计算每对（一天中的时间，一周中的某天）对的个人平均值。【仅限火车】</p>
+</li>
+<li><p>历史平均值代表固定的重复趋势，可以很容易地将其从数据中删除。</p>
+</li>
+<li><p>预测模型的目标是学习预测趋势消除所导致的残差。</p>
+</li>
+<li><p>根据我们在处理城市流动性数据的各种时间序列预测问题方面的经验，通过消除从模型中捕获这些众所周知的经常性趋势的负担，这种简单的去趋势程序可以显着提高预测性能。</p>
+</li>
+</ul>
+<h3 id="文本数据预处理（Text-data-preprocessing-）"><a href="#文本数据预处理（Text-data-preprocessing-）" class="headerlink" title="文本数据预处理（Text data preprocessing ）"></a>文本数据预处理（Text data preprocessing ）</h3><p>遵循一个简单的常规文本预处理管道，该管道包括：</p>
+<ul>
+<li><p>HTML标记删除-在处理从Web提取的数据时，这尤其重要；</p>
+</li>
+<li><p>小写转换-减少单词在文本中出现方式的可变性；</p>
+</li>
+<li><p>标记化-将字符序列分成称为标记的部分；</p>
+</li>
+<li><p>合法化-删除单词的惯用词尾并返回单词的基数或字典形式，这称为引理/论点；</p>
+</li>
+<li><p>删除停用词和非常常用的词-删除诸如“ a”，“ the”和“ and”之类的词，这些词通常不会带来任何其他有用的信息；</p>
+</li>
+<li><p>删除仅出现一次的单词-就像非常频繁的单词一样，这些单词通常信息性不强； 【减少词汇量，降低神经网络的复杂性，还不会降低预测性能】</p>
+</li>
+<li><p>使用的词嵌入技术有望解决文本预处理管道所涵盖的某些问题</p>
+</li>
+<li><p>但在预处理阶段进行这些转换仍然是一种更安全，更可取的方法。显着减少了嵌入层使用的词汇量-具有计算优势。</p>
+</li>
+</ul>
+<h3 id="神经网络架构"><a href="#神经网络架构" class="headerlink" title="神经网络架构"></a>神经网络架构</h3><p>两种提议的体系结构</p>
+<p> 共同点：将文本数据合并到模型中的方式</p>
+<ul>
+<li>由单词嵌入和卷积层组成。</li>
+<li>网络的文本输入是一维向量，每个元素由文本中相应单词的整数标识符组成，因此一个单词的多次出现都被赋予相同的标识符。</li>
+</ul>
+<p><img src="/img/loading.gif" data-lazy-src="attachment:image.png" alt="image.png"></p>
+<ul>
+<li><p>输入到网络的文本对应于原始文本（在前面所述的文本预处理之后），其形式为单词标识符（整数）的一维向量。</p>
+</li>
+<li><p>向量的长度对应于预定的最大长度S，该长度通常设置为序列集中最长的输入单词序列。</p>
+</li>
+<li><p>表示文本序列的整数矢量进入单词嵌入层。</p>
+</li>
+<li><p><strong>词嵌入</strong>的想法是通过为字典中的每个词分配一个数字向量，从而将语义含义映射到几何空间中，这样嵌入空间中任意两个向量之间的距离就可以捕获它们对应词之间的语义关系。另一方面，在语义上非常不同的单词之间的嵌入空间中的L2距离应该很大。好的单词嵌入还允许在单词嵌入向量之间进行语义上有意义的操作。</p>
+</li>
+<li><p>单词嵌入通常是通过将无监督学习技术应用于非常大的语料库中单词之间的共现统计数据集而获得的。</p>
+</li>
+</ul>
+<ul>
+<li><p>本文使用了流行的<strong>GloVe嵌入</strong></p>
+<ul>
+<li>该嵌入是通过将矩阵分解技术应用于2014年英语版维基百科的转储而获得的。</li>
+<li>基于整个语料库中单词共现频率的矩阵，作者学习单词矢量，使其点积等于单词共现概率的对数，以加权最小二乘目标表示 。</li>
+<li>然后，使用GloVe产生的单词embeddings来初始化我们提出的深度学习架构中的embeddings层。 </li>
+<li>我们为每个单词使用300维嵌入向量。</li>
+</ul>
+</li>
+<li><p>文本中单词嵌入的数字矢量在大小为$S×1×300$的3D张量中放在一起</p>
+<ul>
+<li>其中S表示最大序列长度。</li>
+</ul>
+</li>
+<li><p>然后将这个张量传递给一系列一维卷积过滤器和最大池化层，这些层能够学习以不同的抽象级别<strong>检测文本中的某些模式</strong>，类似于卷积神经网络（CNN）学习检测图像中的特征。</p>
+<ul>
+<li>张量的最后一个维度（300）如何对应于CNN文献中的“深度”或“通道数”。</li>
+</ul>
+</li>
+<li><p>本文使用<strong>三个卷积层</strong>的序列，分别具有3×3、3×3和5×5的大小，以及50、30和30个过滤器。每个卷积层都使用ReLU激活，然后是一个最大池层，其大小与前面的卷积相同。在卷积层之间，我们以50％的概率保持连接而应用Dropout [31]。最后一层的输出经过一个（可选）注意机制，然后与网络从学习到的时序数据表示形式相结合。</p>
+</li>
+</ul>
+<p>图3的顶部说明了用于对文本数据进行建模的神经网络体系结构。<br><img src="/img/loading.gif" data-lazy-src="attachment:image.png" alt="image.png"></p>
+<p>由于所提出的体系结构是基于卷积层的事实（并且由于卷积的性质），因此它能够<strong>捕获任意大小的输入文本序列中的可变长度模式</strong>。</p>
+<ul>
+<li>开发了一种简单的<strong>软注意力机制</strong>，更加强调最突出的文本信息。<ul>
+<li>参考论文：K. Cho, A. Courville, Y. Bengio, Describing multimedia content using attention-based encoderdecoder networks, IEEE Transactions on Multimedia 17 (11) (2015) 1875–1886. </li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>该注意机制将最后一个卷积层的文本表示形式（称为$z$）作为输入，并基于时间序列数据的潜在表示所提供的上下文$c$，可以<strong>确定文本的哪些部分与$t + 1$预测更相关</strong>。具体而言，关注层$h$的输出由元素乘积$h =\alpha \bigodot z$给出，其中权重$\alpha_i$由softmax函数给出：<br>$$<br>\alpha_i = \frac{exp(e_i)}{\sum_{k=1}^K exp(e_k)}\<br>$$</li>
+<li>其中$e_i = a_i(z_i,c)$是一个学习的相关函数，在给定上下文向量c的情况下对提取的文本特征$z_i$进行评分，并定义为具有双曲正切（tanh）激活的完全连接层。</li>
+</ul>
+<p>为了对时间序列数据建模，本文考虑了两种不同的方法：</p>
+<ol>
+<li>一种基于循环神经网络（RNN），即<strong>LSTM</strong></li>
+<li>另一种基于<strong>完全连接（FC）密集层</strong>。</li>
+</ol>
+<p><strong>利用LSTM的数据融合体系结构</strong>：  </p>
+<ul>
+<li><strong>DL-LSTM</strong>  </li>
+<li><strong>使用LSTM编码时间序列数据</strong>  </li>
+</ul>
+<p><img src="/img/loading.gif" data-lazy-src="attachment:image.png" alt="image.png"></p>
+<p><strong>步骤</strong>：</p>
+<ul>
+<li><p>时间序列数据与二进制变量向量一起进入LSTM层，该向量指示时间序列中时间t处的对应值是否具有事件，因此LSTM的隐藏状态单元还可以将该信息考虑在内以确定下一个状态。</p>
+</li>
+<li><p>为了防止过度拟合，我们对LSTM的权重应用了正则化。 </p>
+</li>
+<li><p>然后对应于该LSTM单元的最后一个隐藏状态矢量被假定为已编码的需要进行预测对于$t + 1$相关的时间序列信息。</p>
+</li>
+<li><p>令$z_ts$和$z_text$分别表示所提出的神经网络体系结构对时间序列和文本数据所学习的潜在表示。</p>
+<ul>
+<li>$z_ts$是一个向量，它对应于对时间序列数据进行编码的LSTM（或FC）层的输出</li>
+<li>向量$z_text$则对应于对文本数据进行建模的注意力机制和卷积层的输出。</li>
+</ul>
+</li>
+<li><p>在网络的最后一层，通过完全连接的（密集）层将这两个学习的表示进行组合，该层将计算$t+1$的最终预测，作为权重可调的$w_ts$和$w_text$的两个向量与相应的潜在表示之间的点积（ $z_ts$和$z_text$）。</p>
+</li>
+<li><p>在其他相关信息可用的情况下，例如有关天气的信息或有关事件的其他详细信息，可以很容易地将这些信息作为对模型的最后一个密集层的输入</p>
+</li>
+</ul>
+<p>对于LSTM的分析：  </p>
+<p><strong>优势</strong>：</p>
+<ul>
+<li>研究表明LSTM成功地应用于时间序列预测问题，包括出租车需求预测。</li>
+<li>归因于他们捕获数据中长期依赖关系的能力。  </li>
+</ul>
+<p><strong>劣势</strong>：</p>
+<ul>
+<li>RNN很难训练[8]。</li>
+<li>如果将有效的去趋势技术应用于移动需求的时间序列数据，从而消除了清晰的每日和每周周期性重复模式，那么就可以在很大程度上消除捕获长期依存关系的需求。这可能会使LSTM对于某些时间序列的建模没有吸引力，因为它可能导致过度拟合。</li>
+</ul>
+<p>开发了一种深度学习架构，该架构<strong>依赖于FC层对时间序列数据进行建模</strong>。</p>
+<p>利用<strong>全连接（FC）层</strong>对时间序列数据建模的数据融合体系结构:</p>
+<ul>
+<li><p><strong>DL-FC</strong><br><img src="/img/loading.gif" data-lazy-src="attachment:image.png" alt="image.png"></p>
+</li>
+<li><p>在DL-FC的情况下，所有时间序列信息均以“lagged observations（滞后观察）”或lags. 的形式作为“输入”向量提供给网络。即网络在大小为$L+1$的向量中的时间${t，t-1，…，t-L}$处被馈送观测值，其中$L+1$对应于滞后数。</p>
+</li>
+<li><p>该滞后向量被馈送到具有100-200个隐藏单位和双曲线正切（tanh）激活的FC层，该层还可以接收带有其他相关信息的附加输入，例如天气数据或事件详细信息。</p>
+</li>
+<li><p>然后，此FC层的输出将传递到具有50个单位和tanh激活的第二FC层。</p>
+</li>
+<li><p>在每个FC层之前应用BatchNormalization [34]，在FC层之间应用Dropout，并在必要时使用正则化。</p>
+</li>
+<li><p>最后一个FC层的输出对应于一个潜在向量表示，该向量表示对来自时间序列和其他相关输入（例如天气）的所有必要信息进行编码。</p>
+</li>
+<li><p>然后将该潜在矢量表示与文本数据的潜在表示相结合，以便使用密集层生成t + 1的预测。 通过将去除的重复趋势（基于历史平均值）加回到神经网络的输出中，可以得到最终的预测。 </p>
+</li>
+</ul>
+<ul>
+<li>提议的两种深度学习架构的所有层（用于将时间序列与文本数据融合）的所有层均使用<strong>Adam优化器</strong>[35]和大小为64的mini-batches 通过反向传播进行了训练。</li>
+<li>使用单独的验证集来跟踪 训练期间表现最佳的模型。该验证集还用于指导上述深度学习架构所反映的大多数设计和超参数选择。</li>
+</ul>
+<h2 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h2><ul>
+<li>Keras提出了将时间序列数据与文本信息相结合的数据融合方法</li>
+<li>考虑有事件的地区的出租车需求预测问题</li>
+</ul>
+<h3 id="数据集和样例研究"><a href="#数据集和样例研究" class="headerlink" title="数据集和样例研究"></a>数据集和样例研究</h3><p><strong>数据集</strong>：</p>
+<ul>
+<li>包括从纽约（2009年1月至2016年6月）的11亿次出租车出行</li>
+<li>查看了纽约市顶级场馆清单[37]，并选择了可在线获取更完整事件记录的两个场馆：巴克莱中心和5号航站楼。<br>位于布鲁克林的巴克莱中心是现代化的 拥有18,000个座位的多功能竞技场，定期举办重要的音乐表演，并成为NBA布鲁克林篮网的新家。<br>5号航站楼是一个三层场地，经常在曼哈顿的中心地带举办许多观众的音乐会。</li>
+</ul>
+<p>考虑到这两个场所的地理坐标，我们选择了在±0.003十进制度度（约500米）的边界框内进行的所有出租车接送作为我们的研究区域。</p>
+<ul>
+<li>单个拾音器 pickups 按每日计数的时间序列分组。</li>
+<li>目标：根据前几天的接载，天气数据和从Web提取的事件信息，来预测该区域第二天的出租车接载的数量。</li>
+</ul>
+<p><strong>气象数据</strong></p>
+<ul>
+<li>从美国国家海洋与大气管理局（NOAA）获得的，并且与位于纽约中央公园的气象站的测量结果相对应。它包含有关最低和最高温度，降水，风，是否有雪，雾，雪深等信息。</li>
+</ul>
+<p><strong>事件数据</strong></p>
+<ul>
+<li><p>使用屏幕抓取技术或API从网络上自动提取的。对于巴克莱中心，事件信息是从其官方网站上抓取的，因为它保留了非常准确和详细的日历，使我们可以及时返回并检索与出租车需求数据匹配的时期的数据。自2012年底启用至2016年6月，我们共收集了751个事件。对于5号航站楼，我们使用Facebook API提取了相同时间段的315个事件。 </p>
+</li>
+<li><p>在这两种情况下，事件数据都包括事件标题，日期，时间和描述。</p>
+</li>
+<li><p>实际上，人们可以轻松地使用许多可用的在线事件目录和聚合器之一。本文选择依赖这些特定目录是为了方便检索过去的事件，通常在常规的在线事件目录中不可用。</p>
+</li>
+<li><p>数据的多样性和异质性。注意描述的长度和质量如何变化。<br><img src="/img/loading.gif" data-lazy-src="attachment:image.png" alt="image.png"></p>
+</li>
+<li><p>对于巴克莱中心和5号航站楼，每个事件描述的平均单词数分别为113（标准±114）和20（标准±16）。 实际上，文本中的单词数可以大于500。但是，由于使用卷积层，它可以捕获任意大小的输入文本序列中的模式，因此对于所提出的神经网络体系结构而言，这不是问题。</p>
+</li>
+<li><p>由于某些事件发生在深夜，因此它们可能会导致第二天黎明时出租车需求急剧上升，从而导致第二天的总需求急剧上升。所以导出了其他功能以解决这一问题。</p>
+</li>
+</ul>
+<h3 id="实验设置"><a href="#实验设置" class="headerlink" title="实验设置"></a>实验设置</h3><ul>
+<li>对于巴克莱中心，培训集包括21个月的观察结果（2013年1月至2014年9月），验证集包含2014年的剩余数据（3个月），而2015年1月至2016年6月的数据（18个月）为 用于测试不同的方法。</li>
+<li>关于第5终端，由于事件的频率较小，因此我们增加了验证集的大小，以便包含代表性的事件数。 然后，训练集包含2年的数据（2013年和2014年），2015年用于验证，而2016年的其余数据用于测试。 </li>
+</ul>
+<h4 id="基线"><a href="#基线" class="headerlink" title="基线"></a>基线</h4><p>评估不同信息来源的贡献  -增量分析</p>
+<p>仅从负责对时间序列数据建模的网络部分开始，并不断向网络中添加组件，直到获得完整模型。</p>
+<ul>
+<li>从仅将滞后观察或滞后（称为“ L”）作为输入的模型开始</li>
+<li>然后移至还包括以下模型：天气信息（表示为“ L + W”），有关事件存在的信息（“ L + W + E”）</li>
+<li>以及最后，完整的模型还将考虑事件的文本描述（“ L + W + E + T”）。</li>
+</ul>
+<p>在其最简单的版本（“ L”）中，建议的模型DL-LSTM和DL-FC分别等效于使用普通LSTM和标准前馈神经网络方法进行时间序列预测。</p>
+<p>现有的两种最流行的时间序列预测方法进行比较：</p>
+<ul>
+<li><p>支持向量回归（SVR）</p>
+</li>
+<li><p>高斯过程（GPs）</p>
+</li>
+<li><p>SVR方法使用线性核，实验结果表明，它为该特定问题提供了最佳结果。</p>
+</li>
+<li><p>GP，使用了一个复合协方差函数，该函数由平方指数和白噪声协方差函数的和组成。</p>
+</li>
+<li><p>SVR和GP的超参数均基于其在验证集上的性能进行了调整，使用了该组{0.001,0.01,0.1,1.0,10,100}中所有可能组合的详尽搜索过程。</p>
+</li>
+<li><p>对于GP和SVR这两种基线方法，我们还对上述不同信息源对预测性能的贡献进行了相同的增量分析。</p>
+</li>
+</ul>
+<h4 id="指标"><a href="#指标" class="headerlink" title="指标"></a>指标</h4><ul>
+<li>MAE</li>
+<li>RMSE</li>
+<li>MAPE</li>
+<li>$R^2$</li>
+</ul>
+<p><img src="/img/loading.gif" data-lazy-src="attachment:image.png" alt="image.png"></p>
+<h4 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h4><p><img src="/img/loading.gif" data-lazy-src="attachment:image.png" alt="image.png"></p>
+<ul>
+<li>SVR和DL-FC是该研究领域中性能最好的方法</li>
+<li>LSTM的优势并没有延续到某些可以通过时间窗口方法解决的更简单的时间序列预测任务。</li>
+</ul>
+<p>分析不同信息来源的贡献：</p>
+<ul>
+<li>包括有关天气的信息可以改善预测。</li>
+<li>对不同方法的预测性能影响最大的信息源是有关事件的信息。</li>
+<li>从DL-LSTM的结果中观察文本信息的贡献</li>
+</ul>
+<p>进行更细粒度的分析</p>
+<p>同一个需求预测问题的实例，但它们领域的固有特征使得某些类型的深度学习架构比其他类型更适合。</p>
+<p>不同天的类型（事件日和非事件日）</p>
+<ul>
+<li>使用有关事件的文本信息可以减少两种类型的预测误差。</li>
+<li>事件日的误差会更大，因为事件日对应于非经常性场景，而这种非固有场景本来就很难预测</li>
+</ul>
+<p>另一数据集</p>
+<ul>
+<li>LSTM是仅对时间序列数据建模的最佳方法，可以通过比较仅使用滞后观测值（或滞后）作为输入（“ L”）的不同模型的结果来验证。</li>
+<li>包括天气信息（“ W”）会提高所有方法的预测性能。</li>
+<li>包含有关事件的存在的信息（“ E”）可以显着减少所有方法的预测误差。</li>
+</ul>
+<p>从数据融合的角度来看，这些结果清楚地凸显了时间序列数据和文本信息的关键数据融合的重要性，特别是对于本文所考虑的事件区域中的出租车需求预测问题。文本数据包含上下文信息，该上下文信息与时间序列数据的某些方面相关并解释了这些方面。</p>
+<p>在预测充满活力的城市地区的出行需求时，应对特殊事件影响的重要性。<br>通过利用从Web上自动提取的事件信息，以及开发两种新颖的深度学习体系结构以将该信息与历史时间序列数据相结合，我们能够在两个研究领域中显着减少事件区域中的预测误差 。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
+<li><p>两种深度学习数据融合架构，该架构将时态数据与非结构化文本形式的信息结合起来，以改善时间序列预测。</p>
+</li>
+<li><p>利用单词嵌入和卷积层来捕获文本中与时间序列观察结果相关的模式，这些模式是使用LSTM或完全连接的层的堆栈进行建模的。</p>
+</li>
+<li><p>本文开发的神经网络体系结构能够构造时间序列和文本数据的潜在表示，然后可以将其组合以产生更准确的预测。</p>
+</li>
+<li><p>考虑了事件区域中出租车需求预测的问题</p>
+</li>
+<li><p>通过利用来自Web的事件信息，提出的深度学习架构能够显着提高其预测的质量，从而显着优于现有技术中不占事件信息的其他流行的时间序列预测方法 。</p>
+</li>
+<li><p>探索如何利用提出的数据融合技术来开发全市范围的时空深度学习模型，以解释有关整个城市发生的所有事件的信息，包括标题和描述中的文字信息，以帮助模型区分有影响的事件和可忽略的事件。</p>
+</li>
+</ul>
+<p>即</p>
+<ol>
+<li>文本信息和时间序列信息融合</li>
+<li>词嵌入和卷积层来捕获文本中与时间序列观察结果相关的模式</li>
+<li>强调了在对移动需求进行建模时需要考虑事件的影响。</li>
+</ol>
+<p><strong>模型总结</strong>：</p>
+<p>文本信息：</p>
+<ul>
+<li>使用词嵌入，从而将文本信息转换成向量形式</li>
+<li>然后利用卷积可以捕获文本信息</li>
+<li>最后使用软注意力机制，可以确定文本的哪些部分与 𝑡+1 预测更相关。</li>
+</ul>
+<p>LSTM：</p>
+<ul>
+<li><p>时间序列数据与二进制变量向量（事件数据）一起进入LSTM层，该向量指示时间序列中时间t处的对应值是否具有事件，因此LSTM的隐藏状态单元还可以将该信息考虑在内以确定下一个状态。然后对应于该LSTM单元的最后一个隐藏状态矢量被假定为已编码的需要进行预测对于 𝑡+1 相关的时间序列信息。</p>
+</li>
+<li><p>在其他相关信息可用的情况下，例如有关天气的信息或有关事件的其他详细信息，可以很容易地将这些信息作为对模型的最后一个密集层的输入</p>
+</li>
+</ul>
+<p>FN：</p>
+<ul>
+<li><p>所有时间序列信息均以“lagged observations（滞后观察）”或lags. 的形式作为“输入”向量提供给网络。即网络在大小为 𝐿+1 的向量中的时间 𝑡，𝑡−1，…，𝑡−𝐿 处被馈送观测值，其中 𝐿+1 对应于滞后数。</p>
+</li>
+<li><p>该滞后向量被馈送到具有100-200个隐藏单位和双曲线正切（tanh）激活的FC层，该层还可以接收带有其他相关信息的附加输入，例如天气数据或事件详细信息。</p>
+</li>
+<li><p>然后，此FC层的输出将传递到具有50个单位和tanh激活的第二FC层。</p>
+</li>
+<li><p>最后一个FC层的输出对应于一个潜在向量表示，该向量表示对来自时间序列和其他相关输入（例如天气）的所有必要信息进行编码。</p>
+</li>
+<li><p>然后将该潜在矢量表示与文本数据的潜在表示相结合，以便使用密集层生成t + 1的预测。 通过将去除的重复趋势（基于历史平均值）加回到神经网络的输出中，可以得到最终的预测。</p>
+</li>
+</ul>
+</div><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">unnoyy</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://unnoyy.github.io/posts/45610/">http://unnoyy.github.io/posts/45610/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://unnoyy.github.io" target="_blank">unnoyy</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/taxi-demand/">taxi demand</a><a class="post-meta__tags" href="/tags/paper/">paper</a><a class="post-meta__tags" href="/tags/summary/">summary</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/9621/"><img class="prev-cover" data-lazy-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror='onerror=null,src="/img/404.jpg"'><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">船运到达时间比赛-数据集分析</div></div></a></div><div class="next-post pull-right"><a href="/posts/25088/"><img class="next-cover" data-lazy-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror='onerror=null,src="/img/404.jpg"'><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">论文笔记-出租车需求预测4</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span> 相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/25131/" title="论文笔记 AM-GCN"><img class="cover" data-lazy-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-09-08</div><div class="title">论文笔记 AM-GCN</div></div></a></div><div><a href="/posts/57948/" title="论文笔记 L-CNN"><img class="cover" data-lazy-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-08-28</div><div class="title">论文笔记 L-CNN</div></div></a></div><div><a href="/posts/43102/" title="论文笔记 ST-MGCN"><img class="cover" data-lazy-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-09-03</div><div class="title">论文笔记 ST-MGCN</div></div></a></div><div><a href="/posts/29557/" title="论文笔记"><img class="cover" data-lazy-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-08-20</div><div class="title">论文笔记</div></div></a></div><div><a href="/posts/38577/" title="出租车需求量预测小总结"><img class="cover" data-lazy-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-08-06</div><div class="title">出租车需求量预测小总结</div></div></a></div><div><a href="/posts/60455/" title="出租车需求量预测论文集"><img class="cover" data-lazy-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-08-05</div><div class="title">出租车需求量预测论文集</div></div></a></div></div></div><hr><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div><div class="comment-switch"><span class="first-comment">Valine</span><label><input id="switch-comments-btn" type="checkbox"><span class="slider"></span></label><span class="second-comment">Gitalk</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div><div><div id="gitalk-container"></div></div></div></div></article></main><footer id="footer" data-type="color"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2021 By unnoyy</div><div class="framework-info"><span>框架 </span><a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a href="https://github.com/jerryc127/hexo-theme-butterfly" target="_blank" rel="noopener">Butterfly</a></div><div class="footer_custom_text">欢迎来到<a href="https://unnoyy.github.io/">小屋</a>!</div></div></footer></div><section id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">简</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></section><div class="search-dialog" id="local-search"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"></div></div></div><hr><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a href="https://github.com/wzpan/hexo-generator-search" target="_blank" rel="noopener" style="color:#49b1f5">hexo-generator-search</a>
+ <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div><div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.spacingElementById('content-inner')
+  else {
+    $.getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js', () => {
+      pangu.spacingElementById('content-inner')
+    })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguFn)</script><script src="/js/search/local-search.js"></script><script>var endLoading=function(){document.body.style.overflow="auto",document.getElementById("loading-box").classList.add("loaded")};window.addEventListener("load",endLoading)</script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    loader: {
+      source: {
+        '[tex]/amsCd': '[tex]/amscd'
+      }
+    },
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        addClass: [200,() => {
+          document.querySelectorAll('mjx-container:not([display=\'true\']').forEach( node => {
+            const target = node.parentNode
+            if (!target.classList.contains('has-jax')) {
+              target.classList.add('mathjax-overflow')
+            }
+          })
+        }, '', false]
+      }
+    }
+  }
+  
+  var script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script><script>function loadValine () {
+  function initValine () {
+    window.valine = new Valine({
+      el: '#vcomment',
+      appId: 'SVg8NY7xGdhfqBMmwyksops7-gzGzoHsz',
+      appKey: 'gMpBjTW5NEFR6cW6CUmhBITz',
+      placeholder: 'Please leave your footprints',
+      avatar: 'monsterid',
+      meta: 'nick,mail,link'.split(','),
+      pageSize: '10',
+      lang: 'zh-CN',
+      recordIP: false,
+      serverURLs: '',
+      emojiCDN: '',
+      emojiMaps: "",
+      enableQQ: false,
+      path: window.location.pathname,
+    });
+    if ('nick,mail') { valine.config.requiredFields= 'nick,mail'.split(',') }
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else $.getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js', initValine)
+}
+
+if ('Valine' === 'Valine' || !true) {
+  if (true) btf.loadComment(document.querySelector('#vcomment'),loadValine)
+  else setTimeout(() => loadValine(), 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script><script>function addGitalkSource () {
+  const ele = document.createElement('link')
+  ele.rel = 'stylesheet'
+  ele.href= 'https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css'
+  document.getElementsByTagName('head')[0].appendChild(ele)
+}
+
+function loadGitalk () {
+  function initGitalk () {
+    var gitalk = new Gitalk({
+      clientID: '769c8b0e30bdfa36fcdd',
+      clientSecret: '8ff1137eb46effb3547818440411a5f053db93fa',
+      repo: 'unnoyy.github.io',
+      owner: 'unnoyy',
+      admin: ['unnoyy'],
+      id: 'e30b8713f763ce226a6d97e8fb627e39',
+      language: 'zh-CN',
+      perPage: 10,
+      distractionFreeMode: false,
+      pagerDirection: 'last',
+      createIssueManually: false,
+      updateCountCallback: commentCount
+    })
+    gitalk.render('gitalk-container')
+  }
+
+  if (typeof Gitalk === 'function') initGitalk()
+  else {
+    addGitalkSource()
+    $.getScript('https://cdn.jsdelivr.net/npm/gitalk@latest/dist/gitalk.min.js', initGitalk)
+  }
+}
+
+function commentCount(n){
+  let isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+  if (isCommentCount) {
+    isCommentCount.innerHTML= n
+  }
+}
+
+if ('Valine' === 'Gitalk' || !true) {
+  if (true) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+  else loadGitalk()
+} else {
+  function loadOtherComment () {
+    loadGitalk()
+  }
+}</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script src="/js/Beautify.js"></script><script src="/js/beautify2.js"></script><script src="/js/fishes.js"></script><script src="/js/calendar.js"></script><script src="/js/languages.js"></script><div class="app-refresh" id="app-refresh"> <div class="app-refresh-wrap"> <label>✨ 網站已更新最新版本 👉</label> <a href="javascript:void(0)" onclick="location.reload()">點擊刷新</a> </div></div><script>function showNotification(){if(GLOBAL_CONFIG.Snackbar){var t="light"===document.documentElement.getAttribute("data-theme")?GLOBAL_CONFIG.Snackbar.bgLight:GLOBAL_CONFIG.Snackbar.bgDark,e=GLOBAL_CONFIG.Snackbar.position;Snackbar.show({text:"已更新最新版本",backgroundColor:t,duration:5e5,pos:e,actionText:"點擊刷新",actionTextColor:"#fff",onActionClick:function(t){location.reload()}})}else{var o=`top: 0; background: ${"light"===document.documentElement.getAttribute("data-theme")?"#49b1f5":"#1f1f1f"};`;document.getElementById("app-refresh").style.cssText=o}}"serviceWorker"in navigator&&(navigator.serviceWorker.controller&&navigator.serviceWorker.addEventListener("controllerchange",function(){showNotification()}),window.addEventListener("load",function(){navigator.serviceWorker.register("/sw.js")}));</script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-heart.min.js" async></script></div></body></html>

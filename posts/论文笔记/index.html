@@ -1,0 +1,442 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>论文笔记-出租车需求预测2 | unnoyy</title><meta name="description" content="以高空间分辨率预测出租车需求：接近可预测性的极限"><meta name="keywords" content="taxi demand,paper,summary"><meta name="author" content="unnoyy"><meta name="copyright" content="unnoyy"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="shortcut icon" href="/pic/favicon.png"><link rel="canonical" href="http://unnoyy.github.io/posts/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/"><link rel="preconnect" href="//cdn.jsdelivr.net"><link rel="preconnect" href="//busuanzi.ibruce.info"><link rel="preconnect" href="//zz.bdstatic.com"><meta property="og:type" content="article"><meta property="og:title" content="论文笔记-出租车需求预测2"><meta property="og:url" content="http://unnoyy.github.io/posts/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/"><meta property="og:site_name" content="unnoyy"><meta property="og:description" content="以高空间分辨率预测出租车需求：接近可预测性的极限"><meta property="og:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><meta property="article:published_time" content="2020-07-22T00:35:27.000Z"><meta property="article:modified_time" content="2021-03-25T14:37:13.556Z"><meta name="twitter:card" content="summary"><link rel="manifest" href="/pic/pwa/manifest.json"><meta name="msapplication-TileColor" content="#fff"><link rel="apple-touch-icon" sizes="180x180" href="/pic/pwa/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/pic/pwa/32.png"><link rel="icon" type="image/png" sizes="16x16" href="/pic/pwa/16.png"><link rel="mask-icon" href="/pic/pwa/safari-pinned-tab.svg" color="#5bbad5"><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  hexoversion: '4.2.0',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: {"defaultEncoding":1,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  bookmark: {
+    message_prev: '按',
+    message_next: '键将本页加入书签'
+  },
+  runtime: '天',
+  date_suffix: {"one_hour":"刚刚","hours":"小时前","day":"天前"},
+  copyright: {"limitCount":50,"languages":{"author":"作者: unnoyy","link":"链接: ","source":"来源: unnoyy","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  ClickShowText: undefined,
+  medium_zoom: false,
+  fancybox: true,
+  Snackbar: {"bookmark":{"message_prev":"按","message_next":"键将本页加入书签"},"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#121212","position":"bottom-left"},
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
+  baiduPush: true,
+  isPhotoFigcaption: true,
+  islazyload: true,
+  isanchor: false
+};
+
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+    const now = new Date()
+    const expiryDay = ttl * 86400000
+    const item = {
+      value: value,
+      expiry: now.getTime() + expiryDay,
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+    },
+
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}</script><script id="config_change">var GLOBAL_CONFIG_SITE={isPost:!0,isHome:!1,isHighlightShrink:!1,isSidebar:!0,postUpdate:"2021-03-25 22:37:13"}</script><noscript><style>#nav{opacity:1}.justified-gallery img{opacity:1}</style></noscript><script>var activateDarkMode=function(){document.documentElement.setAttribute("data-theme","dark"),null!==document.querySelector('meta[name="theme-color"]')&&document.querySelector('meta[name="theme-color"]').setAttribute("content","#0d0d0d")},activateLightMode=function(){document.documentElement.setAttribute("data-theme","light"),null!==document.querySelector('meta[name="theme-color"]')&&document.querySelector('meta[name="theme-color"]').setAttribute("content","#ffffff")},autoChangeMode="false",t=saveToLocal.get("theme");if("1"===autoChangeMode){var isDarkMode=window.matchMedia("(prefers-color-scheme: dark)").matches,isLightMode=window.matchMedia("(prefers-color-scheme: light)").matches,isNotSpecified=window.matchMedia("(prefers-color-scheme: no-preference)").matches,hasNoSupport=!isDarkMode&&!isLightMode&&!isNotSpecified;if(void 0===t){if(isLightMode)activateLightMode();else if(isDarkMode)activateDarkMode();else if(isNotSpecified||hasNoSupport){var now=new Date,hour=now.getHours(),isNight=hour<=6||18<=hour;isNight?activateDarkMode():activateLightMode()}window.matchMedia("(prefers-color-scheme: dark)").addListener(function(e){void 0===saveToLocal.get("theme")&&(e.matches?activateDarkMode():activateLightMode())})}else"light"===t?activateLightMode():activateDarkMode()}else"2"===autoChangeMode?(isNight=(hour=(now=new Date).getHours())<=6||18<=hour,void 0===t?isNight?activateDarkMode():activateLightMode():"light"===t?activateLightMode():activateDarkMode()):"dark"===t?activateDarkMode():"light"===t&&activateLightMode()</script><link rel="stylesheet" href="/css/background.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/sviptzk/StaticFile_HEXO@latest/butterfly/css/iconfont.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/sviptzk/HexoStaticFile@latest/Hexo/css/buttons.min.css"><style>.app-refresh{position:fixed;top:-2.2rem;left:0;right:0;z-index:99999;padding:0 1rem;font-size:15px;height:2.2rem;transition:all .3s ease}.app-refresh-wrap{display:flex;color:#fff;height:100%;align-items:center;justify-content:center}.app-refresh-wrap a{color:#fff;text-decoration:underline;cursor:pointer}</style><meta name="generator" content="Hexo 4.2.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" data-lazy-src="/pic/avatar.jpg" onerror='onerror=null,src="/img/friend_404.gif"' alt="avatar"></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">28</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">13</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">4</div></a></div></div></div><hr><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 休闲</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page" href="/book/"><i class="fa-fw fas fa-book"></i><span> 书籍</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart card-announcement-animation"></i><span> 关于</span></a></div></div></div></div><div id="body-wrap"><div id="web_bg" data-type="color"></div><div id="sidebar"><i class="fas fa-arrow-right on" id="toggle-sidebar"></i><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Predicting-Taxi-Demand-at-High-Spatial-Resolution-Approaching-the-Limit-of-Predictability"><span class="toc-number">1.</span> <span class="toc-text">Predicting Taxi Demand at High Spatial Resolution: Approaching the Limit of Predictability</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#摘要"><span class="toc-number">1.1.</span> <span class="toc-text">摘要</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#介绍"><span class="toc-number">1.2.</span> <span class="toc-text">介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#出租车需求的可预测性"><span class="toc-number">1.3.</span> <span class="toc-text">出租车需求的可预测性</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#出租车需求"><span class="toc-number">1.3.1.</span> <span class="toc-text">出租车需求</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#熵（Entropy）"><span class="toc-number">1.3.2.</span> <span class="toc-text">熵（Entropy）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#最大可预测性（Maximum-Predictability-Pi-max-）"><span class="toc-number">1.3.3.</span> <span class="toc-text">最大可预测性（Maximum Predictability $\Pi^{max}$）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#可扩展性（Scalability-）"><span class="toc-number">1.3.4.</span> <span class="toc-text">可扩展性（Scalability ）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#预测者"><span class="toc-number">1.4.</span> <span class="toc-text">预测者</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Markov预测器"><span class="toc-number">1.4.1.</span> <span class="toc-text">Markov预测器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LZW预测器"><span class="toc-number">1.4.2.</span> <span class="toc-text">LZW预测器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#神经网络预测器"><span class="toc-number">1.4.3.</span> <span class="toc-text">神经网络预测器</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数据集和预处理"><span class="toc-number">1.5.</span> <span class="toc-text">数据集和预处理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#数据集"><span class="toc-number">1.5.1.</span> <span class="toc-text">数据集</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#结果"><span class="toc-number">1.6.</span> <span class="toc-text">结果</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Limits-of-Predictability-可预测性的限制"><span class="toc-number">1.6.1.</span> <span class="toc-text">Limits of Predictability 可预测性的限制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Predictability-of-Different-Functional-Buildings-不同功能性建筑物的可预测性"><span class="toc-number">1.6.2.</span> <span class="toc-text">Predictability of Different Functional Buildings 不同功能性建筑物的可预测性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Uber-Versus-Yellow-Taxi"><span class="toc-number">1.6.3.</span> <span class="toc-text">Uber Versus Yellow Taxi</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#评估"><span class="toc-number">1.7.</span> <span class="toc-text">评估</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#实验设置"><span class="toc-number">1.7.1.</span> <span class="toc-text">实验设置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#评估-1"><span class="toc-number">1.7.2.</span> <span class="toc-text">评估</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#相关工作"><span class="toc-number">1.8.</span> <span class="toc-text">相关工作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-number">1.9.</span> <span class="toc-text">总结</span></a></li></ol></li></ol></div></div></div><header class="post-bg" id="page-header" style="background-image:url(https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg)"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">unnoyy</a></span><span id="menus"><div id="search_button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 休闲</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page" href="/book/"><i class="fa-fw fas fa-book"></i><span> 书籍</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart card-announcement-animation"></i><span> 关于</span></a></div></div><span class="close" id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="post-info"><div id="post-title"><div class="posttitle">论文笔记-出租车需求预测2</div></div><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2020-07-22T00:35:27.000Z" title="发表于 2020-07-22 08:35:27">2020-07-22</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2021-03-25T14:37:13.556Z" title="更新于 2021-03-25 22:37:13">2021-03-25</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/paper/">paper</a></span></div><div class="meta-secondline"> <span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">4.4k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>14分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout_post" id="content-inner"><article id="post"><div class="post-content" id="article-container"><h1 id="Predicting-Taxi-Demand-at-High-Spatial-Resolution-Approaching-the-Limit-of-Predictability"><a href="#Predicting-Taxi-Demand-at-High-Spatial-Resolution-Approaching-the-Limit-of-Predictability" class="headerlink" title="Predicting Taxi Demand at High Spatial Resolution: Approaching the Limit of Predictability"></a>Predicting Taxi Demand at High Spatial Resolution: Approaching the Limit of Predictability</h1><p>论文题目：以高空间分辨率预测出租车需求：接近可预测性的极限</p>
+<h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><ul>
+<li>采用整体方法来预测高空间分辨率下的出租车需求。</li>
+<li>使用两个真实的数据集（黄色出租车和纽约市的Uber行程）展示了我们的技术，并对曼哈顿的9,940个构建块进行了评估。</li>
+</ul>
+<p>我们的方法包括两个关键步骤</p>
+<ul>
+<li>首先，我们使用<strong>熵</strong>和<strong>人员流动的时间相关性</strong>来衡量构建模块级别的需求不确定性。</li>
+<li>其次，为了确定哪种预测算法可以达到理论上的最大可预测性，我们实现并比较了三个预测器：<ul>
+<li><strong>Markov预测器</strong>（基于可概率性的预测算法）</li>
+<li><strong>Lempel-Ziv-Welch预测器</strong>（基于序列的预测算法）</li>
+<li><strong>神经网络预测器*</strong>（使用机器学习的预测算法）</li>
+</ul>
+</li>
+</ul>
+<p>结果表明：</p>
+<ul>
+<li>可预测性因构建基块而异，平均而言，理论上最大可预测性可高达83％。</li>
+<li>预测器的性能也有所不同：神经网络预测器为可预测性较低的块提供更高的准确性，而马尔可夫预测器为可预测性较高的块提供更高的准确性。</li>
+<li>在具有最高最大可预测性的区块中，马尔可夫预测器能够以89％的精度预测出租车需求，比神经网络预测器好11％，而仅需要0.03％的计算时间。 </li>
+<li>这些发现表明，<strong>最大可预测性</strong>可以作为选择预测算法的良好指标。</li>
+</ul>
+<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>出租车服务是存在不平衡的问题的。</p>
+<p>本文<strong>出租车需求预测问题</strong>的<strong>定义</strong>：</p>
+<ul>
+<li>给定区域i中的历史出租车需求数据，希望预测下一个时间间隔内区域i内出现的出租车数量。</li>
+</ul>
+<p><strong>目标</strong>：</p>
+<ul>
+<li>预测满足的出租车需求（met taxi demands）</li>
+</ul>
+<ul>
+<li>使用接客数量来表示某个地区的出租车需求，并将其视为顺序数据</li>
+<li>可以从满足的出租车需求中推断出未满足的需求</li>
+</ul>
+<p>许多预测出租车需求的方法，包括不确定性分析，概率模型，时间序列，SVM和神经网络。</p>
+<p>两个关键问题：</p>
+<ol>
+<li>给定预测算法$\alpha$，同时考虑出租车需求序列的随机性和时间相关性，预测算法$\alpha$可以达到的潜在精度的上限是多少？</li>
+<li>给定潜在精度的上限，考虑到计算时间和精度之间的权衡，哪个预测器具有更好的性能？</li>
+</ol>
+<p>本文的<strong>解决方案</strong>：</p>
+<ul>
+<li><p>本文通过分析某个地区出租车需求的<strong>最大可预测性</strong>（$\Pi^{max}$）来选择最佳预测器。</p>
+</li>
+<li><p>最大的可预测性由出租车需求序列的熵定义，同时考虑了<strong>随机性</strong>和<strong>时间相关性</strong>。</p>
+</li>
+<li><p>最大可预测性$\Pi^{max}$由Song等人首先提出，用于分析用户移动性[10]。</p>
+</li>
+<li><p>将最大可预测性$\Pi^{max}$定义为预测算法可以预测出租车需求的<strong>最高潜在精度</strong>。</p>
+</li>
+<li><p>最大的可预测性通过测量人员流动的规律性来捕获出租车需求序列的时间相关程度。</p>
+</li>
+<li><p>对于大多数地区，出租车需求受一定程度的随机性（例如，突发事件）和一定程度的规律性（例如，每周模式）支配，可用于预测。</p>
+</li>
+<li><p>例如，一个$\Pi^{max} = 0.3$的构建块表示在至少70％的时间中，此块的出租车需求似乎是随机的，并且只有30％的时间我们才能希望预测出租车的需求。</p>
+</li>
+<li><p>无论预测算法多么出色，我们都无法以$\Pi^{max} = 0.3$的精度预测高于30％的构建块的未来出租车需求。 </p>
+</li>
+<li><p>$\Pi_{max}$表示构建块中<strong>出租车需求可预测性的基本限制</strong>。</p>
+</li>
+<li><p>出租车需求的时间相关性并不总是成立。不同的区域具有不同的功能，因此具有不同的可预测性。</p>
+</li>
+<li><p>假设要选择最佳预测器，必须分析每个地区出租车需求的最大可预测性（$\Pi^{max}$）</p>
+</li>
+</ul>
+<p>本文的<strong>贡献</strong>：</p>
+<ol>
+<li><p>本文测量纽约市每个组成部分的出租车需求的理论最大可预测性。这代表了预测算法$\alpha$可以达到的潜在精度的上限。结果显示，出租车需求的最大可预测性平均可以达到83％。最大可预测性捕获了出租车需求序列的时间相关程度。所以根据结果可知，<strong>纽约市的出租车需求具有很强的时间格局</strong>。</p>
+</li>
+<li><p>本文实现并比较了<strong>三个预测变量</strong>的预测准确性：</p>
+<ul>
+<li>Markov预测变量（基于概率的方法）</li>
+<li>Lempel-Ziv-Welch（LZW）预测变量（基于序列的方法）</li>
+<li>神经网络（NN）预测变量（一种基于机器学习的方法）  </li>
+</ul>
+<p>结果表明：</p>
+<ul>
+<li>NN预测器为具有<strong>低可预测性</strong>的构建块提供了更高的准确性</li>
+<li>而Markov预测器为具有<strong>高可预测性</strong>的构建块提供了更高的准确性</li>
+<li>最大可预测性是实现实际预测准确性的一个可行目标，并且具有多个功能的计算密集型NN预测器并不总是比简单的Markov预测器好。</li>
+</ul>
+</li>
+<li><p>在考虑准确性和计算成本的同时，了解每个构件的可预测性可以帮助确定使用哪个预测器。</p>
+</li>
+</ol>
+<h2 id="出租车需求的可预测性"><a href="#出租车需求的可预测性" class="headerlink" title="出租车需求的可预测性"></a>出租车需求的可预测性</h2><p>目标：以提议的最大可预测性回答之前的问题</p>
+<p>问题1：考虑到出租车需求的随机性和时间相关性，在构建块i中，给定预测算法$\alpha$和从时间1,2，… n开始的出租车需求$D_n^{(i)}$的序列，我们想要找到预测算法$\alpha$可以达到的最大可预测性（最高潜在准确度）$\Pi^{max}$。</p>
+<h3 id="出租车需求"><a href="#出租车需求" class="headerlink" title="出租车需求"></a>出租车需求</h3><p>使用出租车乘客数$d_t^{(i)}$来代表在构建块i中t时候的出租车的需求<br><img src="/img/loading.gif" data-lazy-src="attachment:image.png" alt="image.png"><br>由于出租车需求可能会有很大的变化，因此很难预测$d_t^{(i)}$的确切值。<br>为简单起见，我们使用因子$q$对出租车需求的值取整。<br>将每q个出租车需求分组为一个出租车需求。<br>尝试预测每个q级别的出租车需求，<br>将q = 10设置为使预测更加宽松，同时保持较低的误差。 至于q的影响力见下方论文。</p>
+<ul>
+<li>K. Zhao, D. Khryashchev, J. Freire, C. Silva, and H. Vo, “Predicting taxi demand at high spatial resolution: Approaching the limit of predictability,”<a href="https://serv.cusp.nyu.edu/projects/demandprediction/" target="_blank" rel="noopener">https://serv.cusp.nyu.edu/projects/demandprediction/</a> 2016taxidemand.pdf, Tech. Rep., July 2016. </li>
+</ul>
+<h3 id="熵（Entropy）"><a href="#熵（Entropy）" class="headerlink" title="熵（Entropy）"></a>熵（Entropy）</h3><ul>
+<li>熵是表征可预测性程度的有效方法。 通常低熵意味着较高的可预测性。</li>
+<li>本文使用三种熵测度：<ul>
+<li>随机熵$S_{random}^{(i)}$</li>
+<li>香农熵$S_{Shannon}^{(i)}$</li>
+<li>实熵$S_{real}^{(i)}$</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ol>
+<li><strong>Random Entropy</strong></li>
+</ol>
+<p>$<br>S_{random}^{(i)} = \log_2 N^{(i)}<br>$</p>
+<ul>
+<li>$N^{(i)}$是$D_n^{(i)}$中唯一出租车需求的数量</li>
+<li>较低的熵意味着较高的可预测性。如果构建块i中的出租车需求较低，则随机熵$S_{random}^{(i)}$将很小，并且很容易预测出租车需求。</li>
+</ul>
+<hr>
+<ol start="2">
+<li><strong>Shannon Entropy</strong></li>
+</ol>
+<p>$<br>S_{Shannon}^{(i)} = - \sum_{t=1}^{N^{(i)}} p(d_t^{(i)})\log_2 p(d_t^{(i)})<br>$</p>
+<ul>
+<li>$p(d_t^{(i)})$是在第i个构建块上有$d_t^{(i)}$出租车需求的概率–它表征了出租车需求的不确定性。</li>
+</ul>
+<p>注：<strong>随机熵和香农熵都与时间无关，并且不考虑时间模式。</strong></p>
+<hr>
+<ol start="3">
+<li><strong>Real Entropy</strong></li>
+</ol>
+<p>$<br>S_{real}^{(i)} = - \sum_{S_n^{(i)} \subset D_n^{(i)}} P(S_n^{(i)})\log_2 [P(S_n^{(i)})]<br>$</p>
+<ul>
+<li>$P(S_n^{(i)})$表示在出租车需求序列$D_n^{(i)}$中找到特定时间顺序的子序列$S_n^{(i)}$的概率。 </li>
+</ul>
+<p>注：与香农熵和随机熵不同，真实熵不仅考虑构建块中不同出租车需求的<strong>频率</strong>，而且考虑出租车需求的<strong>时间模式的顺序</strong>。</p>
+<hr>
+<ul>
+<li>查找给定集合的所有子集的问题具有指数复杂度（$O（2_n）$）</li>
+<li>使用LempelZiv估计器来计算实际熵。 Lempel-Ziv估计器可以快速收敛到实际熵[16]。 对于时间n之后的出租车需求序列，可以通过以下方式估算熵</li>
+</ul>
+<p>$<br>S_{real}^{(i)} = \Big ( \frac{1}{n} \sum_t s_t^{‘(i)}\Big )^{-1} \ln n<br>$</p>
+<ul>
+<li>$s_t^{‘(i)}$表示从时间t开始的最短子序列的长度，从1到t-1都没有出现。</li>
+</ul>
+<h3 id="最大可预测性（Maximum-Predictability-Pi-max-）"><a href="#最大可预测性（Maximum-Predictability-Pi-max-）" class="headerlink" title="最大可预测性（Maximum Predictability $\Pi^{max}$）"></a>最大可预测性（Maximum Predictability $\Pi^{max}$）</h3><ul>
+<li>本文将可预测性$\Pi$<strong>定义</strong>为算法$\alpha$可以正确预测构建块中未来的出租车需求的<strong>成功率</strong>。</li>
+<li>对于具有唯一出租车需求$N^{(i)}$的构件，可预测性度量取决于Fano不等式$\Pi<br>\leq \Pi^{max}$</li>
+</ul>
+<p>给定熵$S$和构建块$i$中不同的出租车需求$N^{(i)}$，可以通过以下公式计算最大可预测性$\Pi^{max}$：</p>
+<p>$$<br>S = - \Pi^{max} \log_2(\Pi^{max}) - (1-\Pi^{max})\log_2(1-\Pi^{max})+(1-\Pi^{max})\log_2(N^{(i)} - 1)<br>$$</p>
+<ul>
+<li><p>最大可预测性$\Pi^{max}$为0到1之间的值。值越大，算法越准确。</p>
+</li>
+<li><p>通过不同的熵测度$S_{random}^{(i)}$，$S_{Shannon}^{(i)}$和$S_{real}^{(i)}$，我们具有不同的最大可预测性值$\Pi^{random}$，$\Pi^{Shannon}$和$\Pi^{real}$。</p>
+</li>
+<li><p>本文证明，$\Pi^{random}$≤$\Pi^{Shannon}$≤$\Pi^{real}$，因此$\Pi^{real}$是最大可预测性$\Pi^{max}$。</p>
+</li>
+</ul>
+<hr>
+<p>所以问题的回答是：给定一个预测算法α，$\Pi^{max}$是预测算法α可以达到的最大可预测性。</p>
+<p>证明略</p>
+<h3 id="可扩展性（Scalability-）"><a href="#可扩展性（Scalability-）" class="headerlink" title="可扩展性（Scalability ）"></a>可扩展性（Scalability ）</h3><p>$</p>
+<ul>
+<li><p>\Pi^{max} \log_2(\Pi^{max}) - (1-\Pi^{max})\log_2(1-\Pi^{max})+(1-\Pi^{max})\log_2(N^{(i)} - 1) - S = 0<br>$</p>
+</li>
+<li><p>$S$和$N^{(i)}$是已知的</p>
+</li>
+<li><p>定义函数$f(\Pi^{max}) = - \Pi^{max} \log_2(\Pi^{max}) - (1-\Pi^{max})\log_2(1-\Pi^{max})+(1-\Pi^{max})\log_2(N^{(i)} - 1) - S$</p>
+</li>
+<li><p>由于$\Pi^{max}$是一个介于0到1之间的值，所以当$f(\Pi^{max})= 0$时找到交点可以求解$\Pi^{max} = \gamma$的方程。</p>
+</li>
+<li><p>求解所有方程$f(\Pi^{max})= 0$的计算时间为$O(m)$，其中$m$是积木总数。所以可以通过在多个处理器上为每个构件分配$f(\Pi^{max})= 0$的计算来进行缩放。</p>
+</li>
+</ul>
+<h2 id="预测者"><a href="#预测者" class="headerlink" title="预测者"></a>预测者</h2><p>这一部分作者提出了三种预测器：</p>
+<ul>
+<li>Markov预测器（基于概率的方法）</li>
+<li>LZW预测器（基于序列的方法）</li>
+<li>神经网络（NN）预测器（基于机器学习的方法）</li>
+</ul>
+<p>用这三种预测器来预测出租车需求并比较它们的性能</p>
+<p>问题2：给定构造块i的最大可预测性$\Pi^{max}$，考虑到计算时间和精度之间的折衷，我们希望找到一种性能更好的预测器。</p>
+<h3 id="Markov预测器"><a href="#Markov预测器" class="headerlink" title="Markov预测器"></a>Markov预测器</h3><p><img src="/img/loading.gif" data-lazy-src="attachment:image.png" alt="image.png"></p>
+<h3 id="LZW预测器"><a href="#LZW预测器" class="headerlink" title="LZW预测器"></a>LZW预测器</h3><p><img src="/img/loading.gif" data-lazy-src="attachment:image.png" alt="image.png"></p>
+<h3 id="神经网络预测器"><a href="#神经网络预测器" class="headerlink" title="神经网络预测器"></a>神经网络预测器</h3><p><img src="/img/loading.gif" data-lazy-src="attachment:image.png" alt="image.png"></p>
+<h2 id="数据集和预处理"><a href="#数据集和预处理" class="headerlink" title="数据集和预处理"></a>数据集和预处理</h2><h3 id="数据集"><a href="#数据集" class="headerlink" title="数据集"></a>数据集</h3><p>出租车数据集：</p>
+<ul>
+<li>the NYC yellow taxi data set</li>
+<li>the NYC Uber taxi data set</li>
+</ul>
+<p>Pluto(Primary Land Use Tax Lot Output)数据集：</p>
+<ul>
+<li>NYC Pluto data set</li>
+</ul>
+<p>数据预处理和可扩展性</p>
+<h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><p>出租车需求的最大可预测性平均可以达到83％的准确性。</p>
+<h3 id="Limits-of-Predictability-可预测性的限制"><a href="#Limits-of-Predictability-可预测性的限制" class="headerlink" title="Limits of Predictability 可预测性的限制"></a>Limits of Predictability 可预测性的限制</h3><p>由于Πmax捕获了出租车需求的时间相关性，因此，如果在我们的预测算法中考虑时间相关性，我们可以达到更高的潜在预测准确性。 如果我们每天而不是按小时对出租车需求进行分组，也会发现类似的结果</p>
+<h3 id="Predictability-of-Different-Functional-Buildings-不同功能性建筑物的可预测性"><a href="#Predictability-of-Different-Functional-Buildings-不同功能性建筑物的可预测性" class="headerlink" title="Predictability of Different Functional Buildings 不同功能性建筑物的可预测性"></a>Predictability of Different Functional Buildings 不同功能性建筑物的可预测性</h3><ul>
+<li>不同的构造块表现出不同的最大可预测性。</li>
+<li>住宅和工作场所都具有较高的可预测性，因此具有很强的时间格局。 对于其他地方，例如旅馆，交通中心或办公室物业，其可预测性不如住宅或工作场所高。 这些地区的出租车需求主要取决于白天发生的事件。<br><img src="/img/loading.gif" data-lazy-src="attachment:image.png" alt="image.png"></li>
+</ul>
+<h3 id="Uber-Versus-Yellow-Taxi"><a href="#Uber-Versus-Yellow-Taxi" class="headerlink" title="Uber Versus Yellow Taxi"></a>Uber Versus Yellow Taxi</h3><ul>
+<li>研究了Uber和黄色出租车之间的可预测性差异。</li>
+<li>由于Uber出租车的稀疏性，我们在邻域级别分析了这两个数据集的最大可预测性。 我们将每个社区的每小时出租车需求分组，并检查每小时出租车需求序列的最大可预测性。</li>
+<li>Uber出租车服务的最大可预测性高于黄色出租车。 这可能是因为黄色的出租车通常采用随机巡航策略，而Uber的出租车在接到请求后便前往乘客所在的地方。 Uber出租车可以更好地捕获某个地区出租车需求的时间相关性。</li>
+</ul>
+<h2 id="评估"><a href="#评估" class="headerlink" title="评估"></a>评估</h2><h3 id="实验设置"><a href="#实验设置" class="headerlink" title="实验设置"></a>实验设置</h3><ul>
+<li>使用三周的出租车接送数据作为训练数据，并以一周的出租车接送数据作为测试数据来比较这三个预测指标。</li>
+<li>每小时对每个构建块的出租车需求进行分组</li>
+<li>为了减少偏差，在上周的星期一，星期三和星期日的午夜（00:00），早晨（06:00），中午（12:00）和晚上（18:00）选择12个时间间隔作为 预测目标。</li>
+<li>根据最大可预测性Πmax对构建基块进行排名，并将它们分为十个1,000个构建基块组。 我们选取每组的一组中位数构建基块进行调查（每组10个）</li>
+<li>总共有60,480个训练样本和1,200个测试样本。</li>
+</ul>
+<p><strong>Error metrics</strong></p>
+<ul>
+<li>采用误差测量值对称平均绝对百分比误差（sMAPE）来评估预测算法。<br><img src="/img/loading.gif" data-lazy-src="attachment:image.png" alt="image.png"></li>
+</ul>
+<h3 id="评估-1"><a href="#评估-1" class="headerlink" title="评估"></a>评估</h3><p>NN预测器为可预测性较低的构建块提供了更高的准确性。在最大可预测性Πmax= 72％最低的组中，NN预测器的预测精度为70％-在所有预测器中最高。这是因为NN预测器能够捕获多个特征，例如天气信息[7]，而其他两个预测器则无法捕获。马尔可夫预测器为具有高可预测性的构建块提供了更好的准确性，并迅速收敛到可预测性上限Πmax。这与以前的研究一致，即最大可预测性与马尔可夫预测器预测准确性之间存在高度正相关[12]。在具有最高最大可预测性的构造块中，马尔可夫预测器能够以89％的准确性预测出租车需求，比预测的要好11％。 NN预测器。除了。马尔可夫预测器的计算时间仅为0.5秒，仅为NN预测器的0.03％（见图6（b））。对于具有高可预测性的区域，马尔可夫预测器能够以更少的计算时间提供更好的预测精度。从实验中我们发现，最大可预测性Πmax可以帮助我们确定使用哪个预测器。在可预测性较低的区域中，我们可以使用NN预测器通过捕获多个特征来达到高精度，而在可预测性较高的区域中，马尔可夫预测器能够在保持较低计算时间的同时提供更好的预测精度。</p>
+<h2 id="相关工作"><a href="#相关工作" class="headerlink" title="相关工作"></a>相关工作</h2><ol>
+<li>Predicting Taxi Demand </li>
+<li>Inferring Unmet Demand  </li>
+</ol>
+<p>the unmet taxi demand：需要出租车但找不到出租车的人数<br>从出租车数据集推断未满足的出租车需求</p>
+<ol start="3">
+<li>Temporal Pattern of Human Mobility</li>
+</ol>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
+<li>分析了纽约市超过1400万的黄色和Uber出租车接送样品。</li>
+<li>出租车需求具有很高的可预测性（平均高达83％），这表明人类流动性与时间之间具有很强的相关性。</li>
+<li>研究哪种预测算法可以达到最大的可预测性。</li>
+<li>证明了计算密集型NN预测器并不总是比Markov预测器具有更好的预测精度。在可预测性较低的区域，NN预测器可以通过捕获其他特征（天气等）来达到高精度。</li>
+<li>在具有高可预测性的区域中，马尔可夫预测器能够在保持较低计算时间的同时达到较高的预测精度。</li>
+<li>可能由于不同的巡航策略，可以在Uber出租车数据中更好地捕获出租车需求的时间相关性。</li>
+<li>本文的结果不仅限于出租车需求问题。可以将相同的方法用于其他时空数据集中的预测</li>
+</ul>
+<p>未来的工作：</p>
+<ul>
+<li>将针对时空预测问题提出一种基于可预测性的新预测器，例如，马尔可夫模型的输出可被视为NN预测器的功能。</li>
+</ul>
+<p>日志总结：</p>
+<ol>
+<li>从中了解了“最大可预测性”，本文作者是指预测算法可以预测未来出租车需求的成功率，即预测算法可以达到的最大预测性。</li>
+<li>作者在本文通过比较三个预测器的预测准确性，从中发现某些规律，从而表明在考虑准确性和计算成本的同时，可以根据每个构件的最大可预测性来帮助确定使用哪个预测器。</li>
+<li>作者是在纽约市的数据集上进行的实验，并且可知纽约市的出租车需求具有很强的时间格局。</li>
+<li>了解了the unmet taxi demand,比如需要出租车但找不到出租车的人数。研究角度是可以从出租车数据集推断未满足的出租车需求</li>
+</ol>
+</div><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">unnoyy</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://unnoyy.github.io/posts/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/">http://unnoyy.github.io/posts/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://unnoyy.github.io" target="_blank">unnoyy</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/taxi-demand/">taxi demand</a><a class="post-meta__tags" href="/tags/paper/">paper</a><a class="post-meta__tags" href="/tags/summary/">summary</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/36232/"><img class="prev-cover" data-lazy-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror='onerror=null,src="/img/404.jpg"'><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">论文笔记-出租车需求预测3</div></div></a></div><div class="next-post pull-right"><a href="/posts/60400/"><img class="next-cover" data-lazy-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror='onerror=null,src="/img/404.jpg"'><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">The Simpler The Better:A Unified Approach to Predicting Original Taxi Demands based on Large-Scale Online Platforms</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span> 相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/25131/" title="论文笔记 AM-GCN"><img class="cover" data-lazy-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-09-08</div><div class="title">论文笔记 AM-GCN</div></div></a></div><div><a href="/posts/57948/" title="论文笔记 L-CNN"><img class="cover" data-lazy-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-08-28</div><div class="title">论文笔记 L-CNN</div></div></a></div><div><a href="/posts/43102/" title="论文笔记 ST-MGCN"><img class="cover" data-lazy-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-09-03</div><div class="title">论文笔记 ST-MGCN</div></div></a></div><div><a href="/posts/29557/" title="论文笔记"><img class="cover" data-lazy-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-08-20</div><div class="title">论文笔记</div></div></a></div><div><a href="/posts/38577/" title="出租车需求量预测小总结"><img class="cover" data-lazy-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-08-06</div><div class="title">出租车需求量预测小总结</div></div></a></div><div><a href="/posts/60455/" title="出租车需求量预测论文集"><img class="cover" data-lazy-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-08-05</div><div class="title">出租车需求量预测论文集</div></div></a></div></div></div><hr><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div><div class="comment-switch"><span class="first-comment">Valine</span><label><input id="switch-comments-btn" type="checkbox"><span class="slider"></span></label><span class="second-comment">Gitalk</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div><div><div id="gitalk-container"></div></div></div></div></article></main><footer id="footer" data-type="color"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2021 By unnoyy</div><div class="framework-info"><span>框架 </span><a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a href="https://github.com/jerryc127/hexo-theme-butterfly" target="_blank" rel="noopener">Butterfly</a></div><div class="footer_custom_text">欢迎来到<a href="https://unnoyy.github.io/">小屋</a>!</div></div></footer></div><section id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">简</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></section><div class="search-dialog" id="local-search"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"></div></div></div><hr><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a href="https://github.com/wzpan/hexo-generator-search" target="_blank" rel="noopener" style="color:#49b1f5">hexo-generator-search</a>
+ <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div><div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.spacingElementById('content-inner')
+  else {
+    $.getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js', () => {
+      pangu.spacingElementById('content-inner')
+    })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguFn)</script><script src="/js/search/local-search.js"></script><script>var endLoading=function(){document.body.style.overflow="auto",document.getElementById("loading-box").classList.add("loaded")};window.addEventListener("load",endLoading)</script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    loader: {
+      source: {
+        '[tex]/amsCd': '[tex]/amscd'
+      }
+    },
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        addClass: [200,() => {
+          document.querySelectorAll('mjx-container:not([display=\'true\']').forEach( node => {
+            const target = node.parentNode
+            if (!target.classList.contains('has-jax')) {
+              target.classList.add('mathjax-overflow')
+            }
+          })
+        }, '', false]
+      }
+    }
+  }
+  
+  var script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script><script>function loadValine () {
+  function initValine () {
+    window.valine = new Valine({
+      el: '#vcomment',
+      appId: 'SVg8NY7xGdhfqBMmwyksops7-gzGzoHsz',
+      appKey: 'gMpBjTW5NEFR6cW6CUmhBITz',
+      placeholder: 'Please leave your footprints',
+      avatar: 'monsterid',
+      meta: 'nick,mail,link'.split(','),
+      pageSize: '10',
+      lang: 'zh-CN',
+      recordIP: false,
+      serverURLs: '',
+      emojiCDN: '',
+      emojiMaps: "",
+      enableQQ: false,
+      path: window.location.pathname,
+    });
+    if ('nick,mail') { valine.config.requiredFields= 'nick,mail'.split(',') }
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else $.getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js', initValine)
+}
+
+if ('Valine' === 'Valine' || !true) {
+  if (true) btf.loadComment(document.querySelector('#vcomment'),loadValine)
+  else setTimeout(() => loadValine(), 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script><script>function addGitalkSource () {
+  const ele = document.createElement('link')
+  ele.rel = 'stylesheet'
+  ele.href= 'https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css'
+  document.getElementsByTagName('head')[0].appendChild(ele)
+}
+
+function loadGitalk () {
+  function initGitalk () {
+    var gitalk = new Gitalk({
+      clientID: '769c8b0e30bdfa36fcdd',
+      clientSecret: '8ff1137eb46effb3547818440411a5f053db93fa',
+      repo: 'unnoyy.github.io',
+      owner: 'unnoyy',
+      admin: ['unnoyy'],
+      id: 'fe0d3dc7e7a96d04c3b0f2552a3e0f9e',
+      language: 'zh-CN',
+      perPage: 10,
+      distractionFreeMode: false,
+      pagerDirection: 'last',
+      createIssueManually: false,
+      updateCountCallback: commentCount
+    })
+    gitalk.render('gitalk-container')
+  }
+
+  if (typeof Gitalk === 'function') initGitalk()
+  else {
+    addGitalkSource()
+    $.getScript('https://cdn.jsdelivr.net/npm/gitalk@latest/dist/gitalk.min.js', initGitalk)
+  }
+}
+
+function commentCount(n){
+  let isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+  if (isCommentCount) {
+    isCommentCount.innerHTML= n
+  }
+}
+
+if ('Valine' === 'Gitalk' || !true) {
+  if (true) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+  else loadGitalk()
+} else {
+  function loadOtherComment () {
+    loadGitalk()
+  }
+}</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script src="/js/Beautify.js"></script><script src="/js/beautify2.js"></script><script src="/js/fishes.js"></script><script src="/js/calendar.js"></script><script src="/js/languages.js"></script><div class="app-refresh" id="app-refresh"> <div class="app-refresh-wrap"> <label>✨ 網站已更新最新版本 👉</label> <a href="javascript:void(0)" onclick="location.reload()">點擊刷新</a> </div></div><script>function showNotification(){if(GLOBAL_CONFIG.Snackbar){var t="light"===document.documentElement.getAttribute("data-theme")?GLOBAL_CONFIG.Snackbar.bgLight:GLOBAL_CONFIG.Snackbar.bgDark,e=GLOBAL_CONFIG.Snackbar.position;Snackbar.show({text:"已更新最新版本",backgroundColor:t,duration:5e5,pos:e,actionText:"點擊刷新",actionTextColor:"#fff",onActionClick:function(t){location.reload()}})}else{var o=`top: 0; background: ${"light"===document.documentElement.getAttribute("data-theme")?"#49b1f5":"#1f1f1f"};`;document.getElementById("app-refresh").style.cssText=o}}"serviceWorker"in navigator&&(navigator.serviceWorker.controller&&navigator.serviceWorker.addEventListener("controllerchange",function(){showNotification()}),window.addEventListener("load",function(){navigator.serviceWorker.register("/sw.js")}));</script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-heart.min.js" async></script></div></body></html>

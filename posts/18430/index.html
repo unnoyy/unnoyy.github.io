@@ -1,0 +1,573 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>智能手机对理解驾驶行为的当前挑战 | unnoyy</title><meta name="description" content="智能手机感知理解驾驶行为:目前的实践和挑战 摘要理解驾驶行为——即使是在自动驾驶技术迅速出现的情况下——仍然是人们关注的焦点，这有助于分解复杂的驾驶动力学，开发用户友好且可接受的自动驾驶汽车，并确保自动驾驶汽车和传统汽车在道路上安全共存。移动众感技术已经成为理解和模拟驾驶行为的一种手段。虽然通过智能手机收集数据的优势有很多(速度、准确性、成本低等)，但挑战包括但不限于准备速度、处理需求，以及方法、"><meta name="author" content="unnoyy"><meta name="copyright" content="unnoyy"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="shortcut icon" href="/pic/favicon.png"><link rel="canonical" href="http://unnoyy.github.io/posts/18430/"><link rel="preconnect" href="//cdn.jsdelivr.net"><link rel="preconnect" href="//busuanzi.ibruce.info"><link rel="preconnect" href="//zz.bdstatic.com"><meta property="og:type" content="article"><meta property="og:title" content="智能手机对理解驾驶行为的当前挑战"><meta property="og:url" content="http://unnoyy.github.io/posts/18430/"><meta property="og:site_name" content="unnoyy"><meta property="og:description" content="智能手机感知理解驾驶行为:目前的实践和挑战 摘要理解驾驶行为——即使是在自动驾驶技术迅速出现的情况下——仍然是人们关注的焦点，这有助于分解复杂的驾驶动力学，开发用户友好且可接受的自动驾驶汽车，并确保自动驾驶汽车和传统汽车在道路上安全共存。移动众感技术已经成为理解和模拟驾驶行为的一种手段。虽然通过智能手机收集数据的优势有很多(速度、准确性、成本低等)，但挑战包括但不限于准备速度、处理需求，以及方法、"><meta property="og:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><meta property="article:published_time" content="2020-10-21T07:06:28.000Z"><meta property="article:modified_time" content="2020-10-27T02:19:12.104Z"><meta name="twitter:card" content="summary"><link rel="manifest" href="/pic/pwa/manifest.json"><meta name="msapplication-TileColor" content="#fff"><link rel="apple-touch-icon" sizes="180x180" href="/pic/pwa/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/pic/pwa/32.png"><link rel="icon" type="image/png" sizes="16x16" href="/pic/pwa/16.png"><link rel="mask-icon" href="/pic/pwa/safari-pinned-tab.svg" color="#5bbad5"><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  hexoversion: '4.2.0',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: {"defaultEncoding":1,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  bookmark: {
+    message_prev: '按',
+    message_next: '键将本页加入书签'
+  },
+  runtime: '天',
+  date_suffix: {"one_hour":"刚刚","hours":"小时前","day":"天前"},
+  copyright: {"limitCount":50,"languages":{"author":"作者: unnoyy","link":"链接: ","source":"来源: unnoyy","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  ClickShowText: undefined,
+  medium_zoom: false,
+  fancybox: true,
+  Snackbar: {"bookmark":{"message_prev":"按","message_next":"键将本页加入书签"},"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#121212","position":"bottom-left"},
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
+  baiduPush: true,
+  isPhotoFigcaption: true,
+  islazyload: true,
+  isanchor: false
+};
+
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+    const now = new Date()
+    const expiryDay = ttl * 86400000
+    const item = {
+      value: value,
+      expiry: now.getTime() + expiryDay,
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+    },
+
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}</script><script id="config_change">var GLOBAL_CONFIG_SITE={isPost:!0,isHome:!1,isHighlightShrink:!1,isSidebar:!0,postUpdate:"2020-10-27 10:19:12"}</script><noscript><style>#nav{opacity:1}.justified-gallery img{opacity:1}</style></noscript><script>var activateDarkMode=function(){document.documentElement.setAttribute("data-theme","dark"),null!==document.querySelector('meta[name="theme-color"]')&&document.querySelector('meta[name="theme-color"]').setAttribute("content","#0d0d0d")},activateLightMode=function(){document.documentElement.setAttribute("data-theme","light"),null!==document.querySelector('meta[name="theme-color"]')&&document.querySelector('meta[name="theme-color"]').setAttribute("content","#ffffff")},autoChangeMode="false",t=saveToLocal.get("theme");if("1"===autoChangeMode){var isDarkMode=window.matchMedia("(prefers-color-scheme: dark)").matches,isLightMode=window.matchMedia("(prefers-color-scheme: light)").matches,isNotSpecified=window.matchMedia("(prefers-color-scheme: no-preference)").matches,hasNoSupport=!isDarkMode&&!isLightMode&&!isNotSpecified;if(void 0===t){if(isLightMode)activateLightMode();else if(isDarkMode)activateDarkMode();else if(isNotSpecified||hasNoSupport){var now=new Date,hour=now.getHours(),isNight=hour<=6||18<=hour;isNight?activateDarkMode():activateLightMode()}window.matchMedia("(prefers-color-scheme: dark)").addListener(function(e){void 0===saveToLocal.get("theme")&&(e.matches?activateDarkMode():activateLightMode())})}else"light"===t?activateLightMode():activateDarkMode()}else"2"===autoChangeMode?(isNight=(hour=(now=new Date).getHours())<=6||18<=hour,void 0===t?isNight?activateDarkMode():activateLightMode():"light"===t?activateLightMode():activateDarkMode()):"dark"===t?activateDarkMode():"light"===t&&activateLightMode()</script><link rel="stylesheet" href="/css/background.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/sviptzk/StaticFile_HEXO@latest/butterfly/css/iconfont.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/sviptzk/HexoStaticFile@latest/Hexo/css/buttons.min.css"><style>.app-refresh{position:fixed;top:-2.2rem;left:0;right:0;z-index:99999;padding:0 1rem;font-size:15px;height:2.2rem;transition:all .3s ease}.app-refresh-wrap{display:flex;color:#fff;height:100%;align-items:center;justify-content:center}.app-refresh-wrap a{color:#fff;text-decoration:underline;cursor:pointer}</style><meta name="generator" content="Hexo 4.2.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" data-lazy-src="/pic/avatar.jpg" onerror='onerror=null,src="/img/friend_404.gif"' alt="avatar"></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">28</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">13</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">4</div></a></div></div></div><hr><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 休闲</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page" href="/book/"><i class="fa-fw fas fa-book"></i><span> 书籍</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart card-announcement-animation"></i><span> 关于</span></a></div></div></div></div><div id="body-wrap"><div id="web_bg" data-type="color"></div><div id="sidebar"><i class="fas fa-arrow-right on" id="toggle-sidebar"></i><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#摘要"><span class="toc-number">1.</span> <span class="toc-text">摘要</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#介绍"><span class="toc-number">2.</span> <span class="toc-text">介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#从智能手机数据到知情决策-一个分析框架"><span class="toc-number">3.</span> <span class="toc-text">从智能手机数据到知情决策:一个分析框架</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#移动众感的关键问题-mobile-crowdsensing"><span class="toc-number">4.</span> <span class="toc-text">移动众感的关键问题 mobile crowdsensing</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Data-quality-数据质量"><span class="toc-number">4.1.</span> <span class="toc-text">Data quality 数据质量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Energy-limitations-能量限制"><span class="toc-number">4.2.</span> <span class="toc-text">Energy limitations 能量限制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Privacy-and-security-隐私和安全"><span class="toc-number">4.3.</span> <span class="toc-text">Privacy and security 隐私和安全</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Understanding-data-理解数据"><span class="toc-number">5.</span> <span class="toc-text">Understanding data 理解数据</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Data-preparation-数据准备"><span class="toc-number">5.1.</span> <span class="toc-text">Data preparation 数据准备</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Feature-engineering-for-trip-information-出行信息的特征工程"><span class="toc-number">5.2.</span> <span class="toc-text">Feature engineering for trip information 出行信息的特征工程</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Mode-detection-模式检测"><span class="toc-number">5.2.1.</span> <span class="toc-text">Mode detection 模式检测</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Passenger-driver-recognition-乘客-司机-识别"><span class="toc-number">5.2.2.</span> <span class="toc-text">Passenger&#x2F;driver recognition 乘客&#x2F;司机 识别</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#feature-engineering-for-driving-performance-驾驶性能的特征工程"><span class="toc-number">5.3.</span> <span class="toc-text">feature engineering for driving performance 驾驶性能的特征工程</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Modeling-driver’s-behavior-驾驶员行为建模"><span class="toc-number">6.</span> <span class="toc-text">Modeling driver’s behavior 驾驶员行为建模</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#统计方法"><span class="toc-number">6.1.</span> <span class="toc-text">统计方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#机器学习和计算智能"><span class="toc-number">6.2.</span> <span class="toc-text">机器学习和计算智能</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Applications-assessing-and-assisting-drivers"><span class="toc-number">7.</span> <span class="toc-text">Applications assessing and assisting drivers</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Drivers’-assistance-and-recommendation-systems"><span class="toc-number">7.1.</span> <span class="toc-text">Drivers’ assistance and recommendation systems</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Drivers’-scoring-systems"><span class="toc-number">7.2.</span> <span class="toc-text">Drivers’ scoring systems</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Main-challenges-and-possible-caveats-警告"><span class="toc-number">8.</span> <span class="toc-text">Main challenges and possible caveats(警告)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Challenge-1-Enhancing-data-representativeness-through-user-engagement-通过用户参与增强数据的代表性"><span class="toc-number">8.1.</span> <span class="toc-text">Challenge 1: Enhancing data representativeness through user engagement 通过用户参与增强数据的代表性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Challenge-2-Ensuring-for-data-availability-and-quality"><span class="toc-number">8.2.</span> <span class="toc-text">Challenge 2: Ensuring for data availability and quality</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Challenge-3-Identify-the-context-from-the-data"><span class="toc-number">8.3.</span> <span class="toc-text">Challenge 3: Identify the context from the data</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Challenge-4-Detect-abnorml-patterns-and-risky-drivers"><span class="toc-number">8.4.</span> <span class="toc-text">Challenge 4: Detect abnorml patterns and risky drivers</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Challenge-5-Modeling-efficiency-transfer-learning-and-explainability"><span class="toc-number">8.5.</span> <span class="toc-text">Challenge 5: Modeling efficiency, transfer learning and explainability</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Challenge-6-Raising-awareness-and-changing-attitudes"><span class="toc-number">8.6.</span> <span class="toc-text">Challenge 6: Raising awareness and changing attitudes</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Challenge-7-Real-time-operation"><span class="toc-number">8.7.</span> <span class="toc-text">Challenge 7: Real-time operation</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Conclusion"><span class="toc-number">9.</span> <span class="toc-text">Conclusion</span></a></li></ol></div></div></div><header class="post-bg" id="page-header" style="background-image:url(https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg)"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">unnoyy</a></span><span id="menus"><div id="search_button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 休闲</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page" href="/book/"><i class="fa-fw fas fa-book"></i><span> 书籍</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart card-announcement-animation"></i><span> 关于</span></a></div></div><span class="close" id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="post-info"><div id="post-title"><div class="posttitle">智能手机对理解驾驶行为的当前挑战</div></div><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2020-10-21T07:06:28.000Z" title="发表于 2020-10-21 15:06:28">2020-10-21</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2020-10-27T02:19:12.104Z" title="更新于 2020-10-27 10:19:12">2020-10-27</time></span></div><div class="meta-secondline"> <span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">15.8k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>47分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout_post" id="content-inner"><article id="post"><div class="post-content" id="article-container"><p>智能手机感知理解驾驶行为:目前的实践和挑战</p>
+<h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>理解驾驶行为——即使是在自动驾驶技术迅速出现的情况下——仍然是人们关注的焦点，这有助于分解复杂的驾驶动力学，开发用户友好且可接受的自动驾驶汽车，并确保自动驾驶汽车和传统汽车在道路上安全共存。移动众感技术已经成为理解和模拟驾驶行为的一种手段。虽然通过智能手机收集数据的优势有很多(速度、准确性、成本低等)，但挑战包括但不限于准备速度、处理需求，以及方法、立法和安全问题，都是巨大的。本文旨在回顾基于智能手机传感器数据流分析驾驶行为的研究。我们首先建立一个包容性的逐步框架来描述从数据收集到知情决策的路径。接下来，对现有的文献进行了深入分析，并对数据收集和数据挖掘实践方面的挑战进行了批判性的讨论，特别强调了使用手机收集驾驶数据以及使用人群感知数据进行特征提取的局限性和关注点。随后，建模驾驶行为实践和端到端解决方案的司机协助和推荐系统也进行了回顾。本文最后讨论了文献中出现的最关键的挑战和未来的研究步骤。</p>
+<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>驾驶行为对于维护安全(Sagberg et al.， 2015)和可持续交通(Huang et al.， 2015)起着决定性的作用。2018)。除此之外，它还会影响交通流量、燃油消耗、空气污染、公众健康以及个人心理健康。<br>对于“驾驶行为”或“驾驶风格”这一概念已经给出了许多定义(Sagberg et al.， 2015)。这里我们接受了Lajunen和ozkan(2011)给出的定义:<strong>“驾驶风格涉及个人驾驶习惯——即驾驶员选择驾驶的方式”</strong>。大量的文献强调了在交通条件、排放、压力缓解等方面采用安全和环保驾驶行为的好处。</p>
+<p>从<strong>宏观</strong>的角度，特别是在交通管理和控制领域，驾驶行为是非常重要的，因为特定驾驶行为与交通拥堵水平显著相关；<br>从<strong>微观</strong>的角度，推荐和驾驶辅助系统对于改善个人驾驶行为和提高驾驶员对其驾驶方式影响的认识至关重要。</p>
+<p>驾驶员在选择加速和减速的方式、与前车的距离以及是否超过限速(超速)方面存在差异(Miyajima et al.， 2007;Mantouka等人，2019年)。<br>因此，在有关交通和道路安全的文献中已经确定了几种驾驶概况。激进驾驶已经得到了广泛的研究，</p>
+<ul>
+<li>大部分研究集中在识别严重的加速和制动事件(Kalra和Bansal, 2014;Eboli 2016)</li>
+<li>大量的研究对危险驾驶进行了调查，这些研究大多是指超速驾驶，甚至无视交通标志和规则(Harbeck and Glendon, 2018)。</li>
+<li>在过去的几十年里，在温室效应的影响下，许多研究都侧重于通过识别所谓的生态驾驶来分析能有效消耗燃料，从而减少空气污染物的驾驶习惯。此外，还会对驾驶员的驾驶行为进行调查，如超速、酒后驾驶和驾驶时使用手机(Ma et al.， 2017)。</li>
+</ul>
+<p>最普遍的驾驶概况包括:</p>
+<ul>
+<li><span class="inline-tag red"><strong>Aggressive driving</strong></span>:<strong>激进驾驶</strong>，如紧跟在后tailgating，剧烈加速harsh acclerating，刹车braking和转弯cornering，不正确的换道improper lane changing等等（史密斯等，2016)</li>
+<li><span class="inline-tag red"><strong>Distracted driving</strong></span>:<strong>分心驾驶</strong>，如分心驾驶，如发短信、吃东西、喝饮料或打电话，也就是驾驶员在驾驶时注意力不集中（chen et al. 2015）</li>
+<li><span class="inline-tag red"><strong>Risk taking</strong></span>：<strong>风险承担/勇于冒险</strong>，例如超速驾驶，违反交通规则或与前车距离过近</li>
+<li><span class="inline-tag red"><strong>Eco-driving</strong></span>：<strong>环保驾驶</strong>，即节能驾驶，从而最大限度地减少污染</li>
+<li><span class="inline-tag red"><strong>Safe driving</strong></span>: <strong>安全驾驶</strong>，正常低风险驾驶行为</li>
+</ul>
+<p>在自动驾驶汽车时代，除了确保交通安全和可持续发展，了解驾驶行为对于开发用户友好且容易接受的机器仍然至关重要。对于用户的接受度来说，自动驾驶汽车不仅要安全可靠，更要提供舒适的用户体验。类人自动驾驶的风格是这项新技术被大众接受的关键。为了训练机器像人一样驾驶，更好地理解驾驶员的驾驶方式非常有用(库德勒等人，2015:Dong等人，2016)。开发能够模拟实际驾驶员行为并以类似方式做出决策的适当软件，是将自动驾驶完全融入日常生活中最具挑战性的任务之一。</p>
+<p>综上所述，很容易理解理解和彻底调查驾驶行为是非常重要的。智能手机的高渗透率极大地推动了数据收集的速度、频率和准确性。这样就可以收集到大量的自然驾驶数据，这些数据通常用于<strong>调查驾驶行为</strong>，<strong>检测不安全驾驶习惯</strong>，<strong>预测路网状况</strong>。<br>为了从多个传感器和设备的数据中提取有意义的信息，以及是否有可能依靠智能手机数据中的驾驶信息来决定政策和决策，这些任务的实施产生了许多问题。<br>尽管最近的一些研究试图回答这些问题(Ferreira Júnior et al., 2017; Chan et al. 2019)，研究人员大多只关注这一现象的一个方面，而没有解决从数据收集到结果利用的所有必要阶段出现的问题。</p>
+<ul>
+<li>Chan et al.(2019)对驾驶行为检测算法进行了全面综述，特别强调了它们的性能和精度度量。</li>
+<li>在同样的背景下，其他研究人员FerreiraJúnior et al.(2017)列出了当前的机器学习(ML)并进行了一个真实世界的实验，以评估比较结果在驾驶事件分类<a href="/posts/600001/" title="全文笔记">全文笔记</a></li>
+</ul>
+<p>在这项工作中，我们扩展了对驾驶行为的分析，将重点放在从数据收集到建模和决策的海量智能手机传感中揭示行为洞察力的具有挑战性的方面。<br>最后，本文的<strong>目的</strong>是提出一个包容性的方法框架，以理解驾驶行为通过智能手机传感和协助研究人员选择最合适的工具和方法时，处理驾驶分析。</p>
+<ul>
+<li>首先，概述了所提议的框架。</li>
+<li>随后,最近的文献分析和批判性评估一个显式的关注的主要挑战出现在数据收集和存储、数据准备、数据挖掘、建模的驾驶行为和司机作出最终决策和推荐系统,我们将讨论未来的研究方向和总体的结论。</li>
+</ul>
+<h2 id="从智能手机数据到知情决策-一个分析框架"><a href="#从智能手机数据到知情决策-一个分析框架" class="headerlink" title="从智能手机数据到知情决策:一个分析框架"></a>从智能手机数据到知情决策:一个分析框架</h2><p>将智能手机传感器转换成有意义的驾驶行为信息，不是一个简单的过程。</p>
+<p><strong>数据方面，理解数据</strong>   </p>
+<ol>
+<li>首先，从智能手机收集的数据通常<strong>存在质量问题</strong>，并且含有<strong>大量的噪音</strong>，因为它们受到道路状况和智能手机在车中的位置的显著影响。</li>
+<li>此外，在监测阶段使用的传感器种类繁多，如加速度计、陀螺仪、GPS等，导致在内容和质量方面具有<strong>大量不确定度的多源数据集</strong>。</li>
+<li>利用这些数据集进行驾驶行为调查的首要步骤包括<strong>对数据的理解</strong>。这一步包括所有程序的<strong>数据清洗</strong>，<strong>数据噪声排除</strong>和<strong>几个其他预处理技术</strong>。</li>
+</ol>
+<p><strong>提取特征</strong>  </p>
+<ol>
+<li>随后，可以从与行程和驾驶相关的数据中提取有趣的特征。</li>
+<li>在驾驶分析中，与行程相关的特征是指<strong>模式检测</strong>和<strong>驾驶员-乘客的区别</strong>。</li>
+<li>在一些研究中，模式检测系统已经被开发出来。以<strong>聚合的水平(机动化和非机动化)</strong> 或<strong>分解的水平(公交、地铁、汽车、步行等)</strong> 进行预测(Nour等，2015:Shin等，2015)。</li>
+<li>其他研究集中在通过使用ML技术利用智能手机数据来<strong>识别用户是司机还是乘客</strong>(Ahmad等，2019) </li>
+</ol>
+<p><strong>建模</strong><br>一旦研究人员完全了解他们掌握的数据类型，驾驶行为的建模就会随之展开。<br>现代计算机巨大的计算和存储能力允许处理大量数据和开发能够确定最复杂行为和模式的复合模型。<br>到目前为止，研究人员大多在寻找提高计算时间(即并行计算或高性能计算(HPC)资源)的方法来管理主要来自出租车GPS数据的大型城市规模数据集(Hu et al.， 2017;Ma等人，2019)。<br>为了进一步开发计算机的无限计算能力，先进的机器学习技术也被开发。分析驾驶模式和识别不安全驾驶行为特征的任务已经在driving analytics (Vlahogianni and)的文献中得到了广泛的研究（Barmpounakis，2017a：Kang and Baneriee，2018）</p>
+<p>理解驾驶行为和检测不安全、异常驾驶特征的能力，催生了大量旨在改善驾驶行为、帮助驾驶员养成更高效、更安全驾驶习惯的应用。<br>此外，驾驶行为分析对于道路运营商确保交通效率和改善交通状况的交通管理和控制非常有用(Hu et al.2015)。<br>最后，利用保险telematics市场的不安全驾驶行为检测系统销售基于使用的保险方案</p>
+<p>上面的复杂性用图1所示的逐步方法来描述。这种逐步的方法是接下来分析的基础。</p>
+<p><img src="/img/loading.gif" data-lazy-src="/image/test/g001.jpg" alt=""></p>
+<h2 id="移动众感的关键问题-mobile-crowdsensing"><a href="#移动众感的关键问题-mobile-crowdsensing" class="headerlink" title="移动众感的关键问题 mobile crowdsensing"></a>移动众感的关键问题 mobile crowdsensing</h2><p>大规模的现象，比如理解驾驶行为，并不能简单地由一个人来衡量(Ma et al.， 2015)，因此，研究人员利用当今智能手机惊人的感知能力来收集大量的基本驾驶数据。</p>
+<p>根据Abdulazim等人(2013)，智能手机传感器可以分为三组:   </p>
+<ul>
+<li><span class="inline-tag red"><strong>运动传感器</strong>，包括加速度计、陀螺仪和磁强计(如罗盘)</span></li>
+<li><span class="inline-tag red"><strong>位置传感器</strong>，例如全球定位系统(GPS)，通常用于户外设置和基于网络的位置服务</span></li>
+<li><span class="inline-tag red"><strong>环境传感器</strong>，包括光传感器、麦克风和接近传感器</span></li>
+</ul>
+<p>由于有了这些组件，智能手机已经被用作感知和计算数据的有用工具，引入了移动众感技术。</p>
+<p>智能手机的一个<strong>明显优势</strong>是有大量的潜在参与者有资格参与数据收集的程序。这依赖于智能手机更有可能向用户提供即时反馈，因为用户总是在骚扰他们，这可能会增加长期参与的意愿(Jariyasunant et al, 2012)。</p>
+<p>值得注意的是，<strong>收集实时数据的能力扩大了研究人员检测高度动态事件的机会</strong>(Mashhadi和Capra, 2011)。人们无论走到哪里都愿意随身携带手机，这一事实为开发用于大规模传感目的的成本效益高的系统提供了机会(Ganti等人，2011年)。<br>不过要让移动众感系统发挥最大潜力，还需要充分解决一些问题和顾虑，比如<strong>如何保证数据质量</strong>，<strong>如何解决电池耗尽问题</strong>，以及<strong>如何保证隐私和安全问题</strong>。下面几节将进一步讨论这些问题。</p>
+<h3 id="Data-quality-数据质量"><a href="#Data-quality-数据质量" class="headerlink" title="Data quality 数据质量"></a>Data quality 数据质量</h3><p>从文献来看，<strong>数据质量</strong>受到两个主要因素的显著影响</p>
+<ol>
+<li><p><span class="inline-tag red"><strong>用户的可靠性</strong></span>，通常从<strong>可信度</strong>和<strong>代表性</strong>两个维度来考察。</p>
+<ul>
+<li>数据的可信度是指当参与者误解了所要求的任务，犯了错误，甚至故意欺骗系统，从而导致错误的结果(Kanhere, 2013)。因此，捕获的数据可能本质上是嘈杂的，可能需要额外的验证或审查。</li>
+<li>还考虑了<strong>数据完整性</strong>的挑战，即验证收集的数据确实来自用户的设备，并在声称的位置收集(Mashhadi和Capra, 2011)。为了实现完整性，感知信息必须能够代表用户的行为和习惯。</li>
+<li>移动众感系统的<strong>关键因素</strong>是<strong>任何人都可以参与其中</strong>。但是，应该考虑到参加者的<strong>代表性</strong>，并不是每个人都有兴趣参加这种制度。特别是在使用移动众感技术来监测大规模现象时，<strong>人群的代表性</strong>是一个重要的因素(Ganti et al.， 2011)。只有当许多个人提供相关信息时，才能准确地测量这些现象。</li>
+<li>代表性的关键问题通常被对数据质量和整体系统性能有重大影响的研究人员忽视。</li>
+</ul>
+</li>
+<li><p>影响数据质量的第二个因素来自<span class="inline-tag red"><strong>智能手机的技术特征</strong></span>。</p>
+<ul>
+<li>移动设备的集合，他们的感知，计算，存储和通信能力可能会有很大的不同。</li>
+<li>智能手机运行几种<strong>不同的操作系统</strong>，最著名的是安卓(Android)和iOS，这些系统经常进行升级，以提高它们的功能和能力。在传感过程中应该考虑到这一点，因为它们直接关系到数据的质量。</li>
+<li>一些设备<strong>电池能量</strong>有限，计算能力低，传输带宽有限(Cao和Lin, 2017)。</li>
+<li>此外，<strong>同一类型的数据可能会从不同的传感器收集</strong>，例如位置数据可能会从GPS或Wi-Fi收集，因此质量会有所不同。</li>
+<li>需要考虑的另一个方面是，<strong>不同类型的数据可以用于相同的目的，但质量和资源消耗的权衡不同</strong>(Ganti et al.， 2011)。</li>
+</ul>
+</li>
+</ol>
+<p>处理群众感知数据时的另一个问题是，如果把智能手机放在口袋或袋子里，可能会收集周围的<span class="inline-tag red"><strong>噪音</strong></span>。<br><strong>相同的传感器可以在不同的条件下感知相同类型的数据</strong>，例如，如果该设备被自由地放置在车辆中或是手持的。</p>
+<ul>
+<li>关键的考虑也应该给予设备安置在车辆。</li>
+<li>设备的位置和方向显著影响收集数据的质量，因此最近的研究集中在如何将智能手机传感器收集的数据与车辆的运动相匹配(Vlahogianni and Barmpounakis, 2017a)。</li>
+<li>在Wahlstrom等人(2019)中，研究人员遇到了推断智能手机在车内的位置的问题，例如，通过开发一种基于核聚类的方法，手机是否被放在乘客座位上，是否在中控台上，是否由驾驶员持有，是否被放在坐骑上。</li>
+<li>Ghose等人(2016)开发了一个方向校正模块，以便将智能手机的加速度计读数从设备的坐标系统转换到车辆的坐标系统。</li>
+</ul>
+<h3 id="Energy-limitations-能量限制"><a href="#Energy-limitations-能量限制" class="headerlink" title="Energy limitations 能量限制"></a>Energy limitations 能量限制</h3><p>尽管大多数用户每天都要给智能手机充电，但在引入众感应用时，<span class="inline-tag red"><strong>电池消耗</strong></span>的显著增加是一个重要问题。</p>
+<ul>
+<li>从感知、处理到数据传输，众感平台的各个方面都在<strong>消耗能量</strong>(Kanhere, 2013)，智能手机的电池寿命相对较短，限制了设备用于连续感知目的的使用(Birenboim和Shoval, 2015)。</li>
+<li>因此，<strong>在需要连续实时数据的情况下，很难获得准确的数据</strong>。更具体地说，不同的传感器以不同的方式消耗智能手机电池，而与此同时，它们感知相同类型数据的准确性却不同。根据功率测量，可以将传感器从最好到更坏(Lin et al.， 2010);</li>
+<li>例如，在<strong>电池消耗</strong>的情况下，最好的选择是使用Wi-Fi，然后是3G，最后是GPS，而在<strong>精确度</strong>方面，最好的传感器是GPS，然后是Wi-Fi，最后是3G。需要特别关注<strong>GPS采样率</strong>，因为它不仅会显著影响能量消耗，而且还会影响数据的质量(Byon et al.， 2007)。</li>
+</ul>
+<h3 id="Privacy-and-security-隐私和安全"><a href="#Privacy-and-security-隐私和安全" class="headerlink" title="Privacy and security 隐私和安全"></a>Privacy and security 隐私和安全</h3><p>Boguslaw和Westin(1968)或许给出了对信息隐私最相关的定义:“<strong>信息隐私涉及个人决定何时、如何以及在何种程度上将有关他或她的信息传递给他人的权利。</strong>”<br>在移动众感方案中，<span class="inline-tag red"><strong>隐私</strong></span>是参与者对自己敏感信息的发布保持控制的保证。<br>这包括对信息的保护，这些信息可以从传感器读数本身以及用户与参与式传感系统的交互中推断出来(Christin等人，2011)。<br>大量的研究工作集中在解决隐私问题，特别是在基于位置的应用程序和检测移动模式的系统。<br>大多数研究提出了几种保护参与者隐私的技术，如<strong>匿名、假名、空间隐身、数据干扰和聚集</strong>(Christin, 2016)。<br>然而,所有这些方法仍然侧重于提供一种机制，每次解决一种特定的隐私威胁，但没有一种方法能够解决全部的隐私问题。</p>
+<h2 id="Understanding-data-理解数据"><a href="#Understanding-data-理解数据" class="headerlink" title="Understanding data 理解数据"></a>Understanding data 理解数据</h2><p>如果有效地使用移动众感，就可以获得大量数据进行进一步分析。<br>然而，上述约束和限制的存在使得在使用数据调查驾驶行为之前必须插入一系列数据清理程序。<br>这些步骤通常包括<strong>噪声排除</strong>和<strong>特征提取</strong>。<strong>特征工程</strong>是训练机器学习算法时最需要的数据准备过程(Etemad et al. 2018)。</p>
+<h3 id="Data-preparation-数据准备"><a href="#Data-preparation-数据准备" class="headerlink" title="Data preparation 数据准备"></a>Data preparation 数据准备</h3><p><span class="inline-tag red"><strong>处理噪音</strong></span>被认为是众包智能手机数据的第一个挑战。</p>
+<ul>
+<li>噪音可能是<strong>来自其他交通工具(公交、地铁等)、步行、智能手机使用、与公共交通相关的基础设施以及乘客出行的数据</strong>。</li>
+<li>噪声数据的另一个重要来源是<strong>重力对加速度计测量值的影响</strong>(Hemminki et al. 2013;Shin等，2015)。<ul>
+<li>GPS测量的水平精度，与所有必要的值一起返回，已用于去除噪声数据(Ghose等)。</li>
+<li>而其他研究人员则使用了更复杂的方法，如输入延迟神经网络(IDNN) (Noureldin et al. 2011)或卡尔曼滤波器(Wahlstrom et al. 2015b)。</li>
+<li>在最近的一项研究中，研究人员进行了以下数据预处理序列(Lu等，2018)<ul>
+<li>i)使用低通滤波器进行数据滤波</li>
+<li>ii)从智能手机重新定位到车辆坐标</li>
+<li>ii)滑动道(滑动道)以提高所收集数据的质量</li>
+</ul>
+</li>
+<li>在多篇论文中(Eren et al.， 2012: Bose et al..)(2018)使用低通滤波器或简单的移动平均来消除噪声。</li>
+<li>其他研究人员使用磁强计数据从加速度计和陀螺仪数据中过滤有噪声的样本(Eftekhari和Chatee. 2016)。</li>
+</ul>
+</li>
+<li>智能手机噪音这个问题<strong>依赖于许多因素</strong>。比如<strong>不同的设备，传感器，灵敏性,定位或记录频率</strong>。</li>
+<li>应遵循不同的技术，而不是基于数据来源，而是基于这些数据将如何对待每个案例(Paefgen et al. 2012: He et al. 2014: Kanarachos et al..)</li>
+</ul>
+<h3 id="Feature-engineering-for-trip-information-出行信息的特征工程"><a href="#Feature-engineering-for-trip-information-出行信息的特征工程" class="headerlink" title="Feature engineering for trip information 出行信息的特征工程"></a>Feature engineering for trip information 出行信息的特征工程</h3><p>数据预处理之后通常是<span class="inline-tag red"><strong>特征提取</strong></span>。<br>应用不同的建模工具是为了:(Stipancic et al.， 2018)</p>
+<ul>
+<li><strong>识别来自不同模式的出行</strong></li>
+<li><strong>识别用户是司机还是乘客</strong>,并保持与司机相对应的有效出行以供进一步分析</li>
+<li><strong>检测碰撞</strong></li>
+</ul>
+<h4 id="Mode-detection-模式检测"><a href="#Mode-detection-模式检测" class="headerlink" title="Mode detection 模式检测"></a>Mode detection 模式检测</h4><p><span class="inline-tag red"><strong>检测汽车行程</strong></span>是一项相对简单的任务，主要基于GPS和加速计的速度信息(Feng and Timmermans, 2013;Shin等，2015)。<br>然而，在相关研究中可以发现一些挑战。<br>例如，在拥堵的城市道路中识别不同模式时，<strong>GPS信息甚至可能会让先进的机器学习工具感到困惑</strong>(Efthymiou等，2019)。为了解决这一问题，研究人员将GPS与地理信息系统(GIS)平台的使用相结合(Stenneth et al.， 2011)。<br>由于GPS传感器会耗尽智能手机的电池，而且在没有优化的情况下，GPS传感器的准确性也存在问题，所以其他研究人员转向了只能从加速度计获得数据的其他解决方案(Hemminki等，2013)。<br>当单独使用加速度计数据时，研究人员也转向<strong>基于峰值或基于段的特征</strong>(Hemminki等，2013)。<br>然而,大多数时候,GPS和加速度计数据的统计特性,同时检测到的变化模式最后一组特性中扮演一个重要的角色(吴et al ., 2016)。<br>在回顾的大多数情况下，<strong>将数据分割为时间窗口是一种可以得到准确结果的做法</strong>。<br>根据Nikolic和Bierlaire(2017)的说法，<strong>时域和频域特征</strong>是从智能手机数据中检测出行模式最常见的特征。<br>在用于行程模式检测的方法方面，由于加速度值所提供的信息有限，研究人员强调了概率方法的价值。<br>具体来说，几种旅行模式的相似值范围使得很难对模式进行准确的分类并区分公交车和汽车，或检测自行车(Wu et al.， 2016)。<br><strong>基于规则和概率的方法</strong>似乎超越了Eftekhari和Chatee(2016)中所述的限制。</p>
+<h4 id="Passenger-driver-recognition-乘客-司机-识别"><a href="#Passenger-driver-recognition-乘客-司机-识别" class="headerlink" title="Passenger/driver recognition 乘客/司机 识别"></a>Passenger/driver recognition 乘客/司机 识别</h4><p>乘客/司机旅行识别比模式检测更复杂,而且对于准确识别司机的配置文件至关重要,因为它需要精确的高分辨率数据，以便分析和识别用户的微活动，这些模式可能有助于检测驾驶(Wahlstrom et al .， 2015b)。<br>一些研究强调了在试图确定乘客行程时所面临的挑战，并提出了在同一行程中需要来自多个设备的数据的方法(Wahlstrom等。Torres等人2019)使用机器学习模型来区分司机和乘客。<br>根据作者的说法，使他们的任务具有挑战性的两个原因是:<br>1)<strong>事件发生的时间窗短</strong><br>2)<strong>在事件期间驾驶员行为的可变性</strong><br>他们的结论是，<strong>使用来自不同传感器的数据可以增加模型的可预测性</strong>。</p>
+<p>另一方面，在lohnson和Rajamani(2019)中，作者使用了来自智能手机运动传感器的数据。<br>可以看出，虽然不需要使用多个设备或外部硬件就可以很好地检测到智能手机的位置，但是<strong>当智能手机不在静态位置时，算法的可检测性降低了</strong>。<br>在Bo et al.(2013)中，驾驶员检测是基于进入车辆时的数据，从哪边发生，是在前座还是在后座。<br>He等人(2014)提供了另一种有趣的方法，当使用多个设备时，可以检测相对的左右和前后位置。</p>
+<h3 id="feature-engineering-for-driving-performance-驾驶性能的特征工程"><a href="#feature-engineering-for-driving-performance-驾驶性能的特征工程" class="headerlink" title="feature engineering for driving performance 驾驶性能的特征工程"></a>feature engineering for driving performance 驾驶性能的特征工程</h3><ol>
+<li><p>应用数据挖掘技术是为了理解通过智能手机传感器监控的一些基本机动和驾驶事件。更具体地说，机器学习方法被用于<strong>检测攻击性行为</strong>，如剧烈刹车、加速和转弯事件，并通过识别驾驶时的移动使用来识别驾驶员的分心。</p>
+<ul>
+<li>大多数关注于驾驶分析的研究已经开发出了识别<strong>严重加速和刹车事件</strong>的系统。</li>
+<li>Ghose等人(2016)提出了一种融合算法，该算法以GPS、加速度计、车辆位置数据和连续行驶点的时差作为输入，能够区分一个行驶周期内的正常加速与剧烈加速和刹车。</li>
+<li>Predic和Stojanovic(2015)开发了一种先进的机器学习分类器，用于检测异常机动行为，如<strong>过度刹车、突然变道、不安全转弯、超速和路线偏离</strong>。</li>
+<li>Wahlstrom等人(2015b)也发现了<strong>harsh cornering</strong>，GPS测量用于检测驾驶员是否发生了<strong>危险的转弯事件</strong>。</li>
+</ul>
+</li>
+<li><p>另一个有趣的<strong>特点</strong>是<strong>开车时使用手机</strong>。这些信息主要用于判断驾驶员是否在实际驾驶任务中分心(Mantouka et al.， 2019;Papadimitriou等，2019年)。</p>
+<ul>
+<li>识别次要任务(如开车时发短信、打电话)不仅可以更好地了解司机的行为和分心，还可以清除手机粗暴移动所产生的噪音。</li>
+<li>具体来说，驾驶时使用手机可能会触发智能手机传感器，从而影响harsh事件的检测过程和关键事件的阈值。对这些运动的识别可以减少false positive事件，提高方法的检测能力(Vahogianni and Barmpounakis. 2017a)</li>
+<li>在Ahmed(2018)研究人员已经识别出司机是否在开车时发短信、打电话或阅读。为了检测这类任务，他们使用基于过滤器的方法进行特征提取，使用基于线性相关和信息增益的两步过程。</li>
+</ul>
+</li>
+<li><p>目前的<strong>研究重点</strong>是<strong>识别能够减少燃料消耗，从而减少空气污染物的环保驾驶习惯</strong>。</p>
+<ul>
+<li>生态驾驶可以通过描述车辆和交通状况的指标来检测，如发动机转速和齿轮对以及车辆动能的变化(Andrieu et al.， 2012)。</li>
+<li>在缺乏这些数据的情况下，数据挖掘技术仅应用于速度和加速措施，以检测导致高效燃料消耗的驾驶模式。</li>
+<li>为了了解驾驶员是否采取了生态驾驶行为，提取的主要特征为:<strong>超速、加速和转向率</strong>(Castignani et al.， 2013)。</li>
+</ul>
+</li>
+</ol>
+<h2 id="Modeling-driver’s-behavior-驾驶员行为建模"><a href="#Modeling-driver’s-behavior-驾驶员行为建模" class="headerlink" title="Modeling driver’s behavior 驾驶员行为建模"></a>Modeling driver’s behavior 驾驶员行为建模</h2><p>理解驾驶员行为是提高道路安全、优化网络服务水平的关键。<br>对智能手机的大规模研究表明，当司机受到监控时，他的行为相对安全(Johnson and Trivedi, 2011)。<br>从统计方法到先进的机器学习和计算智能，研究人员使用了多种方法来高效准确地模拟驾驶行为。<br>表1详细总结了驾驶行为分析领域中最重要的文献的<strong>特征、智能手机传感器、方法和输出</strong>。<br><img src="/img/loading.gif" data-lazy-src="/image/survey/t001-1.png" alt=""><br><img src="/img/loading.gif" data-lazy-src="/image/survey/t001-2.png" alt=""><br><img src="/img/loading.gif" data-lazy-src="/image/survey/t001-3.png" alt=""></p>
+<h3 id="统计方法"><a href="#统计方法" class="headerlink" title="统计方法"></a>统计方法</h3><p>一些研究人员试图在<strong>描述驾驶行为的特征之间发现有意义的相关性</strong>。</p>
+<ul>
+<li>Paefgen等人(2012)提出了一系列重要的统计指标，以及手机和一个参考IMU单元事件记录之间的相关性。</li>
+<li>Chakravarty等(2013)计算了特定时间内个体驾驶员的风险指数。这种情况下的风险函数考虑了风险和异常操作的数量，如急转弯，剧烈刹车和加速，硬颠簸。</li>
+<li>Bejani和Ghatee(2018)将几种驾驶特征的统计分析作为数据准备和更复杂的驾驶行为建模的中间步骤。</li>
+</ul>
+<p>另一种研究开发了一种<strong>混合效应模型</strong>，以了解超速、剧烈机动、剧烈加速和剧烈刹车等行为指标是否可以作为驾驶员分心的预测指标，更具体地说，驾驶员驾驶时是否使用手机(Papadimitriou et al.， 2019)。<br>研究结果显示，<strong>超速驾驶和严重驾驶事件的数量与驾驶时使用手机呈负相关，这表明分心驾驶在没有其他危险驾驶行为的情况下可以被检测到</strong>。</p>
+<p>一些研究人员已经应用了简化的阈值方法，以检测几个异常驾驶事件。在某些情况下，这种方法也被用于识别道路异常，如颠簸和坑洞(Fazeen et al.， 2012;Bose等，2018年)。<br>这种检测方法主要依赖于<strong>应用于加速度计数据的固定阈值</strong>。实验结果表明，<strong>加速度计数据的精度在很大程度上取决于环境特征(车内移动位置、车辆条件、道路类型等)，这构成了检测方法的不灵活性</strong>(Ouyang等。2018)。<br>由于这一事实，很难在识别危险驾驶事件的传感器数据上定义通用的阈值。<br>为了克服这种局限性，研究人员将注意力转向了更有前途的机器学习技术，这些技术通常容易转移，对环境的变化更有活力。</p>
+<p>用于识别驾驶行为的模式识别方法，如<strong>Dynamic Time Warping(DTW)</strong> 也经常出现在文献中。</p>
+<p><strong>DTW</strong>  </p>
+<ul>
+<li>DTW允许分组相似的移动模式，即使在两个系列中对应的元素不是完全一致的。</li>
+<li>首先，对两个给定的时间序列构造网格，然后计算各元素之间的距离。DTW算法估计通过网格的最优路径，使总距离最小。</li>
+</ul>
+<p><strong>DTW的相关研究</strong>  </p>
+<ul>
+<li>lohnson和Trivedi(2011)提出了一种利用DTW检测强势转弯、加速、刹车和变道事件的新系统。</li>
+<li>Engelbrecht et al。(2016)作者DIW用来检测驾驶事件,然后利用启发式、安全等事件分类器进行分类或鲁莽的,该方法的结果与极大似然方法和结果显示,后者表现更好的分类不同的驾驶动作。</li>
+<li>最近的研究使用DTW对横向机动进行分类，利用陀螺仪和重力传感器的融合来获取角速度(Singh等。2017)。</li>
+</ul>
+<p><strong>DTW的优缺点</strong>  </p>
+<ul>
+<li>虽然DTW由于在比较timeseries数据方面的快速和容易实现而被广泛使用，但由于它高度依赖于预定义的阈值，因此不容易转移。</li>
+</ul>
+<h3 id="机器学习和计算智能"><a href="#机器学习和计算智能" class="headerlink" title="机器学习和计算智能"></a>机器学习和计算智能</h3><p>尽管大量的文献使用统计分析方法来调查几种驾驶行为，但在过去的几十年里，机器学习方法已经在这个领域取得了进展。<br>最近的研究彻底研究了用于识别驾驶行为的各种<strong>机器学习技术</strong>(Chan et al.， 2019;Elassad et al . .)<br>本文的目的是讨论与智能手机感知数据相关的最重要的好处和挑战。</p>
+<ul>
+<li><p>Bhoraskar等人(2012)使用了机器学习(ML)技术来识别碰撞和刹车事件，尽管有乐观的结果，作者指出过滤和机器学习技术(k-means聚类和支持向量机-SVM)对于更好地识别恶劣事件的重要性。</p>
+</li>
+<li><p>Hong et al.(2014)采用朴素Baves分类器识别攻击性驾驶风格，准确率达90%。</p>
+</li>
+<li><p>在另一项研究(Saiprasert et al.， 2013)中使用的模式匹配算法在纵向事件和横向事件中都优于基于规则的算法，</p>
+</li>
+<li><p>而在Saiprasert和Pattara-Atikom(2013)中使用了相同的技术来识别异常超速事件。</p>
+</li>
+<li><p>Fazeen等人(2012)利用三轴加速度计来<strong>分析驾驶行为和检测道路异常(坑洼、凹凸不平的道路)</strong>。它们的分类系统具有较高的识别精度，特别是对粗糙或不平坦道路的识别。</p>
+</li>
+<li><p>Saiprasert等人(2017)利用加速度计和陀螺仪数据，采用模糊逻辑和基于规则的算法来<strong>检测驾驶行为，如剧烈加速、刹车或主动转向</strong>。</p>
+</li>
+<li><p>Koh和Kang(2015)研究人员使用带周期图的高斯混合模型(CMM)对驾驶行为从平稳到攻击性行为的梯度，特别关注老年司机，进行分类。由于他们的数据集(指老年驾驶员的行为)的敏感性，他们强调了GMM在准确分类驾驶风格方面的局限性。</p>
+</li>
+</ul>
+<p>这些研究的<strong>主要问题</strong>是<strong>硬件(传感器和智能手机)的多样性</strong>，<strong>数据收集期间的天气条件</strong>，<strong>智能手机的位置(即使它不是固定的)</strong>等，使这些技术难以转移，并提出作为一个通用的解决方案</p>
+<p>还有一些研究者致力于通过实现分类算法来识别驾驶员的状态。</p>
+<ul>
+<li>Yi等人(2019)比较了几种分类算法在识别三种不同驾驶状态(正常、嗜睡和攻击性)方面的表现。结果表明，与其它分类器(k近邻、决策树、支持向量机)相比，随机森林具有更高的总体准确率。</li>
+<li>在Vlahogianni and Barmpounakis (2017a)的研究中，MODLEM算法比其他分类算法在利用智能手机加速度计的数据检测恶劣事件方面取得了最大的精确度。</li>
+<li>Mantouka等人(2019)开发了一种两步k-means聚类算法，最初将主动出行与非主动出行区分开来，然后根据驾驶员的分心和风险承担进一步对出行进行聚类。</li>
+</ul>
+<p>由于异常驾驶行为比正常驾驶行为出现的频率要低，因此建模的<strong>主要挑战</strong>是<strong>处理不平衡数据集</strong>。此外，还<strong>没有明确如何定义ground truth</strong>;因此，不同方法和数据集之间的比较不可能是通用的。</p>
+<ul>
+<li>Meseguer等人(2017)使用神经网络通过速度和加速度测量来识别驾驶员的攻击性程度。</li>
+<li>Eftekhari和Ghatee(2019)评估了两种分类算法(决策树和朴素贝叶斯)的性能，并将其与具有3个隐藏层的神经网络进行了比较。他们的发现表明，<strong>神经网络在检测驾驶动作方面优于其他方法</strong>。然而，由于模型的训练和验证所需的计算能力显著增加，一些任务需要离线执行。</li>
+</ul>
+<p>从不同的运输相关研究尝试中可以看出，ML技术比统计方法具有显著优势(Karlaftis和Vlahogianni, 2011)。<br>随着大量智能手机数据集的可用性，我们可以看到，统计方法可以提供对数据集的第一个洞察，需要更先进的技术，以设计准确和高效的解决方案，以应对不同的挑战。</p>
+<ul>
+<li>在Predic和Stojanovic(2015)中，他们开发了先进的ML分类器来检测恶劣的驾驶模式，并报告了与基于标准差熵、能量、均值等统计指标的加速度计数据活性分析的经典方法相比，改进的结果。<br>此外，如文献所示，研究人员通常在检测到单个事件或将异常驾驶行为与安全驾驶分离时使用统计方法。相反，当驾驶行为的整个范围被调查和许多不同的驾驶剖面被检测时，ML方法被使用。</li>
+<li>Chan et al.(2019)在分类精度方面比较了不同的方法。在这里，我们强调的指标，作为输入驾驶行为识别和补充。提供有关数据收集过程的进一步信息。<br>值得注意的是，在这项工作中，我们避免使用绝对的精度度量来比较不同的方法，因为仍然存在一些挑战，可能导致完全误导的结果。</li>
+</ul>
+<h2 id="Applications-assessing-and-assisting-drivers"><a href="#Applications-assessing-and-assisting-drivers" class="headerlink" title="Applications assessing and assisting drivers"></a>Applications assessing and assisting drivers</h2><p>扩展知识领域的推动分析了研究人员和其他人员的机会开发先进的应用程序的评估驾驶行为以及驾驶辅助系统,旨在提高司机的道路安全性能,提高意识和空气污染,改善驾驶体验。<br>最近的一项研究收集了最相关的驾驶辅助系统，可以在Meiring和Myburgh找到(2015)。<br>这里的重点是利用移动人群感知数据开发此类系统，并使用智能手机作为系统与驾驶员之间唯一的通信平台。</p>
+<h3 id="Drivers’-assistance-and-recommendation-systems"><a href="#Drivers’-assistance-and-recommendation-systems" class="headerlink" title="Drivers’ assistance and recommendation systems"></a>Drivers’ assistance and recommendation systems</h3><p>驾驶行为分析的进步导致了<strong>先进驾驶辅助系统(ADAS)</strong> 的发展。由于ADAS是一种创新的、用户友好的技术，能够提供实时驾驶提示，满足安全和生态标准，因此越来越受到人们的广泛关注(Kaur和Sobti, 2017)。<br>一些最广泛使用的ADAS包括自适应巡航控制、导航辅助和改道系统、车道保持辅助和驾驶员困倦检测。这类系统的开发主要是为了提高道路安全性，其次是为了提高旅行舒适度和驾驶体验。<br>驾驶分析技术的进步，加上当今设备无线性能的提高，使得实时ADAS的开发成为可能。具体的研究集中在实时驾驶员分心检测上，该检测主要基于车道位置和转向控制等驾驶性能测量以及速度控制测量(Liu et al.， 2016)。</p>
+<p>虽然大多数ADAS专注于确保道路安全,减少交通事故,在情况下驾驶体验改善或提升生态驾驶的问题,研究人员已经开发出司机推荐系统与ADAS的广泛应用,研究驾驶推荐系统仍处于初级阶段。<br>Magana和Organero(2011)的研究人员开发了一个生态驾驶推荐系统，该系统首先检测驾驶风格，然后使用随机森林对驾驶行为进行分类，并提供有用的生态驾驶提示。<br>Araujo等人(2012)已研发环保驾驶教练，以推广省油高效驾驶。首先，他们识别驾驶行为和车辆状况，然后，他们推荐一个最受欢迎的环保驾驶技巧，如“关闭引擎”，“早些换挡”，“你的加速太高了”。<br>另一项研究开发了一种情境感知驾驶辅助系统，旨在促进节油驾驶(Gilman等。2014年)，研究人员识别攻击性驾驶行为，然后将其与交通和天气状况一起放在地图上，以调查特定的驾驶模式。通过这种方式，他们能够就如何更有效率地行驶到特定的路线提出建议，然后就如何在未来提高他们的驾驶性能提出建议。<br>这类系统已被证明可以改善驾驶行为，并引导人们采用更平稳、更安全的驾驶习惯。<br>正如Staubach等人(2014)所讨论的那样，接受生态驾驶建议的驾驶员会采取一种不那么苛刻的机动行为，并保持恒定的速度。<br>另一项研究强调了在这类系统中<strong>引入游戏化</strong>方面的重要性，以获得驾驶员对系统的参与，并进一步改善他们的行为(Magana和Organero, 2014)。<br>游戏化的概念是指将娱乐和游戏导向的设计方法包含在非游戏环境中，如移动众感应用(Wells et al.， 2014)。<br>一个有效的游戏化框架是建立在一系列量化既定目标(改善驾驶行为、采用环保驾驶习惯、降低油耗等)成功程度的指标之上的，而这些目标是通过一系列任务来实现的。</p>
+<h3 id="Drivers’-scoring-systems"><a href="#Drivers’-scoring-systems" class="headerlink" title="Drivers’ scoring systems"></a>Drivers’ scoring systems</h3><p>在过去的几十年里，也有一个发展<strong>计分和行为评估系统</strong>的趋势。<br>研究人员和应用程序开发人员试图为人们之间的良性竞争和比较创造环境，以提高他们对重大问题的意识，认为后者将改善他们的行为。<br>在这种情况下，评分方法以及排名和基准测试技术的创造得到了加强，如前所述，得分和通过完成特定任务获得名次是最常见的游戏化方面，与排行榜、成就相比、礼物等。在游戏化框架下，用户还可以与他人进行交流。比较他们的表现和竞争(Vlahogianni and Barmpounakis, 2017b)。</p>
+<ul>
+<li>Smith等人(2016)开发了一个系统的驾驶行为评分框架，该框架主要包括三个方面:车队管理应用的风险评分、操作评分和经济评分。</li>
+<li>DriveSafe是一款检测司机何时从驾驶任务中分心并根据驾驶行为给其打分的应用程序(Bergasa等人，2014)。该系统首先识别加速、刹车和转弯以及车道漂移和转弯，然后根据比赛的数量和强度给每位车手打分。</li>
+<li>Castignani等人(2015)基于模糊推理系统使用数据融合来检测危险和攻击性驾驶事件。随后，每次行程中确定的驾驶事件数与天气条件和行程当天的时间相结合，以提供从0到100的行程分数。</li>
+<li>Araujo等人(2012)开发了一种驾驶员评价系统，以提高驾驶员对生态驾驶的认识。为此，智能手机传感器采集速度、油耗和加速度测量值，然后根据预定义的阈值对驾驶条件进行分类，然后使用模糊逻辑方法评估驾驶提示信息的性能并选择最合适的显示给驾驶员。</li>
+</ul>
+<p>虽然计分系统被认为是提高驾驶员意识的有效方法，但一些研究人员<strong>强调了获得真正的节约作为改善个人驾驶行为的激励的重要性</strong>。</p>
+<ul>
+<li>保险收费系统在过去十年中得到了越来越多的关注。保险公司已经建立了多种保险政策，根据车辆使用情况和驾驶行为特征向司机收费，包括PAYD和PHYD系统(Wahlstrom et al, 2017)。</li>
+<li>Tselentis等人(2017)报道了最流行的基于使用的保险(UBI)方案。正如他们所强调的，有证据表明UBI的实施将会激励驾驶员改善他们的驾驶行为，并通过采用安全和更有效的驾驶习惯来改变他们的行为。</li>
+<li>Handel等人(2014)也广泛讨论了基于智能手机传感器收集的驾驶特征来构建保险计划的机会。后者强调了有意识地设计UBI的重要性，因为也存在提供的反馈或建议被错误地感知的风险。</li>
+</ul>
+<h2 id="Main-challenges-and-possible-caveats-警告"><a href="#Main-challenges-and-possible-caveats-警告" class="headerlink" title="Main challenges and possible caveats(警告)"></a>Main challenges and possible caveats(警告)</h2><p>从所提出的方法框架的详细概述，可以清楚地看出驾驶行为分析是一个<strong>多维的问题</strong>。<br>在本节中，我们强调了通过智能手机感知数据理解驾驶行为过程中<strong>最关键的挑战</strong>。<br>我们还讨论了一些大多数时候被忽视的警告。表2提供了一些针对文献中提出的挑战的指示性解决方案。</p>
+<p><img src="/img/loading.gif" data-lazy-src="/image/survey/t002.png" alt=""><br><img src="/image/survey/t002.png" width="80%/"></p>
+<table style="border-collapse:collapse"> 
+<tr>
+<td>挑战</td>
+<td>提出的方法</td>
+<td>选择的引用</td>
+</tr>
+<tr>
+<td>通过用户参与增强数据的代表性</td>
+<td><ul>
+<li>激励</li>
+<li>游戏化方面</li>
+<li>说服大众理解驾驶行为在交通和道路安全中的有用性和重要性</li>
+</ul></td>
+<td>(Yen et al.,2019年)</td>
+</tr>
+<tr>
+<td>确保数据的可用性和质量</td>
+<td><ul>
+<li>利用低功率无线网络</li>
+<li>当Wi-Fi连接可用时上传数据</li>
+<li>在多个系统之间共享传感数据</li>
+<li>改变采样率</li>
+<li>匿名,使用假名,空间隐身</li>
+<li>数据扰动和聚合</li>
+<li>特征选择(过滤器、包装方法)</li>
+<li>异常检测技术</li>
+</ul></td>
+<td>(Christin,2016;Etemad et al.,2018;Wang et al.,2018)</td>
+</tr>
+<tr>
+<td>从数据中识别上下文</td>
+<td><ul>
+<li>数据融合</li>
+<li>过滤算法</li>
+<li>工程特性</li>
+</ul></td>
+<td>(Wahlstrom et al.,2015b)</td>
+</tr>
+<tr>
+<td>检测异常模式和危险司机</td>
+<td><ul>
+<li>机器学习方法</li>
+<li>确定每个特征的通用阈值</li>
+</ul></td>
+<td>(Bejani and Ghatee,2018)</td>
+</tr>
+<tr>
+<td>建模效率，迁移学习和可解释性</td>
+<td><ul>
+<li>应用重采样技术</li>
+<li>生成合成样品</li>
+<li>转移学习</li>
+<li>附加特征</li>
+<li>大数据分析，而不是小实验数据集</li>
+<li>异常值检测</li>
+</ul></td>
+<td>(Hu et al.,2018;Maldonado and Lopez,2018;Roy et al.,2018)</td>
+</tr>
+<tr>
+<td>提高意识，改变态度</td>
+<td><ul>
+<li>加入UBI计划</li>
+<li>游戏化</li>
+</ul></td>
+<td>(Tselentics et al.,2017;Vlahogianni and Barmpounakis,2017b)</td>
+</tr>
+<tr>
+<td>实时操作</td>
+<td><ul>
+<li>人工智能</li>
+<li>优先任务</li>
+<li>高效的内存管理</li>
+</ul></td>
+<td>(Shukla et al.,2018)</td>
+</tr>
+</table>
+
+<h3 id="Challenge-1-Enhancing-data-representativeness-through-user-engagement-通过用户参与增强数据的代表性"><a href="#Challenge-1-Enhancing-data-representativeness-through-user-engagement-通过用户参与增强数据的代表性" class="headerlink" title="Challenge 1: Enhancing data representativeness through user engagement 通过用户参与增强数据的代表性"></a>Challenge 1: Enhancing data representativeness through user engagement 通过用户参与增强数据的代表性</h3><p>在移动众感系统中，用户本身是最基本的组成部分之一，因此，用户与系统的互动至关重要。大多数研究旨在识别通用的驾驶行为并确定控制不安全驾驶行为的一般规则<br>由于驾驶行为的识别依赖于数据驱动的方法，因此数据的可变性非常重要。实际参与数据收集过程的目标人群的比例针对性地影响数据的代表性，也不可避免地影响数据的质量。<br>此外，用户的长期参与也是至关重要的，因为人类的行为与时间有关的复杂性，以及它随着时间和各种刺激的缓慢或不变化。<br>在文献中，有几种技术被确定为确保用户长期参与众感系统的成功干预手段。许多研究人员强调了为用户提供奖励以长期参与众感系统的重要性(Yen et al.， 2019)。<br>在Musicant和Lotan(2016)中，研究人员指出了群体激励在激励年轻司机方面的有效性。虽然最近已经部署了几种类型的激励，但它们能在多大程度上提高人们的意识，并驱动行为改变，还有待研究。</p>
+<p>此外，可用数据集中的行为可变性通常与模型泛化能力的重大影响被忽略。<br>研究人员倾向于找到大型数据集作为锻炼和发展他们的机器学习的实验技能,将意识到他们的模型将很快成为过时(速降精度指标),随着数据的增长,主要是由于这一事实的初始样本不能代表用户的特征。<br>但是，即使我们试图控制样本的统计特征，现实也会再次让我们吃惊:</p>
+<ol>
+<li>首先，由于隐私的限制，大多数时候研究人员无法获得样本特征(比如年龄、性别)。</li>
+<li>其次，收集和处理一个大数据集需要花费大量的时间，特别是如果是为了确保特定用户和行为的代表性。</li>
+</ol>
+<p><span class="inline-tag red"><strong>通过引入不断培训的过程和处理模型对变化的弹性的过程</strong></span>，可以有效地解决上述问题。</p>
+<h3 id="Challenge-2-Ensuring-for-data-availability-and-quality"><a href="#Challenge-2-Ensuring-for-data-availability-and-quality" class="headerlink" title="Challenge 2: Ensuring for data availability and quality"></a>Challenge 2: Ensuring for data availability and quality</h3><p><span class="inline-tag red"><strong>数据可用性和质量</strong></span>是交通文献中每一种数据驱动方法的基本成分。<br>由于几个原因，可用性不能得到保证。</p>
+<ol>
+<li>首先，<strong>数据可能是私有的或限制访问</strong>。最近，在欧盟《一般数据保护条例》(GDPR)的严格规定下，从人群中感知数据变得更加具有挑战性，特别是在数据隐私和安全方面。保护系统不受未授权方侵犯的技术是主要需求。到目前为止，研究人员似乎忽视了制定确保数据隐私策略的重要性和意义。</li>
+<li>此外，<strong>可能无法获得所需分辨率的数据</strong>。事实上，某些驾驶现象(例如，智能手机的干扰，变道)可能需要非常详细的记录，而其他的可以在较粗糙的水平上很容易观察到。与开发的应用程序相关，识别正确的数据分辨率在文献中被严重忽视，并显著影响检测能力和对驾驶任务的理解。但是，即使有人选择获得智能手机传感器的大部分功能(通常是100赫兹的分辨率)，这也可能导致由于电池耗尽数据采集方案不可持续。此外，车辆受驾驶环境、交通条件等不同因素的影响，一些与变道现象或变道选择相关的任务也变得更加具有挑战性。车辆的类型等(Barmpounakis等。(2020)，虽然提高采样率对于提高模型的预测能力是可取的，但这可能会对用户体验产生负面影响，因为设备资源的快速消耗可能会阻碍用户对系统的贡献在以前的挑战</li>
+</ol>
+<p>由于<strong>智能手机设备的不确定性</strong>，数据质量可能会对智能手机感知数据的理解产生深远的影响:</p>
+<ul>
+<li>是多种技术</li>
+<li>可以放置在任何地方的用户或车辆</li>
+<li>配备可以以不同频率异步记录的传感器。</li>
+</ul>
+<p><strong>数据重定向</strong>和<strong>同步策略</strong>通常应用于正确的数据，并将其置于准备建模的表单中，这需要很大的努力，但也不能确保不会出现故障和干扰。<br>智能手机众感框架中的质量保证方案对于驾驶分析尤为必要，因为<strong>现象检测依赖于极值</strong>，通常包括<strong>噪声过滤</strong>、<strong>数据重定向</strong>和<strong>地理标记</strong>(Vlahogianni and Barmpounakis, 2017a)。</p>
+<h3 id="Challenge-3-Identify-the-context-from-the-data"><a href="#Challenge-3-Identify-the-context-from-the-data" class="headerlink" title="Challenge 3: Identify the context from the data"></a>Challenge 3: Identify the context from the data</h3><p>用户行为受<strong>交通方式</strong>、<strong>路网类型</strong>、<strong>交通控制</strong>、<strong>天气条件</strong>等因素的显著影响。<br>为了检测关键模式以及理解和建模行为特征，应该通过联合考虑其他外部信息，从数据本身中提取数据的上下文。<br>处理从数据中提取上下文的问题对模型弹性有重要的附加值，因为从原始数据中提取的特征的质量主要反映了系统的整体准确性(Ignatov, 2018)。<br>但是，我们应该如何通过用户不可知的实验和盲目的众感系统来理解上下文呢?</p>
+<p>在用户不可知的环境中，从多感官数据派生上下文的主要工具是:</p>
+<ol>
+<li><strong>数据融合</strong></li>
+<li><strong>特征工程</strong></li>
+<li><strong>用户/行为分析</strong></li>
+</ol>
+<p>当涉及到确保所有可用信息都能被综合考虑时，<strong>数据融合</strong>是很重要的;</p>
+<ul>
+<li>可以将带有智能手机传感功能的天气数据和社交媒体信息融合，以提取由于天气变化或不同旅行目的而产生的移动模式变化。<br><strong>特征工程</strong>能够识别那些对上下文感知至关重要的特征。</li>
+<li>Mantouka等人(2019)对加速度计信号进行处理，提取每公里剧烈加速和每公里剧烈刹车等特征，然后用于驾驶行为检测。</li>
+<li>另一个通常首先被发现的特征是<strong>旅行模式 travel mode</strong>(Nikolic和Bierlaire, 2017: Efthymiou等人…2019)。<ul>
+<li>首先采用模态检测技术，</li>
+<li>然后根据检测到的模态对数据进行清洗，因为不同的动力学导致不同模态间的噪声不一致。</li>
+<li>显然，更多可用的数据源意味着更强的识别关键模式的能力，从而更清楚地了解数据背后的上下文。</li>
+</ul>
+</li>
+</ul>
+<p>现有众感系统之间的<strong>互操作性</strong>和<strong>透明性</strong>对于数据重用和迁移学习非常重要。</p>
+<h3 id="Challenge-4-Detect-abnorml-patterns-and-risky-drivers"><a href="#Challenge-4-Detect-abnorml-patterns-and-risky-drivers" class="headerlink" title="Challenge 4: Detect abnorml patterns and risky drivers"></a>Challenge 4: Detect abnorml patterns and risky drivers</h3><p>大多数研究遵循的一个共同的研究路线是<strong>基于阈值的检测偏离正常驾驶的方法</strong>。<br>矛盾修饰法在于，许多研究得出的结论是，没有通用的阈值可以应用，因为智能手机传感器的技术变异性影响提取的信号，当然也影响被认为是异常的阈值。<br>事实上，<strong>基于阈值的方法是检测异常驾驶模式的第一步</strong>，特别是在没有先验知识存在的系统中(例如，可用于监督学习的注释样本)。<br>但是，<strong>需要一种与设备无关的上下文无关的方法来设置阈值</strong>，以确保后者不受设备微移动、传感器特性和设备方向和定位的影响。甚至考虑一个非阈值方法也将有利于建立一个通用的驱动行为分析框架.</p>
+<p>在极端行为检测中，另一个通常被忽视的方面是<strong>如何从基于旅行的特征归纳到用户特定的行为</strong>，这意味着需要<strong>监视司机多长时间才能理解他的行为</strong>。这在宏观分析层面上是非常关键的，系统应该向用户提供建议，让用户如何改进自己的驾驶风格，成为更安全、更高效的驾驶员。<br>要对一个人进行多长时间的监控，才能观察到他的驾驶特征的收敛性，这个问题的答案不是单方面的。它取决于用户对道路的感知和态度，也取决于道路、交通和控制条件。<br>最近的一项研究试图确定检测单一驾驶特征(如攻击性)时的基本数据量(Stavrakaki等)。然而，文献中却缺少一种方法框架来估计每个驾驶员需要收集多少驾驶数据，从而对其整体驾驶行为有一个清晰的了解。</p>
+<h3 id="Challenge-5-Modeling-efficiency-transfer-learning-and-explainability"><a href="#Challenge-5-Modeling-efficiency-transfer-learning-and-explainability" class="headerlink" title="Challenge 5: Modeling efficiency, transfer learning and explainability"></a>Challenge 5: Modeling efficiency, transfer learning and explainability</h3><p>有效的模型是既准确又不产生系统误差的模型。在使用数据驱动技术处理的高度不稳定的问题中，获得精确性，但同时注意过度训练是最重要的(Karlaftis and Vlahogianni, 2011)。<br>对于智能手机感知数据集通常是不平衡的(数据集中很少出现异常驾驶甚至事故)，有效模型的开发是一个繁琐的过程。<br>当研究人员转向<strong>重采样技术</strong>或<strong>生成合成数据集</strong>时，当涉及到哪种技术适合每个问题时，不同的挑战就出现了。<br>例如，是否对数据集进行重新采样以使两个类都得到相同的表示，或者是否一个类与另一个类比例过大，如果是，大多少?<br>虽然这些问题已经被部分的文献解决，丰富现有的数据集更多的特征也可以提供显著的改进来应对这一挑战。</p>
+<p>鉴于极端行为缺乏代表性，<strong>迁移学习</strong>的使用似乎也是一条合适的途径。迁移学习和领域适应指的是利用在一种环境中学习到的知识来提高在另一种环境中泛化的情况(Mairai等，2019)。简单地说，迁移学习利用基于另一个问题开发的知识能力，促进对手头问题的学习过程。<br>ML模型，特别是深度学习模型的主要局限性是训练过程耗时。即使使用具有强大计算能力的硬件，在存在大数据的情况下，训练阶段也不能被忽视，尤其对于实时应用来说，这是一个未来的挑战。<br>迁移学习可以很好地解决ML模型训练费时的问题，而ML模型可以很容易地解决一些数据限制，如嘈杂的数据和不平衡的数据集。</p>
+<p>然而，建立准确的模型不应该是唯一的问题。大多数研究人员经常通过比较完全基于模型精度的方法来遵循最小阻力的路径;然而，在建模精度、模型简单性、适用性和可用性之间有一条“细线”。<br>研究人员应该记住，产生的模型应该是<strong>可操作的</strong>，这意味着操作和维护简单，准确到足以产生可靠的结果，并容易集成到复杂的系统。<br>此外，在强调模型的解释力的情况下，建模应该<strong>清楚地解决因果关系</strong>的问题。众所周知，<strong>相关性并不意味着因果关系</strong>。<br>通过ML建模来解决因果关系——不管是用于函数逼近、模式识别还是时间序列分析——都不是一个简单的过程，可以使用几种统计结构来解决这个问题(Karlaftis和Vlahogianni，2011;Lavrenz等人，2018年）</p>
+<h3 id="Challenge-6-Raising-awareness-and-changing-attitudes"><a href="#Challenge-6-Raising-awareness-and-changing-attitudes" class="headerlink" title="Challenge 6: Raising awareness and changing attitudes"></a>Challenge 6: Raising awareness and changing attitudes</h3><p>虽然道路安全是研究人员、从业者甚至司机自己都关心的问题，但并不是每个人都意识到驾驶行为与道路安全水平之间的关系。<br>重要的是让司机意识到他们驾驶行为的影响。冒险性、攻击性和驾驶任务的分心是驾驶员发生交通事故的主要原因(Hong et al.， 2014)。<br>ADAS的目的是在驾驶过程中支持司机，防止这种不安全行为。另一个日益增长的趋势是交通安全和可持续性的结合。<br>因此，如前所述，今天的驾驶建议和辅助系统的目标是双重的:<strong>促进环保驾驶，同时确保道路安全</strong>。</p>
+<ol>
+<li>在<strong>环保驾驶</strong>方面，改变驾驶态度似乎更容易，因为这种驾驶方式与金钱成本和节省燃料有关。</li>
+<li>对于<strong>安全驾驶</strong>来说，改变人们不安全的驾驶习惯似乎更具挑战性，尤其是因为人们往往会忽视自己驾驶行为的影响。<br>在这种情况下，也应该给予强有力的激励，因为最终目标不仅是激励司机参与一项事业，而且还提高了他们的意识。</li>
+</ol>
+<p>另外一个值得关注的问题是，驾驶推荐系统是以驾驶员与系统持续合作为前提的，在这样的系统中，驾驶员不断地收到提高驾驶效率甚至驾驶体验的驾驶提示和建议。<br>如果驾驶员不打算接受系统提供的建议，那么系统就失去了它的潜力。<br>为此，提高驾驶员对其驾驶习惯影响的认识，并确保他们长期参与该系统是至关重要的。<br>大多数研究人员关注教育和培训的重要性，认为教育和培训是改变驾驶员态度的关键(赵等人，2019)，<br>然而，最近的趋势要求<strong>对驾驶行为进行持续监控</strong>，即使不是实时提供建议和提示，也要持续不断。</p>
+<h3 id="Challenge-7-Real-time-operation"><a href="#Challenge-7-Real-time-operation" class="headerlink" title="Challenge 7: Real-time operation"></a>Challenge 7: Real-time operation</h3><p>直到最近，一小部分文献已经开发出能够实时运行的驾驶行为检测和推荐算法。<br>然而，由于需要通过对交通的管理来确保当今运输系统的恢复力，道路事故和排放已经出现。<br>保证驾驶推荐系统的实时运行是迫切需要的。<br>如前所述，驾驶行为不仅是道路安全的主要贡献者，而且是道路网络状况的主要贡献者，因此，只有开发出易于解释和响应的推荐系统，才能有可能改善驾驶行为。<br>考虑到人类行为的复杂性以及前面描述的方法上的挑战，未来的研究应该在开发能够<strong>实时运行的推荐系统</strong>上投入大量精力，特别是如果它们能够<strong>提供个性化的建议和提示</strong>的话。<br>先进的计算智能技术有望取得良好的结果，并有效地应对用户定制的实时推荐系统的挑战性任务。<br>此外，这项任务在联网车辆(CVs)和合作智能交通系统(c-ITS)的新兴环境中至关重要，因为与昂贵的嵌入式相比，智能手机可以在车辆和基础设施之间提供一种成本效益高的通信解决方案。<br>CVs的通信解决方案，特别是对于转型时期的老车，老车和联网车辆将共享相同的驾驶环境和基础设施(Su等。2012)。</p>
+<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><p>智能手机众感不是一个新兴领域;它作为收集数据的可靠选择正在不断上升。<br>具体工作试图通过建立一个方法论的框架分析现有文献对驾驶行为的识别和理解,包括四个阶段:<strong>数据收集</strong>、<strong>数据准备</strong>、<strong>数据挖掘</strong>、<strong>驾驶行为建模</strong>和最后,有价值的信息开发决策和建议制定协助和提高驾驶行为。</p>
+<p>分析指出，在依赖基于智能手机的数据和模型时，应该考虑一些普遍存在的挑战。<br>这些涉及到<strong>数据的可用性和质量</strong>、<strong>代表性</strong>、<strong>基于上下文的知识提取</strong>、<strong>模式识别</strong>和<strong>建模</strong>,<strong>对行为改变的建议</strong>,以及<strong>影响评估和实时操作</strong>。<br>讨论现有的挑战和可能的警告表明,基准模型和数据处理程序可以提供有用的信息是什么类型的建模适合于不同的应用程序。<br>为此，对于确保基于智能手机的数据收集和建模系统的可转移性和可持续性，模型对上下文规范和数据变化的弹性的新度量非常重要。<br>在数据挖掘和建模方面，<strong>人工智能和迁移学习</strong>的使用可以提高模型的准确性和泛化能力，同时也保证了模型的灵活性和实时性。<br>此外，在没有大数据的情况下，现有众感系统之间的<strong>互操作性和透明性</strong>对于数据重用和迁移学习非常重要。</p>
+<p>驾驶行为分析的进步使得驾驶推荐系统能够提供安全驾驶或生态驾驶技术和提示。<br>尽管有很多证据表明，推荐系统和ADAS有潜力改善交通状况、道路安全和驾驶体验，以充分发挥其潜力，但驾驶员对该系统的接受和长期参与是先决条件。<br>下一步是设计一种影响评估工具，以衡量这些系统对用户的感知、选择以及对运输系统的影响。<br>显然，人们对快速、准确的检测模型以及对司机的实时反馈和帮助有着很高的要求。<br>将最终推动人工智能的部署，以确保从道路上车辆产生的大量数据中，可以出现用户不可知的推荐方案，帮助用户从改进驾驶转向改进移动习惯。</p>
+<table>
+<thead>
+<tr>
+<th>一个普通标题</th>
+<th>一个普通标题</th>
+<th>一个普通标题</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>短文本</td>
+<td>中等文本</td>
+<td>稍微长一点的文本</td>
+</tr>
+<tr>
+<td>稍微长一点的文本</td>
+<td>短文本</td>
+<td>中等文本</td>
+</tr>
+</tbody></table>
+</div><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">unnoyy</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://unnoyy.github.io/posts/18430/">http://unnoyy.github.io/posts/18430/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://unnoyy.github.io" target="_blank">unnoyy</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/44404/"><img class="prev-cover" data-lazy-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror='onerror=null,src="/img/404.jpg"'><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">driver behavior datasets</div></div></a></div><div class="next-post pull-right"><a href="/posts/600002/"><img class="next-cover" data-lazy-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror='onerror=null,src="/img/404.jpg"'><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Learning-Based Driving Events Recognition and Its Application to Digital Roads</div></div></a></div></nav><hr><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div><div class="comment-switch"><span class="first-comment">Valine</span><label><input id="switch-comments-btn" type="checkbox"><span class="slider"></span></label><span class="second-comment">Gitalk</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div><div><div id="gitalk-container"></div></div></div></div></article></main><footer id="footer" data-type="color"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2021 By unnoyy</div><div class="framework-info"><span>框架 </span><a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a href="https://github.com/jerryc127/hexo-theme-butterfly" target="_blank" rel="noopener">Butterfly</a></div><div class="footer_custom_text">欢迎来到<a href="https://unnoyy.github.io/">小屋</a>!</div></div></footer></div><section id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">简</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></section><div class="search-dialog" id="local-search"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"></div></div></div><hr><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a href="https://github.com/wzpan/hexo-generator-search" target="_blank" rel="noopener" style="color:#49b1f5">hexo-generator-search</a>
+ <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div><div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.spacingElementById('content-inner')
+  else {
+    $.getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js', () => {
+      pangu.spacingElementById('content-inner')
+    })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguFn)</script><script src="/js/search/local-search.js"></script><script>var endLoading=function(){document.body.style.overflow="auto",document.getElementById("loading-box").classList.add("loaded")};window.addEventListener("load",endLoading)</script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    loader: {
+      source: {
+        '[tex]/amsCd': '[tex]/amscd'
+      }
+    },
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        addClass: [200,() => {
+          document.querySelectorAll('mjx-container:not([display=\'true\']').forEach( node => {
+            const target = node.parentNode
+            if (!target.classList.contains('has-jax')) {
+              target.classList.add('mathjax-overflow')
+            }
+          })
+        }, '', false]
+      }
+    }
+  }
+  
+  var script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script><script>function loadValine () {
+  function initValine () {
+    window.valine = new Valine({
+      el: '#vcomment',
+      appId: 'SVg8NY7xGdhfqBMmwyksops7-gzGzoHsz',
+      appKey: 'gMpBjTW5NEFR6cW6CUmhBITz',
+      placeholder: 'Please leave your footprints',
+      avatar: 'monsterid',
+      meta: 'nick,mail,link'.split(','),
+      pageSize: '10',
+      lang: 'zh-CN',
+      recordIP: false,
+      serverURLs: '',
+      emojiCDN: '',
+      emojiMaps: "",
+      enableQQ: false,
+      path: window.location.pathname,
+    });
+    if ('nick,mail') { valine.config.requiredFields= 'nick,mail'.split(',') }
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else $.getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js', initValine)
+}
+
+if ('Valine' === 'Valine' || !true) {
+  if (true) btf.loadComment(document.querySelector('#vcomment'),loadValine)
+  else setTimeout(() => loadValine(), 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script><script>function addGitalkSource () {
+  const ele = document.createElement('link')
+  ele.rel = 'stylesheet'
+  ele.href= 'https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css'
+  document.getElementsByTagName('head')[0].appendChild(ele)
+}
+
+function loadGitalk () {
+  function initGitalk () {
+    var gitalk = new Gitalk({
+      clientID: '769c8b0e30bdfa36fcdd',
+      clientSecret: '8ff1137eb46effb3547818440411a5f053db93fa',
+      repo: 'unnoyy.github.io',
+      owner: 'unnoyy',
+      admin: ['unnoyy'],
+      id: 'bd4df1d45a13c43195eb20e5c95ca86b',
+      language: 'zh-CN',
+      perPage: 10,
+      distractionFreeMode: false,
+      pagerDirection: 'last',
+      createIssueManually: false,
+      updateCountCallback: commentCount
+    })
+    gitalk.render('gitalk-container')
+  }
+
+  if (typeof Gitalk === 'function') initGitalk()
+  else {
+    addGitalkSource()
+    $.getScript('https://cdn.jsdelivr.net/npm/gitalk@latest/dist/gitalk.min.js', initGitalk)
+  }
+}
+
+function commentCount(n){
+  let isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+  if (isCommentCount) {
+    isCommentCount.innerHTML= n
+  }
+}
+
+if ('Valine' === 'Gitalk' || !true) {
+  if (true) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+  else loadGitalk()
+} else {
+  function loadOtherComment () {
+    loadGitalk()
+  }
+}</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script src="/js/Beautify.js"></script><script src="/js/beautify2.js"></script><script src="/js/fishes.js"></script><script src="/js/calendar.js"></script><script src="/js/languages.js"></script><div class="app-refresh" id="app-refresh"> <div class="app-refresh-wrap"> <label>✨ 網站已更新最新版本 👉</label> <a href="javascript:void(0)" onclick="location.reload()">點擊刷新</a> </div></div><script>function showNotification(){if(GLOBAL_CONFIG.Snackbar){var t="light"===document.documentElement.getAttribute("data-theme")?GLOBAL_CONFIG.Snackbar.bgLight:GLOBAL_CONFIG.Snackbar.bgDark,e=GLOBAL_CONFIG.Snackbar.position;Snackbar.show({text:"已更新最新版本",backgroundColor:t,duration:5e5,pos:e,actionText:"點擊刷新",actionTextColor:"#fff",onActionClick:function(t){location.reload()}})}else{var o=`top: 0; background: ${"light"===document.documentElement.getAttribute("data-theme")?"#49b1f5":"#1f1f1f"};`;document.getElementById("app-refresh").style.cssText=o}}"serviceWorker"in navigator&&(navigator.serviceWorker.controller&&navigator.serviceWorker.addEventListener("controllerchange",function(){showNotification()}),window.addEventListener("load",function(){navigator.serviceWorker.register("/sw.js")}));</script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-heart.min.js" async></script></div></body></html>
