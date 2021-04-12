@@ -1,0 +1,223 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Python基础 | unnoyy</title><meta name="description" content="Python的生成器python生成器是一个返回可以迭代对象的函数,可以被用作控制循环的迭代行为。生成器类似于返回值为数组的一个函数,这个函数可以接受参数,可以被调用,一般的函数会返回包括所有数值的数组,生成器一次只能返回一个值,这样消耗的内存将会大大减小。 python中is和&#x3D;&#x3D;的区别is是用来判断两个变量引用的对象是否为同一个,&#x3D;&#x3D;用于判断引用对象的值是否相等。可以通过id()函数查看引用对"><meta name="author" content="unnoyy"><meta name="copyright" content="unnoyy"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="shortcut icon" href="/pic/favicon.png"><link rel="canonical" href="http://unnoyy.github.io/posts/14702/"><link rel="preconnect" href="//cdn.jsdelivr.net"><link rel="preconnect" href="//busuanzi.ibruce.info"><link rel="preconnect" href="//zz.bdstatic.com"><meta property="og:type" content="article"><meta property="og:title" content="Python基础"><meta property="og:url" content="http://unnoyy.github.io/posts/14702/"><meta property="og:site_name" content="unnoyy"><meta property="og:description" content="Python的生成器python生成器是一个返回可以迭代对象的函数,可以被用作控制循环的迭代行为。生成器类似于返回值为数组的一个函数,这个函数可以接受参数,可以被调用,一般的函数会返回包括所有数值的数组,生成器一次只能返回一个值,这样消耗的内存将会大大减小。 python中is和&#x3D;&#x3D;的区别is是用来判断两个变量引用的对象是否为同一个,&#x3D;&#x3D;用于判断引用对象的值是否相等。可以通过id()函数查看引用对"><meta property="og:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><meta property="article:published_time" content="2021-04-09T09:19:10.450Z"><meta property="article:modified_time" content="2021-04-09T10:56:35.307Z"><meta name="twitter:card" content="summary"><link rel="manifest" href="/pic/pwa/manifest.json"><meta name="msapplication-TileColor" content="#fff"><link rel="apple-touch-icon" sizes="180x180" href="/pic/pwa/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/pic/pwa/32.png"><link rel="icon" type="image/png" sizes="16x16" href="/pic/pwa/16.png"><link rel="mask-icon" href="/pic/pwa/safari-pinned-tab.svg" color="#5bbad5"><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  hexoversion: '4.2.0',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: {"defaultEncoding":1,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  bookmark: {
+    message_prev: '按',
+    message_next: '键将本页加入书签'
+  },
+  runtime: '天',
+  date_suffix: {"one_hour":"刚刚","hours":"小时前","day":"天前"},
+  copyright: {"limitCount":50,"languages":{"author":"作者: unnoyy","link":"链接: ","source":"来源: unnoyy","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  ClickShowText: undefined,
+  medium_zoom: false,
+  fancybox: true,
+  Snackbar: {"bookmark":{"message_prev":"按","message_next":"键将本页加入书签"},"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#121212","position":"bottom-left"},
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
+  baiduPush: true,
+  isPhotoFigcaption: true,
+  islazyload: true,
+  isanchor: false
+};
+
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+    const now = new Date()
+    const expiryDay = ttl * 86400000
+    const item = {
+      value: value,
+      expiry: now.getTime() + expiryDay,
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+    },
+
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}</script><script id="config_change">var GLOBAL_CONFIG_SITE={isPost:!0,isHome:!1,isHighlightShrink:!1,isSidebar:!0,postUpdate:"2021-04-09 18:56:35"}</script><noscript><style>#nav{opacity:1}.justified-gallery img{opacity:1}</style></noscript><script>var activateDarkMode=function(){document.documentElement.setAttribute("data-theme","dark"),null!==document.querySelector('meta[name="theme-color"]')&&document.querySelector('meta[name="theme-color"]').setAttribute("content","#0d0d0d")},activateLightMode=function(){document.documentElement.setAttribute("data-theme","light"),null!==document.querySelector('meta[name="theme-color"]')&&document.querySelector('meta[name="theme-color"]').setAttribute("content","#ffffff")},autoChangeMode="false",t=saveToLocal.get("theme");if("1"===autoChangeMode){var isDarkMode=window.matchMedia("(prefers-color-scheme: dark)").matches,isLightMode=window.matchMedia("(prefers-color-scheme: light)").matches,isNotSpecified=window.matchMedia("(prefers-color-scheme: no-preference)").matches,hasNoSupport=!isDarkMode&&!isLightMode&&!isNotSpecified;if(void 0===t){if(isLightMode)activateLightMode();else if(isDarkMode)activateDarkMode();else if(isNotSpecified||hasNoSupport){var now=new Date,hour=now.getHours(),isNight=hour<=6||18<=hour;isNight?activateDarkMode():activateLightMode()}window.matchMedia("(prefers-color-scheme: dark)").addListener(function(e){void 0===saveToLocal.get("theme")&&(e.matches?activateDarkMode():activateLightMode())})}else"light"===t?activateLightMode():activateDarkMode()}else"2"===autoChangeMode?(isNight=(hour=(now=new Date).getHours())<=6||18<=hour,void 0===t?isNight?activateDarkMode():activateLightMode():"light"===t?activateLightMode():activateDarkMode()):"dark"===t?activateDarkMode():"light"===t&&activateLightMode()</script><link rel="stylesheet" href="/css/background.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/sviptzk/StaticFile_HEXO@latest/butterfly/css/iconfont.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/sviptzk/HexoStaticFile@latest/Hexo/css/buttons.min.css"><style>.app-refresh{position:fixed;top:-2.2rem;left:0;right:0;z-index:99999;padding:0 1rem;font-size:15px;height:2.2rem;transition:all .3s ease}.app-refresh-wrap{display:flex;color:#fff;height:100%;align-items:center;justify-content:center}.app-refresh-wrap a{color:#fff;text-decoration:underline;cursor:pointer}</style><meta name="generator" content="Hexo 4.2.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" data-lazy-src="/pic/avatar.jpg" onerror='onerror=null,src="/img/friend_404.gif"' alt="avatar"></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">41</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">16</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">5</div></a></div></div></div><hr><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 休闲</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page" href="/book/"><i class="fa-fw fas fa-book"></i><span> 书籍</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart card-announcement-animation"></i><span> 关于</span></a></div></div></div></div><div id="body-wrap"><div id="web_bg" data-type="color"></div><div id="sidebar"><i class="fas fa-arrow-right on" id="toggle-sidebar"></i><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#Python的生成器"><span class="toc-number">1.</span> <span class="toc-text">Python的生成器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#python中is和-的区别"><span class="toc-number">2.</span> <span class="toc-text">python中is和&#x3D;&#x3D;的区别</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#python方法解析顺序"><span class="toc-number">3.</span> <span class="toc-text">python方法解析顺序</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#pytorch中cuda-作用-两个Tensor-一个加了cuda-一个没加-相加后很怎样"><span class="toc-number">4.</span> <span class="toc-text">pytorch中cuda()作用,两个Tensor,一个加了cuda(),一个没加,相加后很怎样?</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#python中dict和list的区别-dict的内部实现"><span class="toc-number">5.</span> <span class="toc-text">python中dict和list的区别,dict的内部实现</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#python-dict按照value进行排序"><span class="toc-number">6.</span> <span class="toc-text">python dict按照value进行排序</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#虚函数和纯虚函数的区别"><span class="toc-number">7.</span> <span class="toc-text">虚函数和纯虚函数的区别</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Python多进程"><span class="toc-number">8.</span> <span class="toc-text">Python多进程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#python-锁"><span class="toc-number">9.</span> <span class="toc-text">python 锁</span></a></li></ol></div></div></div><header class="post-bg" id="page-header" style="background-image:url(https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg)"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">unnoyy</a></span><span id="menus"><div id="search_button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 休闲</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page" href="/book/"><i class="fa-fw fas fa-book"></i><span> 书籍</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart card-announcement-animation"></i><span> 关于</span></a></div></div><span class="close" id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="post-info"><div id="post-title"><div class="posttitle">Python基础</div></div><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-04-09T09:19:10.450Z" title="发表于 2021-04-09 17:19:10">2021-04-09</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2021-04-09T10:56:35.307Z" title="更新于 2021-04-09 18:56:35">2021-04-09</time></span></div><div class="meta-secondline"> <span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">950</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>2分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout_post" id="content-inner"><article id="post"><div class="post-content" id="article-container"><h4 id="Python的生成器"><a href="#Python的生成器" class="headerlink" title="Python的生成器"></a>Python的生成器</h4><p>python生成器是一个返回可以迭代对象的函数,可以被用作控制循环的迭代行为。生成器类似于返回值为数组的一个函数,这个函数可以接受参数,可以被调用,一般的函数会返回包括所有数值的数组,生成器一次只能返回一个值,这样消耗的内存将会大大减小。</p>
+<h4 id="python中is和-的区别"><a href="#python中is和-的区别" class="headerlink" title="python中is和==的区别"></a>python中is和==的区别</h4><p>is是用来判断两个变量引用的对象是否为同一个,==用于判断引用对象的值是否相等。可以通过id()函数查看引用对象的地址。</p>
+<h4 id="python方法解析顺序"><a href="#python方法解析顺序" class="headerlink" title="python方法解析顺序"></a>python方法解析顺序</h4><p>Python的方法解析顺序优先级从高到低为:实例本身-&gt;类-&gt;继承类<br>(继承关系越近,越先定义,优先级越高)</p>
+<h4 id="pytorch中cuda-作用-两个Tensor-一个加了cuda-一个没加-相加后很怎样"><a href="#pytorch中cuda-作用-两个Tensor-一个加了cuda-一个没加-相加后很怎样" class="headerlink" title="pytorch中cuda()作用,两个Tensor,一个加了cuda(),一个没加,相加后很怎样?"></a>pytorch中cuda()作用,两个Tensor,一个加了cuda(),一个没加,相加后很怎样?</h4><p>cuda()将操作对象放在GPU内存中,加了cuda()的Tensor放在GPU内存中而没加的Tensor放在CPU内存中,所以这两个Tensor相加会报错。</p>
+<h4 id="python中dict和list的区别-dict的内部实现"><a href="#python中dict和list的区别-dict的内部实现" class="headerlink" title="python中dict和list的区别,dict的内部实现"></a>python中dict和list的区别,dict的内部实现</h4><ul>
+<li>dict查找速度快,占用的内存较大,list查找速度慢,占用内存较小</li>
+<li>dict不能用来存储有序集合</li>
+<li>dict用{}表示,list用[]表示。<br>dict是通过hash表实现的,dict为一个数组,数组的索引键是通过hash函数处理后得到的,hash函数的目的是使键值均匀的分布在数组中。</li>
+</ul>
+<h4 id="python-dict按照value进行排序"><a href="#python-dict按照value进行排序" class="headerlink" title="python dict按照value进行排序"></a>python dict按照value进行排序</h4><p>按照value从大到小排序:<br>sorted(d.items(),key = lambda x:x[1],reverse = True)</p>
+<p>按照value从小到大排序:<br>sorted(d.items(),key = lambda x:x[1],reverse =False)</p>
+<h4 id="虚函数和纯虚函数的区别"><a href="#虚函数和纯虚函数的区别" class="headerlink" title="虚函数和纯虚函数的区别"></a>虚函数和纯虚函数的区别</h4><ul>
+<li>含有纯虚函数的类称为抽象类,只含有虚函数的类不能称为抽象类。</li>
+<li>虚函数可以直接被使用,也可以被子类重载以后以多态形式调用,而纯虚函数必须在子类中实现该函数才可使用,因为纯虚函数在基类中只有声明而没有定义。</li>
+<li>虚函数必须实现,对虚函数来说父类和子类都有各自的版本。</li>
+</ul>
+<h4 id="Python多进程"><a href="#Python多进程" class="headerlink" title="Python多进程"></a>Python多进程</h4><p>方式一: os.fork()<br>方式二:使用multiprocessing模块:创建Process的实例，传入任务执行函数作为参数<br>方式三:使用multiprocessing模块:派生Process的子类，重写run方法<br>方式四:使用进程池Pool</p>
+<h4 id="python-锁"><a href="#python-锁" class="headerlink" title="python 锁"></a>python 锁</h4><p>全局解释器锁<br>同步锁<br>死锁<br>递归锁<br>乐观锁<br>悲观锁</p>
+<p>常用的加锁方式：互斥锁、可重入锁、迭代死锁、互相调用死锁、自旋锁。</p>
+<p>python类初始化过程<br>在执行类的初始化的时候，比如a = A()，先是执行了<strong>new</strong>(cls) 方法，根据传入的cls来分配空间，然后再执行对象的<strong>init</strong>(self) 方法。cls为类，self为类实例，类函数需要传入self，类似于C++里的this指针。<br>2.python中的new和<strong>init</strong>区别<br>均是Python面向对象语言中的函数<br><strong>new</strong>是在实例创建之前被调用的，因为它的任务就是创建实例然后返回该实例对象，是个静态方法。<br><strong>init</strong>是当实例对象创建完成后被调用的，然后设置对象属性的一些初始值，通常用在初始化一个类实例的时候。是一个实例方法。<br>3.python什么特性你觉得比较好<br>4.python的迭代器<br>在Python中，迭代器是遵循迭代协议的对象，用来表示一连串数据流。重复调用迭代器的<strong>next</strong>()方法（或将其传给内置函数 next()）将逐个返回数据流中的项。当没有数据可用时则将引发 StopIteration 异常。</p>
+</div><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">unnoyy</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://unnoyy.github.io/posts/14702/">http://unnoyy.github.io/posts/14702/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://unnoyy.github.io" target="_blank">unnoyy</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/36523/"><img class="prev-cover" data-lazy-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror='onerror=null,src="/img/404.jpg"'><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">java</div></div></a></div><div class="next-post pull-right"><a href="/posts/t0007/"><img class="next-cover" data-lazy-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror='onerror=null,src="/img/404.jpg"'><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">基础算法题总结7--分治算法</div></div></a></div></nav><hr><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div><div class="comment-switch"><span class="first-comment">Valine</span><label><input id="switch-comments-btn" type="checkbox"><span class="slider"></span></label><span class="second-comment">Gitalk</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div><div><div id="gitalk-container"></div></div></div></div></article></main><footer id="footer" data-type="color"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2021 By unnoyy</div><div class="framework-info"><span>框架 </span><a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a href="https://github.com/jerryc127/hexo-theme-butterfly" target="_blank" rel="noopener">Butterfly</a></div><div class="footer_custom_text">欢迎来到<a href="https://unnoyy.github.io/">小屋</a>!</div></div></footer></div><section id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">简</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></section><div class="search-dialog" id="local-search"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"></div></div></div><hr><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a href="https://github.com/wzpan/hexo-generator-search" target="_blank" rel="noopener" style="color:#49b1f5">hexo-generator-search</a>
+ <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div><div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.spacingElementById('content-inner')
+  else {
+    $.getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js', () => {
+      pangu.spacingElementById('content-inner')
+    })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguFn)</script><script src="/js/search/local-search.js"></script><script>var endLoading=function(){document.body.style.overflow="auto",document.getElementById("loading-box").classList.add("loaded")};window.addEventListener("load",endLoading)</script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    loader: {
+      source: {
+        '[tex]/amsCd': '[tex]/amscd'
+      }
+    },
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        addClass: [200,() => {
+          document.querySelectorAll('mjx-container:not([display=\'true\']').forEach( node => {
+            const target = node.parentNode
+            if (!target.classList.contains('has-jax')) {
+              target.classList.add('mathjax-overflow')
+            }
+          })
+        }, '', false]
+      }
+    }
+  }
+  
+  var script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script><script>function loadValine () {
+  function initValine () {
+    window.valine = new Valine({
+      el: '#vcomment',
+      appId: 'SVg8NY7xGdhfqBMmwyksops7-gzGzoHsz',
+      appKey: 'gMpBjTW5NEFR6cW6CUmhBITz',
+      placeholder: 'Please leave your footprints',
+      avatar: 'monsterid',
+      meta: 'nick,mail,link'.split(','),
+      pageSize: '10',
+      lang: 'zh-CN',
+      recordIP: false,
+      serverURLs: '',
+      emojiCDN: '',
+      emojiMaps: "",
+      enableQQ: false,
+      path: window.location.pathname,
+    });
+    if ('nick,mail') { valine.config.requiredFields= 'nick,mail'.split(',') }
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else $.getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js', initValine)
+}
+
+if ('Valine' === 'Valine' || !true) {
+  if (true) btf.loadComment(document.querySelector('#vcomment'),loadValine)
+  else setTimeout(() => loadValine(), 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script><script>function addGitalkSource () {
+  const ele = document.createElement('link')
+  ele.rel = 'stylesheet'
+  ele.href= 'https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css'
+  document.getElementsByTagName('head')[0].appendChild(ele)
+}
+
+function loadGitalk () {
+  function initGitalk () {
+    var gitalk = new Gitalk({
+      clientID: '769c8b0e30bdfa36fcdd',
+      clientSecret: '8ff1137eb46effb3547818440411a5f053db93fa',
+      repo: 'unnoyy.github.io',
+      owner: 'unnoyy',
+      admin: ['unnoyy'],
+      id: '88e13fdf4df6d1def24d89edfc26cbe9',
+      language: 'zh-CN',
+      perPage: 10,
+      distractionFreeMode: false,
+      pagerDirection: 'last',
+      createIssueManually: false,
+      updateCountCallback: commentCount
+    })
+    gitalk.render('gitalk-container')
+  }
+
+  if (typeof Gitalk === 'function') initGitalk()
+  else {
+    addGitalkSource()
+    $.getScript('https://cdn.jsdelivr.net/npm/gitalk@latest/dist/gitalk.min.js', initGitalk)
+  }
+}
+
+function commentCount(n){
+  let isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+  if (isCommentCount) {
+    isCommentCount.innerHTML= n
+  }
+}
+
+if ('Valine' === 'Gitalk' || !true) {
+  if (true) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+  else loadGitalk()
+} else {
+  function loadOtherComment () {
+    loadGitalk()
+  }
+}</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script src="/js/Beautify.js"></script><script src="/js/beautify2.js"></script><script src="/js/fishes.js"></script><script src="/js/calendar.js"></script><script src="/js/languages.js"></script><div class="app-refresh" id="app-refresh"> <div class="app-refresh-wrap"> <label>✨ 網站已更新最新版本 👉</label> <a href="javascript:void(0)" onclick="location.reload()">點擊刷新</a> </div></div><script>function showNotification(){if(GLOBAL_CONFIG.Snackbar){var t="light"===document.documentElement.getAttribute("data-theme")?GLOBAL_CONFIG.Snackbar.bgLight:GLOBAL_CONFIG.Snackbar.bgDark,e=GLOBAL_CONFIG.Snackbar.position;Snackbar.show({text:"已更新最新版本",backgroundColor:t,duration:5e5,pos:e,actionText:"點擊刷新",actionTextColor:"#fff",onActionClick:function(t){location.reload()}})}else{var o=`top: 0; background: ${"light"===document.documentElement.getAttribute("data-theme")?"#49b1f5":"#1f1f1f"};`;document.getElementById("app-refresh").style.cssText=o}}"serviceWorker"in navigator&&(navigator.serviceWorker.controller&&navigator.serviceWorker.addEventListener("controllerchange",function(){showNotification()}),window.addEventListener("load",function(){navigator.serviceWorker.register("/sw.js")}));</script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-heart.min.js" async></script></div></body></html>

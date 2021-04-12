@@ -1,0 +1,281 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>深度学习知识总结 | unnoyy</title><meta name="description" content="残差网络什么是残差网络？残差网络解决了什么问题？残差网络是怎么解决这个问题的？ 残差网络可以解决“随着网络加深，准确度不下降”也就是网络退化的问题。增加一个恒等映射，将原始所需要学的函数H(x)转换成F(x)+x，这个简单的加法并不会给网络增加额外的参数和计算量，同时却可以大大增加模型的训练速度、提高训练效果，并且当模型的层数加深时，这个简单的结构能够很好的解决退化问题。 对比 DenseNet等"><meta name="keywords" content="summary,machine learning"><meta name="author" content="unnoyy"><meta name="copyright" content="unnoyy"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="shortcut icon" href="/pic/favicon.png"><link rel="canonical" href="http://unnoyy.github.io/posts/k1000/"><link rel="preconnect" href="//cdn.jsdelivr.net"><link rel="preconnect" href="//busuanzi.ibruce.info"><link rel="preconnect" href="//zz.bdstatic.com"><meta property="og:type" content="article"><meta property="og:title" content="深度学习知识总结"><meta property="og:url" content="http://unnoyy.github.io/posts/k1000/"><meta property="og:site_name" content="unnoyy"><meta property="og:description" content="残差网络什么是残差网络？残差网络解决了什么问题？残差网络是怎么解决这个问题的？ 残差网络可以解决“随着网络加深，准确度不下降”也就是网络退化的问题。增加一个恒等映射，将原始所需要学的函数H(x)转换成F(x)+x，这个简单的加法并不会给网络增加额外的参数和计算量，同时却可以大大增加模型的训练速度、提高训练效果，并且当模型的层数加深时，这个简单的结构能够很好的解决退化问题。 对比 DenseNet等"><meta property="og:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><meta property="article:published_time" content="2021-03-25T12:02:45.000Z"><meta property="article:modified_time" content="2021-04-12T03:14:52.142Z"><meta name="twitter:card" content="summary"><link rel="manifest" href="/pic/pwa/manifest.json"><meta name="msapplication-TileColor" content="#fff"><link rel="apple-touch-icon" sizes="180x180" href="/pic/pwa/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/pic/pwa/32.png"><link rel="icon" type="image/png" sizes="16x16" href="/pic/pwa/16.png"><link rel="mask-icon" href="/pic/pwa/safari-pinned-tab.svg" color="#5bbad5"><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  hexoversion: '4.2.0',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: {"defaultEncoding":1,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  bookmark: {
+    message_prev: '按',
+    message_next: '键将本页加入书签'
+  },
+  runtime: '天',
+  date_suffix: {"one_hour":"刚刚","hours":"小时前","day":"天前"},
+  copyright: {"limitCount":50,"languages":{"author":"作者: unnoyy","link":"链接: ","source":"来源: unnoyy","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  ClickShowText: undefined,
+  medium_zoom: false,
+  fancybox: true,
+  Snackbar: {"bookmark":{"message_prev":"按","message_next":"键将本页加入书签"},"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#121212","position":"bottom-left"},
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
+  baiduPush: true,
+  isPhotoFigcaption: true,
+  islazyload: true,
+  isanchor: false
+};
+
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+    const now = new Date()
+    const expiryDay = ttl * 86400000
+    const item = {
+      value: value,
+      expiry: now.getTime() + expiryDay,
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+    },
+
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}</script><script id="config_change">var GLOBAL_CONFIG_SITE={isPost:!0,isHome:!1,isHighlightShrink:!1,isSidebar:!1,postUpdate:"2021-04-12 11:14:52"}</script><noscript><style>#nav{opacity:1}.justified-gallery img{opacity:1}</style></noscript><script>var activateDarkMode=function(){document.documentElement.setAttribute("data-theme","dark"),null!==document.querySelector('meta[name="theme-color"]')&&document.querySelector('meta[name="theme-color"]').setAttribute("content","#0d0d0d")},activateLightMode=function(){document.documentElement.setAttribute("data-theme","light"),null!==document.querySelector('meta[name="theme-color"]')&&document.querySelector('meta[name="theme-color"]').setAttribute("content","#ffffff")},autoChangeMode="false",t=saveToLocal.get("theme");if("1"===autoChangeMode){var isDarkMode=window.matchMedia("(prefers-color-scheme: dark)").matches,isLightMode=window.matchMedia("(prefers-color-scheme: light)").matches,isNotSpecified=window.matchMedia("(prefers-color-scheme: no-preference)").matches,hasNoSupport=!isDarkMode&&!isLightMode&&!isNotSpecified;if(void 0===t){if(isLightMode)activateLightMode();else if(isDarkMode)activateDarkMode();else if(isNotSpecified||hasNoSupport){var now=new Date,hour=now.getHours(),isNight=hour<=6||18<=hour;isNight?activateDarkMode():activateLightMode()}window.matchMedia("(prefers-color-scheme: dark)").addListener(function(e){void 0===saveToLocal.get("theme")&&(e.matches?activateDarkMode():activateLightMode())})}else"light"===t?activateLightMode():activateDarkMode()}else"2"===autoChangeMode?(isNight=(hour=(now=new Date).getHours())<=6||18<=hour,void 0===t?isNight?activateDarkMode():activateLightMode():"light"===t?activateLightMode():activateDarkMode()):"dark"===t?activateDarkMode():"light"===t&&activateLightMode()</script><link rel="stylesheet" href="/css/background.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/sviptzk/StaticFile_HEXO@latest/butterfly/css/iconfont.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/sviptzk/HexoStaticFile@latest/Hexo/css/buttons.min.css"><style>.app-refresh{position:fixed;top:-2.2rem;left:0;right:0;z-index:99999;padding:0 1rem;font-size:15px;height:2.2rem;transition:all .3s ease}.app-refresh-wrap{display:flex;color:#fff;height:100%;align-items:center;justify-content:center}.app-refresh-wrap a{color:#fff;text-decoration:underline;cursor:pointer}</style><meta name="generator" content="Hexo 4.2.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" data-lazy-src="/pic/avatar.jpg" onerror='onerror=null,src="/img/friend_404.gif"' alt="avatar"></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">41</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">16</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">5</div></a></div></div></div><hr><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 休闲</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page" href="/book/"><i class="fa-fw fas fa-book"></i><span> 书籍</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart card-announcement-animation"></i><span> 关于</span></a></div></div></div></div><div id="body-wrap"><div id="web_bg" data-type="color"></div><header class="post-bg" id="page-header" style="background-image:url(https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg)"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">unnoyy</a></span><span id="menus"><div id="search_button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 休闲</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page" href="/book/"><i class="fa-fw fas fa-book"></i><span> 书籍</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart card-announcement-animation"></i><span> 关于</span></a></div></div><span class="close" id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="post-info"><div id="post-title"><div class="posttitle">深度学习知识总结</div></div><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-03-25T12:02:45.000Z" title="发表于 2021-03-25 20:02:45">2021-03-25</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2021-04-12T03:14:52.142Z" title="更新于 2021-04-12 11:14:52">2021-04-12</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/summary/">summary</a></span></div><div class="meta-secondline"> <span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">3.3k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>9分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout_post" id="content-inner"><article id="post"><div class="post-content" id="article-container"><h2 id="残差网络"><a href="#残差网络" class="headerlink" title="残差网络"></a>残差网络</h2><p>什么是残差网络？残差网络解决了什么问题？残差网络是怎么解决这个问题的？</p>
+<p>残差网络可以解决“随着网络加深，准确度不下降”也就是网络退化的问题。<br>增加一个恒等映射，将原始所需要学的函数H(x)转换成F(x)+x，这个简单的加法并不会给网络增加额外的参数和计算量，同时却可以大大增加模型的训练速度、提高训练效果，并且当模型的层数加深时，这个简单的结构能够很好的解决退化问题。</p>
+<p>对比 DenseNet等，其区别何在（虽然都有 Shortcut，但是 DenceNet是串联，ResNet是相加）</p>
+<h2 id="梯度消失和梯度爆炸"><a href="#梯度消失和梯度爆炸" class="headerlink" title="梯度消失和梯度爆炸"></a>梯度消失和梯度爆炸</h2><p>神经网络是根据损失函数计算的误差通过梯度反向传播的方式来指导深度网络权值的更新优化的。而误差传递过程是链式法则，当层数越深的时候，梯度是以指数的形式传播的。在根据损失函数计算的误差通过梯度反向传播的方式对深度网络权值进行更新时，得到的梯度值接近0或特别大，也就是梯度消失或爆炸。</p>
+<p>什么是梯度爆炸和梯度消失：<br>在反向传播过程中需要对激活函数进行求导，如果导数大于1，那么随着网络层数的增加梯度更新将会朝着指数爆炸的方式增加这就是梯度爆炸。同样如果导数小于1，那么随着网络层数的增加梯度更新信息会朝着指数衰减的方式减少这就是梯度消失。</p>
+<p>产生的原因：<br>梯度消失产生的原因：深层网络、不合适的损失函数<br>梯度爆炸产生的原因：一般出现在深层网络和权值初始化值太大的情况下。在深层神经网络或循环神经网络中，误差的梯度可在更新中累积相乘。如果网络层之间的梯度值大于 1.0，那么重复相乘会导致梯度呈指数级增长，梯度变的非常大，然后导致网络权重的大幅更新，并因此使网络变得不稳定。</p>
+<p>解决方法：</p>
+<ul>
+<li><strong>预训练+微调</strong></li>
+<li><strong>梯度剪切、权重正则化</strong>：梯度剪切这个方案主要是针对梯度爆炸提出的，其思想是设置一个梯度剪切阈值，然后更新梯度的时候，如果梯度超过这个阈值，那么就将其强制限制在这个范围之内。这可以防止梯度爆炸。正则化是通过对网络权重做正则限制过拟合，如果发生梯度爆炸，权值的范数就会变的非常大，通过正则化项，可以部分限制梯度爆炸的发生。</li>
+<li><strong>relu、leakrelu、elu、maxout等激活函数</strong>：如果激活函数的导数为1，那么就不存在梯度消失爆炸的问题了，每层的网络都可以得到相同的更新速度。sigmoid函数的梯度随着x的增大或减小和消失，而ReLU不会。</li>
+<li><strong>batch normalization</strong>：Batchnorm本质上是解决反向传播过程中的梯度问题。batchnorm全名是batch normalization，简称BN，即批规范化，通过规范化操作将输出信号x规范化到均值为0，方差为1保证网络的稳定性。反向传播式子中有w的存在，所以w的大小影响了梯度的消失和爆炸，Batch Normalization 就是通过对每一层的输出规范为均值和方差一致的方法，消除了w带来的放大缩小的影响，进而解决梯度消失和爆炸的问题。</li>
+</ul>
+<h2 id="BN"><a href="#BN" class="headerlink" title="BN"></a>BN</h2><p>作用：<br>神经网络在训练的时候随着网络层数的加深,激活函数的输入值的整体分布逐渐往激活函数的取值区间上下限靠近,从而导致在反向传播时低层的神经网络的梯度消失。而BatchNormalization的作用是通过规范化的手段,将越来越偏的分布拉回到标准化的分布,使得激活函数的输入值落在激活函数对输入比较敏感的区域,从而使梯度变大,加快学习收敛速度,避免梯度消失的问题。<br>BN层的作用是把一个batch内的所有数据，从不规范的分布拉到正态分布。这样做的好处是使得数据能够分布在激活函数的敏感区域，敏感区域即为梯度较大的区域，因此在反向传播的时候能够较快反馈误差传播。</p>
+<h2 id="RNN、LSTM、GRU-会推导"><a href="#RNN、LSTM、GRU-会推导" class="headerlink" title="RNN、LSTM、GRU(会推导)"></a>RNN、LSTM、GRU(会推导)</h2><h3 id="RNN"><a href="#RNN" class="headerlink" title="RNN"></a>RNN</h3><p>一个序列当前的输出与前面的输出也有关,在RNN网络结构中中,隐藏层的输入不仅包括输入层的输出还包含上一时刻隐藏层的输出,网络会对之前的信息进行记忆并应用于当前的输入计算中。</p>
+<p>为什么好？<br>循环神经网络模型（RNN）是一种节点定向连接成环的人工神经网络，是一种反馈神经网络，RNN利用内部的记忆来处理任意时序的输入序列，并且在其处理单元之间既有内部的反馈连接又有前馈连接，这使得RNN可以更加容易处理不分段的文本等。</p>
+<p>RNN容易梯度消失</p>
+<ul>
+<li>梯度裁剪：设定阈值，当梯度小于阈值时，更新的梯度为阈值。</li>
+<li>使用LSTM、GRU</li>
+</ul>
+<h3 id="LSTM"><a href="#LSTM" class="headerlink" title="LSTM"></a>LSTM</h3><ul>
+<li>Lstm由输入门,遗忘门,输出门和一个cell组成。第一步是决定从cell状态中丢弃什么信息,然后在决定有多少新的信息进入到cell状态中,最终基于目前的cell状态决定输出什么样的信息。</li>
+<li>Gru由重置门和更新门组成,其输入为前一时刻隐藏层的输出和当前的输入,输出为下一时刻隐藏层的信息。重置门用来计算候选隐藏层的输出,其作用是控制保留多少前一时刻的隐藏层。跟新门的作用是控制加入多少候选隐藏层的输出信息,从而得到当前隐藏层的输出。</li>
+</ul>
+<h3 id="GRU"><a href="#GRU" class="headerlink" title="GRU"></a>GRU</h3><h3 id="比较"><a href="#比较" class="headerlink" title="比较"></a>比较</h3><p>RNN在处理long term memory的时候存在缺陷，因此LSTM应运而生。LSTM是一种变种的RNN，它的精髓在于引入了细胞状态这样一个概念，不同于RNN只考虑最近的状态，LSTM的细胞状态会决定哪些状态应该被留下来，哪些状态应该被遗忘。</p>
+<p>LSTM与GRU区别：1）GRU和LSTM的性能在很多任务上不分伯仲。2）GRU 参数更少因此更容易收敛，但是数据集很大的情况下，LSTM表达性能更好。3）从结构上来说，GRU只有两个门（update和reset），LSTM有三个门（forget，input，output），GRU直接将hidden state 传给下一个单元，而LSTM则用memory cell 把hidden state 包装起来。</p>
+<p>内部结构是不同的</p>
+<p>可以解决RNN的梯度消失的问题，怎么解决：<br>RNN由于网络较深,后面层的输出误差很难影响到前面层的计算,RNN的某一单元主要受它附近单元的影响。而LSTM因为可以通过阀门记忆一些长期的信息,相应的也就保留了更多的梯度。而GRU也可通过重置和更新两个阀门保留长期的记忆,也相对解决了梯度消失的问题。</p>
+<h2 id="训练过程中-若一个模型不收敛-那么是否说明这个模型无效-导致模型不收敛的原因有哪些"><a href="#训练过程中-若一个模型不收敛-那么是否说明这个模型无效-导致模型不收敛的原因有哪些" class="headerlink" title="训练过程中,若一个模型不收敛,那么是否说明这个模型无效?导致模型不收敛的原因有哪些?"></a>训练过程中,若一个模型不收敛,那么是否说明这个模型无效?导致模型不收敛的原因有哪些?</h2><p>并不能说明这个模型无效,导致模型不收敛的原因可能有数据分类的标注不准确,样本的信息量太大导致模型不足以fit整个样本空间。学习率设置的太大容易产生震荡,太小会导致不收敛。可能复杂的分类任务用了简单的模型。数据没有进行归一化的操作。</p>
+<h2 id="激活函数"><a href="#激活函数" class="headerlink" title="激活函数"></a>激活函数</h2><ol>
+<li>sigmod</li>
+<li>tanh</li>
+<li>relu</li>
+</ol>
+<p>函数图像、特点、互相比较、优缺点以及改进方法</p>
+<p>Relu比Sigmoid的效果好在哪里?<br>Sigmoid的导数只有在0的附近时有较好的激活性,而在正负饱和区域的梯度趋向于0,从而产生梯度弥散的现象,而relu在大于0的部分梯度为常数,所以不会有梯度弥散现象。Relu的导数计算的更快。Relu在负半区的导数为0,所以神经元激活值为负时,梯度为0,此神经元不参与训练,具有稀疏性。</p>
+<p>作用：激活函数是用来加入非线性因素的,提高神经网络对模型的表达能力,解决线性模型所不能解决的问题。</p>
+<p>神经网络中权重共享的是？卷积神经网络、循环神经网络</p>
+<h3 id="relu"><a href="#relu" class="headerlink" title="relu"></a>relu</h3><p>在深度神经网络中，通常使用一种叫修正线性单元(Rectified linear unit，ReLU）作为神经元的激活函数。<br>ReLU函数其实是分段线性函数，把所有的负值都变为0，而正值不变，这种操作被成为单侧抑制。<br>有了这单侧抑制，才使得神经网络中的神经元也具有了稀疏激活性。<br>通过ReLU实现稀疏后的模型能够更好地挖掘相关特征，拟合训练数据。<br>相比于其它激活函数来说，ReLU有以下优势：</p>
+<ul>
+<li>ReLU的表达能力更强，尤其体现在深度网络中</li>
+<li>对于非线性函数而言，ReLU由于非负区间的梯度为常数，因此不存在梯度消失问题(Vanishing Gradient Problem)，使得模型的收敛速度维持在一个稳定状态</li>
+</ul>
+<h2 id="attention机制"><a href="#attention机制" class="headerlink" title="attention机制"></a>attention机制</h2><p>作用：<br>减少处理高维输入数据的计算负担,结构化的选取输入的子集,从而降低数据的维度。让系统更加容易的找到输入的数据中与当前输出信息相关的有用信息,从而提高输出的质量。帮助类似于decoder这样的模型框架更好的学到多种内容模态之间的相互关系。</p>
+<p>公式<br>Soft attention、global attention、动态attention<br>Hard attention</p>
+<p>静态attention“半软半硬”的attention （local attention）</p>
+<p>强制前向attention</p>
+<h2 id="1-1的卷积作用"><a href="#1-1的卷积作用" class="headerlink" title="1*1的卷积作用"></a>1*1的卷积作用</h2><p>实现跨通道的交互和信息整合,实现卷积核通道数的降维和升维,可以实现多个feature map的线性组合,而且可是实现与全连接层的等价效果。</p>
+<h2 id="提升网络的泛化能力"><a href="#提升网络的泛化能力" class="headerlink" title="提升网络的泛化能力"></a>提升网络的泛化能力</h2><ul>
+<li>从数据上提升性能:收集更多的数据,对数据做缩放和变换,特征组合和重新定义问题。</li>
+<li>从算法调优上提升性能:用可靠的模型诊断工具对模型进行诊断,权重的初始化,用小的随机数初始化权重。对学习率进行调节,尝试选择合适的激活函数,调整网络的拓扑结构,调节batch和epoch的大小,添加正则化的方法,尝试使用其它的优化方法,使用early stopping。</li>
+</ul>
+<h2 id="卷积层和池化层"><a href="#卷积层和池化层" class="headerlink" title="卷积层和池化层"></a>卷积层和池化层</h2><table>
+<thead>
+<tr>
+<th>\</th>
+<th>卷积层</th>
+<th>池化层</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>功能</td>
+<td>提取特征</td>
+<td>压缩特征图，提取主要特征</td>
+</tr>
+<tr>
+<td>操作</td>
+<td>可惜是二维的，对于三维数据比如RGB图像（3通道），卷积核的深度必须同输入的通道数，输出的通道数等于卷积核的个数。 卷积操作会改变输入特征图的通道数。</td>
+<td>池化只是在二维数据上操作的，因此不改变输入的通道数。对于多通道的输入，这一点和卷积区别很大。</td>
+</tr>
+<tr>
+<td>特性</td>
+<td>权值共享：减少了参数的数量，并利用了图像目标的位置无关性。稀疏连接：输出的每个值只依赖于输入的部分值。</td>
+<td></td>
+</tr>
+</tbody></table>
+<h2 id="Optimizer"><a href="#Optimizer" class="headerlink" title="Optimizer"></a>Optimizer</h2><p>1）SGD；2）Momentum；3）Nesterov；4）Adagrad；5）Adadelta；6）RMSprop；7）Adam；8）Adamax；9）Nadam。（1）对于稀疏数据，尽量使用学习率可自适应的算法，不用手动调节，而且最好采用默认参数。（2）SGD通常训练时间最长，但是在好的初始化和学习率调度方案下，结果往往更可靠。但SGD容易困在鞍点，这个缺点也不能忽略。（3）如果在意收敛的速度，并且需要训练比较深比较复杂的网络时，推荐使用学习率自适应的优化方法。（4）Adagrad，Adadelta和RMSprop是比较相近的算法，表现都差不多。（5）在能使用带动量的RMSprop或者Adam的地方，使用Nadam往往能取得更好的效果。</p>
+</div><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">unnoyy</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://unnoyy.github.io/posts/k1000/">http://unnoyy.github.io/posts/k1000/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://unnoyy.github.io" target="_blank">unnoyy</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/summary/">summary</a><a class="post-meta__tags" href="/tags/machine-learning/">machine learning</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/t0002/"><img class="prev-cover" data-lazy-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror='onerror=null,src="/img/404.jpg"'><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">基础算法题总结2--回溯法相关</div></div></a></div><div class="next-post pull-right"><a href="/posts/k0004/"><img class="next-cover" data-lazy-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror='onerror=null,src="/img/404.jpg"'><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">机器学习知识总结4--决策树</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span> 相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/k0004/" title="机器学习知识总结4--决策树"><img class="cover" data-lazy-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-03-21</div><div class="title">机器学习知识总结4--决策树</div></div></a></div><div><a href="/posts/k0000/" title="机器学习知识总结"><img class="cover" data-lazy-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-03-20</div><div class="title">机器学习知识总结</div></div></a></div><div><a href="/posts/k0001/" title="机器学习知识总结1--感知机"><img class="cover" data-lazy-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-03-21</div><div class="title">机器学习知识总结1--感知机</div></div></a></div><div><a href="/posts/57948/" title="论文笔记 L-CNN"><img class="cover" data-lazy-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-08-28</div><div class="title">论文笔记 L-CNN</div></div></a></div><div><a href="/posts/25131/" title="论文笔记 AM-GCN"><img class="cover" data-lazy-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-09-08</div><div class="title">论文笔记 AM-GCN</div></div></a></div><div><a href="/posts/t0001/" title="基础算法题总结1--位运算相关"><img class="cover" data-lazy-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-03-20</div><div class="title">基础算法题总结1--位运算相关</div></div></a></div></div></div><hr><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div><div class="comment-switch"><span class="first-comment">Valine</span><label><input id="switch-comments-btn" type="checkbox"><span class="slider"></span></label><span class="second-comment">Gitalk</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div><div><div id="gitalk-container"></div></div></div></div></article></main><footer id="footer" data-type="color"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2021 By unnoyy</div><div class="framework-info"><span>框架 </span><a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a href="https://github.com/jerryc127/hexo-theme-butterfly" target="_blank" rel="noopener">Butterfly</a></div><div class="footer_custom_text">欢迎来到<a href="https://unnoyy.github.io/">小屋</a>!</div></div></footer></div><section id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">简</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></section><div class="search-dialog" id="local-search"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"></div></div></div><hr><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a href="https://github.com/wzpan/hexo-generator-search" target="_blank" rel="noopener" style="color:#49b1f5">hexo-generator-search</a>
+ <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div><div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.spacingElementById('content-inner')
+  else {
+    $.getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js', () => {
+      pangu.spacingElementById('content-inner')
+    })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguFn)</script><script src="/js/search/local-search.js"></script><script>var endLoading=function(){document.body.style.overflow="auto",document.getElementById("loading-box").classList.add("loaded")};window.addEventListener("load",endLoading)</script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    loader: {
+      source: {
+        '[tex]/amsCd': '[tex]/amscd'
+      }
+    },
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        addClass: [200,() => {
+          document.querySelectorAll('mjx-container:not([display=\'true\']').forEach( node => {
+            const target = node.parentNode
+            if (!target.classList.contains('has-jax')) {
+              target.classList.add('mathjax-overflow')
+            }
+          })
+        }, '', false]
+      }
+    }
+  }
+  
+  var script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script><script>function loadValine () {
+  function initValine () {
+    window.valine = new Valine({
+      el: '#vcomment',
+      appId: 'SVg8NY7xGdhfqBMmwyksops7-gzGzoHsz',
+      appKey: 'gMpBjTW5NEFR6cW6CUmhBITz',
+      placeholder: 'Please leave your footprints',
+      avatar: 'monsterid',
+      meta: 'nick,mail,link'.split(','),
+      pageSize: '10',
+      lang: 'zh-CN',
+      recordIP: false,
+      serverURLs: '',
+      emojiCDN: '',
+      emojiMaps: "",
+      enableQQ: false,
+      path: window.location.pathname,
+    });
+    if ('nick,mail') { valine.config.requiredFields= 'nick,mail'.split(',') }
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else $.getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js', initValine)
+}
+
+if ('Valine' === 'Valine' || !true) {
+  if (true) btf.loadComment(document.querySelector('#vcomment'),loadValine)
+  else setTimeout(() => loadValine(), 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script><script>function addGitalkSource () {
+  const ele = document.createElement('link')
+  ele.rel = 'stylesheet'
+  ele.href= 'https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css'
+  document.getElementsByTagName('head')[0].appendChild(ele)
+}
+
+function loadGitalk () {
+  function initGitalk () {
+    var gitalk = new Gitalk({
+      clientID: '769c8b0e30bdfa36fcdd',
+      clientSecret: '8ff1137eb46effb3547818440411a5f053db93fa',
+      repo: 'unnoyy.github.io',
+      owner: 'unnoyy',
+      admin: ['unnoyy'],
+      id: 'c7b8df43c62cde0139d15169f8742b8e',
+      language: 'zh-CN',
+      perPage: 10,
+      distractionFreeMode: false,
+      pagerDirection: 'last',
+      createIssueManually: false,
+      updateCountCallback: commentCount
+    })
+    gitalk.render('gitalk-container')
+  }
+
+  if (typeof Gitalk === 'function') initGitalk()
+  else {
+    addGitalkSource()
+    $.getScript('https://cdn.jsdelivr.net/npm/gitalk@latest/dist/gitalk.min.js', initGitalk)
+  }
+}
+
+function commentCount(n){
+  let isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+  if (isCommentCount) {
+    isCommentCount.innerHTML= n
+  }
+}
+
+if ('Valine' === 'Gitalk' || !true) {
+  if (true) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+  else loadGitalk()
+} else {
+  function loadOtherComment () {
+    loadGitalk()
+  }
+}</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script src="/js/Beautify.js"></script><script src="/js/beautify2.js"></script><script src="/js/fishes.js"></script><script src="/js/calendar.js"></script><script src="/js/languages.js"></script><div class="app-refresh" id="app-refresh"> <div class="app-refresh-wrap"> <label>✨ 網站已更新最新版本 👉</label> <a href="javascript:void(0)" onclick="location.reload()">點擊刷新</a> </div></div><script>function showNotification(){if(GLOBAL_CONFIG.Snackbar){var t="light"===document.documentElement.getAttribute("data-theme")?GLOBAL_CONFIG.Snackbar.bgLight:GLOBAL_CONFIG.Snackbar.bgDark,e=GLOBAL_CONFIG.Snackbar.position;Snackbar.show({text:"已更新最新版本",backgroundColor:t,duration:5e5,pos:e,actionText:"點擊刷新",actionTextColor:"#fff",onActionClick:function(t){location.reload()}})}else{var o=`top: 0; background: ${"light"===document.documentElement.getAttribute("data-theme")?"#49b1f5":"#1f1f1f"};`;document.getElementById("app-refresh").style.cssText=o}}"serviceWorker"in navigator&&(navigator.serviceWorker.controller&&navigator.serviceWorker.addEventListener("controllerchange",function(){showNotification()}),window.addEventListener("load",function(){navigator.serviceWorker.register("/sw.js")}));</script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-heart.min.js" async></script></div></body></html>
