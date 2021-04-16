@@ -1,0 +1,246 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>机器学习知识总结5--逻辑回归 | unnoyy</title><meta name="description" content="逻辑回归(对数几率回归)一句话概述：逻辑回归假设数据服从伯努利分布，通过极大化似然函数的方法，运用梯度下降求解参数，来达到将数据二分类的目的。 属于对数线性模型，最大熵模型也属于对数线性模型。 基本假设：假设数据服从伯努利分布逻辑回归的第二个假设是假设样本为正的概率是由sigmod函数计算的 逻辑回归的思路是，先拟合决策边界(不局限于线性，还可以是多项式)，再建立这个边界与分类的概率联系，从而得到"><meta name="keywords" content="summary,machine learning"><meta name="author" content="unnoyy"><meta name="copyright" content="unnoyy"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="shortcut icon" href="/pic/favicon.png"><link rel="canonical" href="http://unnoyy.github.io/posts/k0005/"><link rel="preconnect" href="//cdn.jsdelivr.net"><link rel="preconnect" href="//busuanzi.ibruce.info"><link rel="preconnect" href="//zz.bdstatic.com"><meta property="og:type" content="article"><meta property="og:title" content="机器学习知识总结5--逻辑回归"><meta property="og:url" content="http://unnoyy.github.io/posts/k0005/"><meta property="og:site_name" content="unnoyy"><meta property="og:description" content="逻辑回归(对数几率回归)一句话概述：逻辑回归假设数据服从伯努利分布，通过极大化似然函数的方法，运用梯度下降求解参数，来达到将数据二分类的目的。 属于对数线性模型，最大熵模型也属于对数线性模型。 基本假设：假设数据服从伯努利分布逻辑回归的第二个假设是假设样本为正的概率是由sigmod函数计算的 逻辑回归的思路是，先拟合决策边界(不局限于线性，还可以是多项式)，再建立这个边界与分类的概率联系，从而得到"><meta property="og:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><meta property="article:published_time" content="2021-04-12T11:32:33.000Z"><meta property="article:modified_time" content="2021-04-15T14:51:18.885Z"><meta name="twitter:card" content="summary"><link rel="manifest" href="/pic/pwa/manifest.json"><meta name="msapplication-TileColor" content="#fff"><link rel="apple-touch-icon" sizes="180x180" href="/pic/pwa/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/pic/pwa/32.png"><link rel="icon" type="image/png" sizes="16x16" href="/pic/pwa/16.png"><link rel="mask-icon" href="/pic/pwa/safari-pinned-tab.svg" color="#5bbad5"><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  hexoversion: '4.2.0',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: {"defaultEncoding":1,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  bookmark: {
+    message_prev: '按',
+    message_next: '键将本页加入书签'
+  },
+  runtime: '天',
+  date_suffix: {"one_hour":"刚刚","hours":"小时前","day":"天前"},
+  copyright: {"limitCount":50,"languages":{"author":"作者: unnoyy","link":"链接: ","source":"来源: unnoyy","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  ClickShowText: undefined,
+  medium_zoom: false,
+  fancybox: true,
+  Snackbar: {"bookmark":{"message_prev":"按","message_next":"键将本页加入书签"},"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#121212","position":"bottom-left"},
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
+  baiduPush: true,
+  isPhotoFigcaption: true,
+  islazyload: true,
+  isanchor: false
+};
+
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+    const now = new Date()
+    const expiryDay = ttl * 86400000
+    const item = {
+      value: value,
+      expiry: now.getTime() + expiryDay,
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+    },
+
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}</script><script id="config_change">var GLOBAL_CONFIG_SITE={isPost:!0,isHome:!1,isHighlightShrink:!1,isSidebar:!1,postUpdate:"2021-04-15 22:51:18"}</script><noscript><style>#nav{opacity:1}.justified-gallery img{opacity:1}</style></noscript><script>var activateDarkMode=function(){document.documentElement.setAttribute("data-theme","dark"),null!==document.querySelector('meta[name="theme-color"]')&&document.querySelector('meta[name="theme-color"]').setAttribute("content","#0d0d0d")},activateLightMode=function(){document.documentElement.setAttribute("data-theme","light"),null!==document.querySelector('meta[name="theme-color"]')&&document.querySelector('meta[name="theme-color"]').setAttribute("content","#ffffff")},autoChangeMode="false",t=saveToLocal.get("theme");if("1"===autoChangeMode){var isDarkMode=window.matchMedia("(prefers-color-scheme: dark)").matches,isLightMode=window.matchMedia("(prefers-color-scheme: light)").matches,isNotSpecified=window.matchMedia("(prefers-color-scheme: no-preference)").matches,hasNoSupport=!isDarkMode&&!isLightMode&&!isNotSpecified;if(void 0===t){if(isLightMode)activateLightMode();else if(isDarkMode)activateDarkMode();else if(isNotSpecified||hasNoSupport){var now=new Date,hour=now.getHours(),isNight=hour<=6||18<=hour;isNight?activateDarkMode():activateLightMode()}window.matchMedia("(prefers-color-scheme: dark)").addListener(function(e){void 0===saveToLocal.get("theme")&&(e.matches?activateDarkMode():activateLightMode())})}else"light"===t?activateLightMode():activateDarkMode()}else"2"===autoChangeMode?(isNight=(hour=(now=new Date).getHours())<=6||18<=hour,void 0===t?isNight?activateDarkMode():activateLightMode():"light"===t?activateLightMode():activateDarkMode()):"dark"===t?activateDarkMode():"light"===t&&activateLightMode()</script><link rel="stylesheet" href="/css/background.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/sviptzk/StaticFile_HEXO@latest/butterfly/css/iconfont.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/sviptzk/HexoStaticFile@latest/Hexo/css/buttons.min.css"><style>.app-refresh{position:fixed;top:-2.2rem;left:0;right:0;z-index:99999;padding:0 1rem;font-size:15px;height:2.2rem;transition:all .3s ease}.app-refresh-wrap{display:flex;color:#fff;height:100%;align-items:center;justify-content:center}.app-refresh-wrap a{color:#fff;text-decoration:underline;cursor:pointer}</style><meta name="generator" content="Hexo 4.2.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" data-lazy-src="/pic/avatar.jpg" onerror='onerror=null,src="/img/friend_404.gif"' alt="avatar"></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">46</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">16</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">5</div></a></div></div></div><hr><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 休闲</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page" href="/book/"><i class="fa-fw fas fa-book"></i><span> 书籍</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart card-announcement-animation"></i><span> 关于</span></a></div></div></div></div><div id="body-wrap"><div id="web_bg" data-type="color"></div><header class="post-bg" id="page-header" style="background-image:url(https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg)"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">unnoyy</a></span><span id="menus"><div id="search_button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 休闲</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page" href="/book/"><i class="fa-fw fas fa-book"></i><span> 书籍</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart card-announcement-animation"></i><span> 关于</span></a></div></div><span class="close" id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="post-info"><div id="post-title"><div class="posttitle">机器学习知识总结5--逻辑回归</div></div><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-04-12T11:32:33.000Z" title="发表于 2021-04-12 19:32:33">2021-04-12</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2021-04-15T14:51:18.885Z" title="更新于 2021-04-15 22:51:18">2021-04-15</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/summary/">summary</a></span></div><div class="meta-secondline"> <span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2.4k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>8分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout_post" id="content-inner"><article id="post"><div class="post-content" id="article-container"><h2 id="逻辑回归-对数几率回归"><a href="#逻辑回归-对数几率回归" class="headerlink" title="逻辑回归(对数几率回归)"></a>逻辑回归(对数几率回归)</h2><p>一句话概述：逻辑回归假设数据服从伯努利分布，通过极大化似然函数的方法，运用梯度下降求解参数，来达到将数据二分类的目的。</p>
+<p>属于对数线性模型，最大熵模型也属于对数线性模型。</p>
+<p>基本假设：假设数据服从伯努利分布<br>逻辑回归的第二个假设是假设样本为正的概率是由sigmod函数计算的</p>
+<p>逻辑回归的思路是，先拟合决策边界(不局限于线性，还可以是多项式)，再建立这个边界与分类的概率联系，从而得到了二分类情况下的概率。</p>
+<p>对数几率函数是任意阶可导的凸函数，有许多数值优化算法都可以求出最优解。</p>
+<h3 id="伯努利分布"><a href="#伯努利分布" class="headerlink" title="伯努利分布"></a>伯努利分布</h3><p>伯努利分布:是一个离散型概率分布，若成功，则随机变量取值1；若失败，随机变量取值为0。成功概率记为p，失败为q = 1-p。<br>$$<br>f_X (x) = p^x (1-p)^{(1-x)} = \left\{<br>\begin{matrix}<br>p &amp; if &amp;x = 1 \\<br>q &amp; if &amp;x = 0<br>\end{matrix}<br>\right.<br>$$</p>
+<h3 id="极大似然估计"><a href="#极大似然估计" class="headerlink" title="极大似然估计"></a>极大似然估计</h3><p>通过已知的结果去反推最大概率导致该结果的参数</p>
+<p>利用实验结果$D=\{x_1,x_2,…,x_N\}$,得到某个参数值$\theta$,使得样本出现的概率最大。<br>$L(\theta) = P(D|\theta) = P(x_1,x_2,…,x_N|\theta) = \prod_{i=1}^N P(x_i|\theta)$<br>求解参数值$\hat\theta$，则就是求解最大值即，$\hat\theta= argmax(L(\theta))$</p>
+<p>用似然法估计参数：建立(对数)似然函数；求解使似然函数最大的参数(求偏导等于0)即为结果</p>
+<p>作用：<br>1、想要让每一个样本的预测都要得到最大的概率<br>2、对极大似然函数取对数以后相当于对数损失函数，对数损失函数的训练求解参数的速度是比较快的，只和x,y有关，比较稳定</p>
+<h3 id="梯度"><a href="#梯度" class="headerlink" title="梯度"></a>梯度</h3><p>梯度是一个方向向量，表示某一函数在某点处沿着该方向(梯度的方向)变化最快。<br>梯度记为$grad(x,y)$,其数学定义为<br>$grad(x,y) = \nabla{f(x,y)} = \{\frac{\partial{f(x,y)}}{\partial x} ,\frac{\partial{f(x,y)}}{\partial y} \}$</p>
+<p><strong>梯度下降法的步骤</strong>：</p>
+<p>1、 初始化回归系数向量w<br>2、 重复迭代max_iter次：<br>计算本次迭代的梯度$\frac{\partial{J(w)}}{\partial{w}}$，计算$w_tmp = w - \alpha*梯度$，用$w_tmp$更新w</p>
+<h3 id="逻辑回归的损失函数"><a href="#逻辑回归的损失函数" class="headerlink" title="逻辑回归的损失函数"></a>逻辑回归的损失函数</h3><p>设<br>$P(Y=1|x) = \pi(x)$<br>$P(Y=0|x) = 1-\pi(x)$<br>那么$\pi(x) = \frac{1}{1+exp(-x)}$，也就是sigmod function</p>
+<p>所以逻辑回归的似然函数为：<br>$L(w) = \prod_{i=1}^N [\pi(x_i)]^{y_i}[1-\pi(x_i)]^{1-y_i}$</p>
+<p>逻辑回归的目标是寻找使得对数似然函数最大的参数值，也就是求解参数值$\hat w$,其中$\hat w= argmax(L(w))$。参数w是一个向量，也就是$w = [w_1,w_2,w_3,…,w_n]^T$。(因为我们希望结果的可能性最大，所以要极大化似然函数来获取想要的参数)</p>
+<p>为了便于求解，将似然函数取对数，其对数似然函数为：<br>$$<br>\begin{align}<br>log(L(w)) &amp;= \sum_{i=1}^{N}[y_i log(\pi(x_i)) + (1-y_i)log(1-\pi(x_i))] \\<br>&amp;= \sum_{i=1}^{N}[y_i log(\frac{\pi(x_i)}{1-\pi(x_i)}) + log(1-\pi(x_i))] \\<br>&amp;= \sum_{i=1}^{N}[y_i(w \cdot x_i) - log(1+ exp(w \cdot x_i))]<br>\end{align}<br>$$</p>
+<p>至此我们就可以对对数似然函数求极大值，得到参数w的估计值。</p>
+<p>通用的解法就是计算损失函数关于参数向量每个$w_i$的偏导，令这些导函数为0，建立方程组求解。即</p>
+<p>$$\frac{\partial{L(w)}}{\partial{w}} ==&gt; \left\{<br>\begin{array}{rcl}<br>\frac{\partial{L(w)}}{\partial{w_1}} = 0 \\<br>\frac{\partial{L(w)}}{\partial{w_2}} = 0 \\<br>\frac{\partial{L(w)}}{\partial{w_3}} = 0 \\<br>\vdots \\<br>\frac{\partial{L(w)}}{\partial{w_n}} = 0<br>\end{array} \right.  ==&gt;<br>\begin{array}{rcl}<br>w_1 = …\\<br>w_2 = …\\<br>w_3 = …\\<br>\vdots \\<br>w_n = …<br>\end{array}<br>$$</p>
+<p>因为这样计求解太过复杂，为了简化运算，所以引入梯度。因为我们要极大化对数似然函数，得到w的估计值，所以可以使用梯度上升法来求解。</p>
+<p>机器学习中的损失函数衡量的是模型预测错误的程度，我们学习的目标就是最小化损失函数，所以如果取整个数据集上的平均对数似然损失，则就可以得到$J(w) = - \frac{1}{N} logL(w)$(将对数似然函数前面添加负号取平均得到)，我们将$J(w)$作为我们的损失函数。</p>
+<p>在LR模型中，最大化似然函数和最小化损失函数实际上是等价的。</p>
+<p>因为我们的损失函数是$J(w) = - \frac{1}{N} \sum_{i=1}^{N}[y_i(w \cdot x_i) - log(1+ exp(w \cdot x_i))]$,那么他对于w求偏导的导函数为</p>
+<p>$$<br>\begin{align}<br>\frac{\partial{J(w)}}{\partial{w}} &amp;= - \frac{1}{N} \sum_{i=1}^{N}(y_i x_i - \frac{exp(w \cdot x_i)x_i}{1+exp(w \cdot x_i)}) \\<br>&amp;= - \frac{1}{N} \sum_{i=1}^{N}[x_i (y_i - \frac{exp(w \cdot x_i)}{1+exp(w \cdot x_i)}] \\<br>&amp;= - \frac{1}{N} \sum_{i=1}^{N}[x_i (y_i - \frac{1}{1+exp(- w \cdot x_i)}] \\<br>&amp;= - \frac{1}{N} \sum_{i=1}^{N}(x_i(y_i - \pi(x))) \\<br>&amp;= - \frac{1}{N} \sum_{i=1}^{N}(x_i(y_i - \hat{y_i})) \\<br>&amp;= \frac{1}{N} \sum_{i=1}^{N}(x_i(\hat{y_i} - y_i)) \\<br>&amp;= \frac{1}{N} \sum_{i=1}^{N}(x_i(\pi(x_i) - y_i))<br>\end{align}<br>$$<br>其中$\hat{y_i} = \pi(x)$</p>
+<p>所以用梯度下降法求解的表达式为$w := w - \alpha \frac{1}{N} \sum_{i=1}^{N}(x_i(\hat{y_i} - y_i)) $</p>
+<p>那么梯度下降法求解逻辑回归的伪代码为：</p>
+<figure class="highlight nix"><table><tr><td class="code"><pre><span class="line">[X,y] = load_data()</span><br><span class="line"><span class="attr">w</span> = rand(m,<span class="number">1</span>) <span class="comment">## 初始化参数</span></span><br><span class="line"><span class="attr">alpha</span> = <span class="number">0.3</span></span><br><span class="line"><span class="attr">max_iter</span> = <span class="number">100</span></span><br><span class="line"></span><br><span class="line">for i <span class="keyword">in</span> range(max_iter):</span><br><span class="line">    <span class="attr">y_pred</span> = sigmod_func(x)</span><br><span class="line">    <span class="attr">grad</span> = X*(y - y_pred)</span><br><span class="line">    <span class="attr">w_tmp</span> = w + alpha*grad</span><br><span class="line">    <span class="attr">w</span> = w_tmp</span><br></pre></td></tr></table></figure>
+
+<h3 id="细节思考"><a href="#细节思考" class="headerlink" title="细节思考"></a>细节思考</h3><p><span color="red">为什么使用极大似然函数作为损失函数？</span><br>损失函数一般有4种，分别是0-1损失、平方损失、绝对损失以及对数损失。<br>将极大似然函数取对数以后等同于对数损失函数，在逻辑回归这个模型下，对数损失函数的训练求解参数的速度是比较快的。<br>因为更新速度只和x,y相关，和sigmod函数本身的梯度是无关的。这样更新的速度是可以自始至终都比较的稳定。<br>为什么不选平方损失呢？<br>因为梯度更新的速度和sigmod函数本身的梯度是很相关的。sigmod函数在它在定义域内的梯度都不大于0.25。这样训练会非常的慢。</p>
+<p>我们使用对数几率的意义在哪？通过上述推导我们可以看到 Logistic 回归实际上是使用线性回归模型的预测值逼近分类任务真实标记的对数几率，其优点有：</p>
+<p>直接对分类的概率建模，无需实现假设数据分布，从而避免了假设分布不准确带来的问题；<br>不仅可预测出类别，还能得到该预测的概率，这对一些利用概率辅助决策的任务很有用；<br>对数几率函数是任意阶可导的凸函数，有许多数值优化算法都可以求出最优解。</p>
+<p>LR FM区别<br>FM（factorization machine）模型是一种基于矩阵分解的机器学习模型，对于稀疏数据具有很好的学习能力</p>
+<p>FM模型与LR模型的区别在于引进了特征组合</p>
+<p>LR里面做归一化、离散化之类的好处：<br>因为如果数据不进行归一化，那么使用梯度下降法寻找最优解的时候，有可能是走之字形路线，需要迭代很多次才能收敛，甚至可能不能收敛，所以需要对数据做归一化，这样能收敛并且加快收敛的速度。</p>
+<p>逻辑回归特征重复了一维会有什么影响</p>
+<p>逻辑回归在训练的过程当中，如果有很多的特征高度相关或者说有一个特征重复了100遍，会造成怎样的影响？</p>
+<p>结论：如果在损失函数最终收敛的情况下，其实就算有很多特征高度相关也不会影响分类器的效果。<br>但是对特征本身来说的话，假设只有一个特征，在不考虑采样的情况下，你现在将它重复100遍。训练以后完以后，数据还是这么多，但是这个特征本身重复了100遍，实质上将原来的特征分成了100份，每一个特征都是原来特征权重值的百分之一。<br>如果在随机采样的情况下，其实训练收敛完以后，还是可以认为这100个特征和原来那一个特征扮演的效果一样，只是可能中间很多特征的值正负相消了。</p>
+<p>优点缺点</p>
+<p>优点：形式简单、模型的可解释性非常好；模型效果不错；训练速度较快；资源占用小，尤其是内存；方便输出结果调整。<br>缺点：准确率不是很高；很难处理数据不平衡的问题；处理非线性数据比较麻烦；逻辑回归本身无法筛选特征</p>
+<p>FM相比于LR的优势（自交叉、稀疏特征不太影响训练、可以得到embedding，进行高维交叉，推理未出现过的特征组合）</p>
+<p>训练时样本不平衡问题如何解决；小样本问题如何解决</p>
+<p>参考资料：<br><a href="https://blog.csdn.net/sinat_33231573/article/details/99709837" target="_blank" rel="noopener">https://blog.csdn.net/sinat_33231573/article/details/99709837</a><br><a href="https://www.cnblogs.com/mfmdaoyou/p/7392352.html" target="_blank" rel="noopener">https://www.cnblogs.com/mfmdaoyou/p/7392352.html</a><br><a href="https://my.oschina.net/u/4687686/blog/4665928" target="_blank" rel="noopener">https://my.oschina.net/u/4687686/blog/4665928</a><br><a href="https://www.cnblogs.com/XDU-Lakers/p/11853034.html" target="_blank" rel="noopener">https://www.cnblogs.com/XDU-Lakers/p/11853034.html</a>  ++<br><a href="https://www.cnblogs.com/XDU-Lakers/p/11853034.html" target="_blank" rel="noopener">https://www.cnblogs.com/XDU-Lakers/p/11853034.html</a><br><a href="https://zhuanlan.zhihu.com/p/38853901" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/38853901</a></p>
+</div><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">unnoyy</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://unnoyy.github.io/posts/k0005/">http://unnoyy.github.io/posts/k0005/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://unnoyy.github.io" target="_blank">unnoyy</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/summary/">summary</a><a class="post-meta__tags" href="/tags/machine-learning/">machine learning</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/posts/t0011/"><img class="next-cover" data-lazy-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror='onerror=null,src="/img/404.jpg"'><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">基础算法题总结11--树</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span> 相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/t0008/" title="基础算法题总结8--排序算法"><img class="cover" data-lazy-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-04-12</div><div class="title">基础算法题总结8--排序算法</div></div></a></div><div><a href="/posts/k0004/" title="机器学习知识总结4--决策树"><img class="cover" data-lazy-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-03-21</div><div class="title">机器学习知识总结4--决策树</div></div></a></div><div><a href="/posts/k0000/" title="机器学习知识总结"><img class="cover" data-lazy-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-03-20</div><div class="title">机器学习知识总结</div></div></a></div><div><a href="/posts/k1000/" title="深度学习知识总结"><img class="cover" data-lazy-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-03-25</div><div class="title">深度学习知识总结</div></div></a></div><div><a href="/posts/k0001/" title="机器学习知识总结1--感知机"><img class="cover" data-lazy-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-03-21</div><div class="title">机器学习知识总结1--感知机</div></div></a></div><div><a href="/posts/25131/" title="论文笔记 AM-GCN"><img class="cover" data-lazy-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-09-08</div><div class="title">论文笔记 AM-GCN</div></div></a></div></div></div><hr><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div><div class="comment-switch"><span class="first-comment">Valine</span><label><input id="switch-comments-btn" type="checkbox"><span class="slider"></span></label><span class="second-comment">Gitalk</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div><div><div id="gitalk-container"></div></div></div></div></article></main><footer id="footer" data-type="color"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2021 By unnoyy</div><div class="framework-info"><span>框架 </span><a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a href="https://github.com/jerryc127/hexo-theme-butterfly" target="_blank" rel="noopener">Butterfly</a></div><div class="footer_custom_text">欢迎来到<a href="https://unnoyy.github.io/">小屋</a>!</div></div></footer></div><section id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">简</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></section><div class="search-dialog" id="local-search"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"></div></div></div><hr><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a href="https://github.com/wzpan/hexo-generator-search" target="_blank" rel="noopener" style="color:#49b1f5">hexo-generator-search</a>
+ <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div><div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.spacingElementById('content-inner')
+  else {
+    $.getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js', () => {
+      pangu.spacingElementById('content-inner')
+    })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguFn)</script><script src="/js/search/local-search.js"></script><script>var endLoading=function(){document.body.style.overflow="auto",document.getElementById("loading-box").classList.add("loaded")};window.addEventListener("load",endLoading)</script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    loader: {
+      source: {
+        '[tex]/amsCd': '[tex]/amscd'
+      }
+    },
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        addClass: [200,() => {
+          document.querySelectorAll('mjx-container:not([display=\'true\']').forEach( node => {
+            const target = node.parentNode
+            if (!target.classList.contains('has-jax')) {
+              target.classList.add('mathjax-overflow')
+            }
+          })
+        }, '', false]
+      }
+    }
+  }
+  
+  var script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script><script>function loadValine () {
+  function initValine () {
+    window.valine = new Valine({
+      el: '#vcomment',
+      appId: 'SVg8NY7xGdhfqBMmwyksops7-gzGzoHsz',
+      appKey: 'gMpBjTW5NEFR6cW6CUmhBITz',
+      placeholder: 'Please leave your footprints',
+      avatar: 'monsterid',
+      meta: 'nick,mail,link'.split(','),
+      pageSize: '10',
+      lang: 'zh-CN',
+      recordIP: false,
+      serverURLs: '',
+      emojiCDN: '',
+      emojiMaps: "",
+      enableQQ: false,
+      path: window.location.pathname,
+    });
+    if ('nick,mail') { valine.config.requiredFields= 'nick,mail'.split(',') }
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else $.getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js', initValine)
+}
+
+if ('Valine' === 'Valine' || !true) {
+  if (true) btf.loadComment(document.querySelector('#vcomment'),loadValine)
+  else setTimeout(() => loadValine(), 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script><script>function addGitalkSource () {
+  const ele = document.createElement('link')
+  ele.rel = 'stylesheet'
+  ele.href= 'https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css'
+  document.getElementsByTagName('head')[0].appendChild(ele)
+}
+
+function loadGitalk () {
+  function initGitalk () {
+    var gitalk = new Gitalk({
+      clientID: '769c8b0e30bdfa36fcdd',
+      clientSecret: '8ff1137eb46effb3547818440411a5f053db93fa',
+      repo: 'unnoyy.github.io',
+      owner: 'unnoyy',
+      admin: ['unnoyy'],
+      id: '47f09ffc9e187842cd06f135df9654c8',
+      language: 'zh-CN',
+      perPage: 10,
+      distractionFreeMode: false,
+      pagerDirection: 'last',
+      createIssueManually: false,
+      updateCountCallback: commentCount
+    })
+    gitalk.render('gitalk-container')
+  }
+
+  if (typeof Gitalk === 'function') initGitalk()
+  else {
+    addGitalkSource()
+    $.getScript('https://cdn.jsdelivr.net/npm/gitalk@latest/dist/gitalk.min.js', initGitalk)
+  }
+}
+
+function commentCount(n){
+  let isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+  if (isCommentCount) {
+    isCommentCount.innerHTML= n
+  }
+}
+
+if ('Valine' === 'Gitalk' || !true) {
+  if (true) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+  else loadGitalk()
+} else {
+  function loadOtherComment () {
+    loadGitalk()
+  }
+}</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script src="/js/Beautify.js"></script><script src="/js/beautify2.js"></script><script src="/js/fishes.js"></script><script src="/js/calendar.js"></script><script src="/js/languages.js"></script><div class="app-refresh" id="app-refresh"> <div class="app-refresh-wrap"> <label>✨ 網站已更新最新版本 👉</label> <a href="javascript:void(0)" onclick="location.reload()">點擊刷新</a> </div></div><script>function showNotification(){if(GLOBAL_CONFIG.Snackbar){var t="light"===document.documentElement.getAttribute("data-theme")?GLOBAL_CONFIG.Snackbar.bgLight:GLOBAL_CONFIG.Snackbar.bgDark,e=GLOBAL_CONFIG.Snackbar.position;Snackbar.show({text:"已更新最新版本",backgroundColor:t,duration:5e5,pos:e,actionText:"點擊刷新",actionTextColor:"#fff",onActionClick:function(t){location.reload()}})}else{var o=`top: 0; background: ${"light"===document.documentElement.getAttribute("data-theme")?"#49b1f5":"#1f1f1f"};`;document.getElementById("app-refresh").style.cssText=o}}"serviceWorker"in navigator&&(navigator.serviceWorker.controller&&navigator.serviceWorker.addEventListener("controllerchange",function(){showNotification()}),window.addEventListener("load",function(){navigator.serviceWorker.register("/sw.js")}));</script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-heart.min.js" async></script></div></body></html>
